@@ -4,142 +4,759 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#166534">
-<title>Dukaan Saathi app</title>
+<title>Dukaan Saathi</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f4f7f5;color:#17211b}
-.app{max-width:520px;margin:auto;min-height:100vh;background:#f7faf8;padding-bottom:82px}
-header{background:#166534;color:#fff;padding:22px 18px 18px;border-radius:0 0 24px 24px}
-header h1{margin:0;font-size:24px}header p{margin:5px 0 0;opacity:.85}
-.card{background:#fff;margin:14px 14px 0;padding:16px;border-radius:18px;box-shadow:0 2px 10px #0000000b}
-.hero{display:flex;justify-content:space-between;align-items:center}.hero b{font-size:25px}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.stat{padding:14px;border-radius:15px;background:#f1f7f3}.stat small{display:block;color:#64716a}.stat b{font-size:20px}
-.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.quick button{padding:15px;border:0;border-radius:15px;background:#e9f5ed;font-size:15px;font-weight:700;color:#14532d}
-h2{font-size:18px;margin:4px 0 12px}.ai{border:1px solid #cfe8d7;background:#f1faf4}.ai p{line-height:1.5;margin:8px 0}
-button{cursor:pointer;font:inherit}.primary{width:100%;border:0;background:#166534;color:white;padding:13px;border-radius:12px;font-weight:700}.secondary{border:1px solid #d4ddd7;background:#fff;padding:11px 13px;border-radius:11px;font-weight:600}
-input,select{width:100%;padding:13px;border:1px solid #d6dfd9;border-radius:11px;margin:5px 0 9px;font-size:15px;background:#fff}
-.row{display:flex;gap:8px}.row>*{flex:1}.list{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid #edf0ee}.list:last-child{border:0}.muted{color:#6b756f;font-size:13px}.low{color:#b42318;font-weight:700}.pill{display:inline-block;padding:4px 8px;border-radius:20px;background:#fff1d6;font-size:12px}
-.screen{display:none}.screen.active{display:block}.back{background:none;border:0;color:#fff;font-size:15px;margin-bottom:12px;padding:0}
-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);background:#fff;border-top:1px solid #dde5df;display:grid;grid-template-columns:repeat(5,1fr);padding:8px 4px 10px;z-index:10}
-nav button{border:0;background:none;color:#65716a;font-size:11px}nav button.active{color:#166534;font-weight:800}nav span{display:block;font-size:21px;margin-bottom:2px}
-table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:10px 5px;border-bottom:1px solid #edf0ee;font-size:13px}
-.toast{position:fixed;bottom:92px;left:50%;transform:translateX(-50%);background:#17211b;color:white;padding:10px 15px;border-radius:20px;display:none;z-index:20}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f6f8;
+  color:#17202a;
+}
+.app{
+  max-width:520px;
+  margin:auto;
+  min-height:100vh;
+  background:#f4f6f8;
+  padding-bottom:75px;
+}
+header{
+  background:#166534;
+  color:white;
+  padding:20px 18px;
+  border-radius:0 0 20px 20px;
+}
+.header-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+header h1{margin:0;font-size:23px}
+header p{margin:6px 0 0;opacity:.9}
+.owner-btn{
+  background:#ffffff22;
+  border:1px solid #ffffff55;
+  color:white;
+  padding:8px 10px;
+  border-radius:10px;
+}
+.card{
+  background:white;
+  margin:14px;
+  padding:16px;
+  border-radius:16px;
+  box-shadow:0 2px 8px #0000000d;
+}
+.greeting{
+  font-size:18px;
+  font-weight:bold;
+}
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+.stat{
+  padding:15px;
+  border-radius:14px;
+  background:#f0fdf4;
+}
+.stat b{font-size:20px;display:block;margin-top:5px}
+.stat small{color:#667085}
+.quick{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.quick button,.action{
+  border:0;
+  background:#f8fafc;
+  padding:16px 10px;
+  border-radius:14px;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.ai{
+  background:#ecfdf5;
+  border:1px solid #bbf7d0;
+}
+.ai-title{
+  font-weight:bold;
+  color:#166534;
+  font-size:17px;
+}
+button{
+  font-family:inherit;
+}
+.primary{
+  background:#166534!important;
+  color:white!important;
+}
+.danger{
+  background:#fee2e2;
+  color:#991b1b;
+}
+.warning{
+  background:#fff7ed;
+  color:#9a3412;
+}
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.section-title h2{
+  font-size:19px;
+  margin:0;
+}
+input,select{
+  width:100%;
+  padding:13px;
+  margin:7px 0;
+  border:1px solid #d0d5dd;
+  border-radius:10px;
+  font-size:15px;
+}
+.form-row{
+  display:flex;
+  gap:8px;
+}
+.form-row>*{flex:1}
+.product{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:13px 0;
+  border-bottom:1px solid #eee;
+}
+.product:last-child{border-bottom:0}
+.product-name{font-weight:bold}
+.low{color:#dc2626;font-weight:bold}
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  background:#dcfce7;
+  color:#166534;
+}
+.nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  max-width:520px;
+  width:100%;
+  background:white;
+  border-top:1px solid #ddd;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding:8px 4px;
+  z-index:10;
+}
+.nav button{
+  background:none;
+  border:0;
+  font-size:11px;
+  color:#667085;
+  padding:7px 2px;
+}
+.nav button span{
+  display:block;
+  font-size:20px;
+  margin-bottom:2px;
+}
+.nav .active{color:#166534;font-weight:bold}
+.page{display:none}
+.page.active{display:block}
+.back{
+  background:none;
+  border:0;
+  font-size:17px;
+  padding:0;
+  cursor:pointer;
+}
+.modal{
+  position:fixed;
+  inset:0;
+  background:#0008;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:20;
+}
+.modal-box{
+  background:white;
+  width:100%;
+  max-width:520px;
+  padding:20px;
+  border-radius:22px 22px 0 0;
+}
+.modal.show{display:flex}
+.center{text-align:center}
+.big{
+  font-size:30px;
+  font-weight:bold;
+  color:#166534;
+}
+.hidden{display:none}
 </style>
 </head>
+
 <body>
+
 <div class="app">
-<header id="top"><div id="headContent"><h1>Dukaan Saathi</h1><p>Dukaan Sambhalo. Customer Badhao.</p></div></header>
 
-<section id="home" class="screen active">
-<div class="card hero"><div><div class="muted">Good Morning 👋</div><b>Aaj ka Business</b></div><span>🏪</span></div>
-<div class="card"><div class="stats">
-<div class="stat"><small>💰 Sales</small><b id="salesTotal">₹12,450</b></div>
-<div class="stat"><small>📈 Profit</small><b id="profitTotal">₹2,180</b></div>
-<div class="stat"><small>🧾 Bills</small><b id="billTotal">37</b></div>
-<div class="stat"><small>💳 Udhaar</small><b>₹8,650</b></div>
-</div></div>
-<div class="card"><h2>Quick Actions</h2><div class="quick">
-<button onclick="show('sale')">➕ Sale</button><button onclick="show('stock')">📦 Stock</button>
-<button onclick="show('khata')">💳 Udhaar</button><button onclick="show('customers')">👥 Customers</button>
-</div></div>
-<div class="card ai"><h2>🤖 Dukaan AI</h2><p>Aaj aapki sale kal se <b>18% kam</b> hai. Evening mein ₹500+ shopping par ₹30 OFF offer try karein?</p><button class="primary" onclick="show('offer')">📢 WhatsApp Offer Banaye</button></div>
-</section>
+<header>
+  <div class="header-top">
+    <div>
+      <h1>🏪 Dukaan Saathi</h1>
+      <p>Dukaan Sambhalo. Customer Badhao.</p>
+    </div>
+    <button class="owner-btn" onclick="openOwner()">🔐 Owner</button>
+  </div>
+</header>
 
-<section id="sale" class="screen">
-<div class="card"><h2>🧾 New Sale</h2>
-<label>Product</label><select id="saleProduct"></select>
-<div class="row"><div><label>Quantity</label><input id="saleQty" type="number" value="1" min="1"></div><div><label>Customer</label><select id="saleCustomer"></select></div></div>
-<div class="card" style="margin:4px 0 12px;background:#f1f7f3"><div class="muted">Total</div><b id="saleAmount" style="font-size:27px">₹110</b></div>
-<div class="row"><button class="primary" onclick="saveSale('CASH')">CASH</button><button class="primary" onclick="saveSale('UPI')">UPI</button><button class="secondary" onclick="saveSale('UDHAAR')">UDHAAR</button></div>
-<hr style="border:0;border-top:1px solid #edf0ee;margin:18px 0">
-<button class="secondary" style="width:100%" onclick="voiceSale()">🎤 Voice Sale</button>
-<p class="muted">उदाहरण: “Ramesh ko do Surf, ek oil diya.”</p><div id="voiceResult"></div>
-</div></section>
+<!-- HOME -->
+<section id="home" class="page active">
 
-<section id="stock" class="screen">
-<div class="card"><h2>📦 Smart Stock</h2><div id="stockList"></div>
-<hr style="border:0;border-top:1px solid #edf0ee">
-<h2>➕ Product Add करें</h2><input id="pName" placeholder="Product name"><div class="row"><input id="pStock" type="number" placeholder="Stock"><input id="pPrice" type="number" placeholder="Selling price"></div><button class="primary" onclick="addProduct()">Add Product</button>
-</div></section>
+<div class="card">
+  <div class="greeting">Good Morning 👋</div>
+  <p>Aaj ka Business</p>
 
-<section id="customers" class="screen">
-<div class="card"><h2>👥 Customer CRM</h2><div id="customerList"></div>
-<hr style="border:0;border-top:1px solid #edf0ee"><input id="cName" placeholder="Customer name"><input id="cPhone" placeholder="WhatsApp number (10 digits)" inputmode="numeric"><button class="primary" onclick="addCustomer()">Add Customer</button>
-</div></section>
+  <div class="stats">
+    <div class="stat">
+      <small>💰 Aaj ki Sales</small>
+      <b>₹12,450</b>
+    </div>
 
-<section id="khata" class="screen">
-<div class="card"><h2>💳 Khaata / Udhaar</h2><div class="hero"><div><div class="muted">Total Due</div><b style="font-size:28px">₹8,650</b></div><span>📒</span></div></div>
-<div class="card"><h2>Ramesh Kumar</h2><div class="list"><span>₹850 — 28 Aug</span><b>Due</b></div><div class="list"><span>₹1,200 — 20 Aug</span><b>Due</b></div><div class="list"><span>− ₹500 — Payment</span><b>Paid</b></div>
-<div class="row"><button class="secondary" onclick="whatsapp('Ramesh','Namaste Ramesh ji, aapke Dukaan Saathi khaate mein ₹1,550 baki hai. Jab suvidha ho payment kar dijiye. Dhanyavaad.')">WhatsApp Reminder</button><button class="primary" onclick="toast('Payment received entry ready')">Payment Received</button></div></div>
-</section>
+    <div class="stat">
+      <small>🧾 Bills</small>
+      <b>37</b>
+    </div>
 
-<section id="reports" class="screen">
-<div class="card"><h2>📊 Daily Business Report</h2>
-<table><tr><th>Metric</th><th>Today</th></tr><tr><td>Sales</td><td><b id="reportSales">₹12,450</b></td></tr><tr><td>Purchase</td><td>₹7,800</td></tr><tr><td>Gross Profit</td><td>₹4,650</td></tr><tr><td>Expenses</td><td>₹1,200</td></tr><tr><td>Net Profit</td><td><b>₹3,450</b></td></tr></table>
-</div><div class="card"><h2>📈 Sales Trend</h2><div style="height:130px;display:flex;align-items:end;gap:7px" id="bars"></div></div>
-</section>
+    <div class="stat">
+      <small>💳 Udhaar</small>
+      <b>₹8,650</b>
+    </div>
 
-<section id="offer" class="screen">
-<div class="card"><h2>📢 One-Tap Offer Maker</h2><input id="offerText" value="Sunday ko 10% discount"><button class="primary" onclick="makeOffer()">✨ Offer Banaye</button><div id="offerOut" style="margin-top:14px"></div></div>
-</section>
-
-<nav>
-<button onclick="show('home')" class="active"><span>🏠</span>Home</button>
-<button onclick="show('sale')"><span>🧾</span>Sale</button>
-<button onclick="show('stock')"><span>📦</span>Stock</button>
-<button onclick="show('customers')"><span>👥</span>Customer</button>
-<button onclick="show('reports')"><span>📊</span>Reports</button>
-</nav>
-<div id="toast" class="toast"></div>
+    <div class="stat">
+      <small>📦 Low Stock</small>
+      <b>6 Products</b>
+    </div>
+  </div>
 </div>
 
+<div class="card">
+  <div class="section-title">
+    <h2>⚡ Quick Actions</h2>
+  </div>
+  <br>
+
+  <div class="quick">
+    <button class="primary" onclick="showPage('sale')">➕ New Sale</button>
+    <button onclick="showPage('stock')">📦 Stock</button>
+    <button onclick="showPage('khaata')">💳 Khaata</button>
+    <button onclick="showPage('customers')">👥 Customers</button>
+  </div>
+</div>
+
+<div class="card ai">
+  <div class="ai-title">🤖 Dukaan AI</div>
+  <p>Aaj aapki sale kal se 18% kam hai. Evening में ₹500+ shopping पर ₹30 OFF offer try karein?</p>
+  <button class="action primary" onclick="makeOffer()">📢 WhatsApp Offer Banaye</button>
+</div>
+
+<div class="card">
+  <div class="section-title">
+    <h2>🔴 Stock Alert</h2>
+    <button class="back" onclick="showPage('stock')">See All →</button>
+  </div>
+  <p class="low">Surf Excel — केवल 8 बाकी</p>
+  <button class="action warning" onclick="orderSupplier()">📱 Supplier ko WhatsApp Order</button>
+</div>
+
+</section>
+
+
+<!-- SALE -->
+<section id="sale" class="page">
+
+<div class="card">
+  <div class="section-title">
+    <h2>➕ New Sale</h2>
+  </div>
+
+  <label>Customer</label>
+  <input id="saleCustomer" placeholder="Customer name">
+
+  <label>Product</label>
+  <select id="saleProduct">
+    <option>Surf Excel</option>
+    <option>Tata Salt</option>
+    <option>Fortune Oil</option>
+    <option>Maggi</option>
+    <option>Biscuits</option>
+  </select>
+
+  <div class="form-row">
+    <input id="saleQty" type="number" placeholder="Quantity">
+    <input id="saleAmount" type="number" placeholder="Amount ₹">
+  </div>
+
+  <label>Payment</label>
+  <select id="payment">
+    <option>Cash</option>
+    <option>UPI</option>
+    <option>Udhar</option>
+  </select>
+
+  <button class="action primary" onclick="saveSale()">💾 Save Sale</button>
+</div>
+
+<div class="card">
+  <div class="ai-title">🎤 Voice Sale</div>
+  <p>बोलकर sale entry करें:</p>
+  <button class="action" onclick="voiceSale()">🎤 Start Voice Sale</button>
+  <p id="voiceResult"></p>
+</div>
+
+</section>
+
+
+<!-- STOCK -->
+<section id="stock" class="page">
+
+<div class="card">
+  <div class="section-title">
+    <h2>📦 Smart Stock</h2>
+    <span class="badge">Live</span>
+  </div>
+
+  <div class="product">
+    <div>
+      <div class="product-name">Surf Excel</div>
+      <small>₹110 Selling</small>
+    </div>
+    <div class="low">8 pcs</div>
+  </div>
+
+  <div class="product">
+    <div>
+      <div class="product-name">Tata Salt</div>
+      <small>₹28 Selling</small>
+    </div>
+    <div>42 pcs</div>
+  </div>
+
+  <div class="product">
+    <div>
+      <div class="product-name">Fortune Oil</div>
+      <small>₹145 Selling</small>
+    </div>
+    <div>21 pcs</div>
+  </div>
+
+  <div class="product">
+    <div>
+      <div class="product-name">Maggi</div>
+      <small>₹14 Selling</small>
+    </div>
+    <div class="low">5 pcs</div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>🔴 Low Stock</h3>
+  <p>Surf Excel — 8 pcs</p>
+  <p>Maggi — 5 pcs</p>
+  <button class="action primary" onclick="orderSupplier()">📱 Supplier ko WhatsApp Order</button>
+</div>
+
+</section>
+
+
+<!-- CUSTOMERS -->
+<section id="customers" class="page">
+
+<div class="card">
+  <div class="section-title">
+    <h2>👥 Customers</h2>
+    <span class="badge">124</span>
+  </div>
+
+  <input placeholder="🔍 Search customer">
+
+  <div class="product">
+    <div>
+      <div class="product-name">Ramesh Kumar</div>
+      <small>Regular Customer</small>
+    </div>
+    <button class="action" onclick="customerOffer()">📱</button>
+  </div>
+
+  <div class="product">
+    <div>
+      <div class="product-name">Ravi</div>
+      <small>⭐ High Value Customer</small>
+    </div>
+    <button class="action" onclick="customerOffer()">📱</button>
+  </div>
+
+  <div class="product">
+    <div>
+      <div class="product-name">Amit</div>
+      <small>🟡 Inactive</small>
+    </div>
+    <button class="action" onclick="customerOffer()">📱</button>
+  </div>
+</div>
+
+<div class="card ai">
+  <div class="ai-title">🤖 Dukaan AI Suggestion</div>
+  <p>Ravi पिछले 32 दिनों से नहीं आए हैं। ₹100 OFF का personalised offer भेजें?</p>
+  <button class="action primary" onclick="customerOffer()">📱 Send WhatsApp</button>
+</div>
+
+</section>
+
+
+<!-- KHAATA -->
+<section id="khaata" class="page">
+
+<div class="card">
+  <div class="section-title">
+    <h2>💳 Khaata / Udhaar</h2>
+    <span class="badge">12 Customers</span>
+  </div>
+
+  <div class="stat">
+    <small>Total Due</small>
+    <b>₹8,650</b>
+  </div>
+
+  <br>
+
+  <div class="product">
+    <div>
+      <div class="product-name">Ramesh Kumar</div>
+      <small>₹2,850 Due</small>
+    </div>
+    <button class="action" onclick="reminder()">📱</button>
+  </div>
+
+  <div class="product">
+    <div>
+      <div class="product-name">Suresh</div>
+      <small>₹1,250 Due</small>
+    </div>
+    <button class="action" onclick="reminder()">📱</button>
+  </div>
+
+  <div class="product">
+    <div>
+      <div class="product-name">Amit Kumar</div>
+      <small>₹850 Due</small>
+    </div>
+    <button class="action" onclick="reminder()">📱</button>
+  </div>
+</div>
+
+</section>
+
+
+<!-- REPORT -->
+<section id="reports" class="page">
+
+<div class="card">
+  <h2>📊 Daily Business Report</h2>
+
+  <div class="stats">
+    <div class="stat">
+      <small>Sales</small>
+      <b>₹25,600</b>
+    </div>
+
+    <div class="stat">
+      <small>Purchase</small>
+      <b>₹14,200</b>
+    </div>
+
+    <div class="stat">
+      <small>Bills</small>
+      <b>74</b>
+    </div>
+
+    <div class="stat">
+      <small>Customers</small>
+      <b>48</b>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>📈 Sales Trend</h3>
+  <div style="height:130px;background:#f0fdf4;border-radius:12px;display:flex;align-items:center;justify-content:center">
+    📈 Sales Graph — Coming Soon
+  </div>
+</div>
+
+<div class="card">
+  <h3>⭐ Top Products</h3>
+  <p>1. Surf Excel</p>
+  <p>2. Tata Salt</p>
+  <p>3. Fortune Oil</p>
+  <p>4. Biscuits</p>
+  <p>5. Maggi</p>
+</div>
+
+</section>
+
+
+<!-- OWNER -->
+<section id="owner" class="page">
+
+<div class="card">
+  <div class="section-title">
+    <h2>🔐 Owner Dashboard</h2>
+    <span class="badge">Private</span>
+  </div>
+
+  <p>यह information केवल Owner के लिए है.</p>
+
+  <div class="stats">
+    <div class="stat">
+      <small>💰 Gross Profit</small>
+      <b>₹6,400</b>
+    </div>
+
+    <div class="stat">
+      <small>💵 Net Profit</small>
+      <b>₹5,200</b>
+    </div>
+
+    <div class="stat">
+      <small>🛒 Purchase</small>
+      <b>₹14,200</b>
+    </div>
+
+    <div class="stat">
+      <small>💸 Expenses</small>
+      <b>₹1,200</b>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>👨‍💼 Staff Performance</h3>
+  <div class="product">
+    <span>Raj</span><b>₹18,450</b>
+  </div>
+  <div class="product">
+    <span>Amit</span><b>₹12,800</b>
+  </div>
+</div>
+
+<div class="card">
+  <h3>🔒 Sensitive Information</h3>
+  <p>Supplier Due: ₹18,500</p>
+  <p>Customer Due: ₹8,650</p>
+  <p>Purchase Cost: Protected</p>
+</div>
+
+</section>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+<nav class="nav">
+  <button class="active" onclick="showPage('home',this)">
+    <span>🏠</span>Home
+  </button>
+
+  <button onclick="showPage('sale',this)">
+    <span>➕</span>Sale
+  </button>
+
+  <button onclick="showPage('stock',this)">
+    <span>📦</span>Stock
+  </button>
+
+  <button onclick="showPage('customers',this)">
+    <span>👥</span>Customer
+  </button>
+
+  <button onclick="showPage('khaata',this)">
+    <span>💳</span>Khaata
+  </button>
+</nav>
+
+
+<!-- OWNER LOGIN MODAL -->
+<div class="modal" id="ownerModal">
+  <div class="modal-box">
+    <div class="section-title">
+      <h2>🔐 Owner Login</h2>
+      <button class="back" onclick="closeOwner()">✕</button>
+    </div>
+
+    <p>Owner PIN डालें</p>
+    <input id="ownerPin" type="password" inputmode="numeric" placeholder="4 digit PIN">
+
+    <button class="action primary" onclick="loginOwner()">Unlock Owner Mode</button>
+
+    <p id="pinError" style="color:#dc2626"></p>
+  </div>
+</div>
+
+
 <script>
-const key='dukaanSaathiData';
-let data=JSON.parse(localStorage.getItem(key)||'null')||{
-products:[{name:'Surf Excel',stock:8,price:110,purchase:90},{name:'Tata Salt',stock:25,price:30,purchase:24},{name:'Fortune Oil',stock:12,price:150,purchase:125},{name:'Maggi',stock:40,price:15,purchase:11}],
-customers:[{name:'Ramesh Kumar',phone:'',due:1550},{name:'Ravi',phone:'',due:0}]
-};
-let todaySales=12450,bills=37;
-function persist(){localStorage.setItem(key,JSON.stringify(data))}
-function money(n){return '₹'+Math.round(n).toLocaleString('en-IN')}
-function show(id){
- document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
- const map={home:0,sale:1,stock:2,customers:3,reports:4};
- if(map[id]!=null) document.querySelectorAll('nav button')[map[id]].classList.add('active');
- if(id==='stock')renderStock(); if(id==='customers')renderCustomers(); if(id==='sale')fillSale();
- if(id==='reports')renderReport(); if(id==='offer'){}
- window.scrollTo(0,0);
+
+function showPage(page,btn){
+
+  document.querySelectorAll('.page').forEach(function(p){
+    p.classList.remove('active');
+  });
+
+  document.getElementById(page).classList.add('active');
+
+  document.querySelectorAll('.nav button').forEach(function(b){
+    b.classList.remove('active');
+  });
+
+  if(btn){
+    btn.classList.add('active');
+  }
+
+  window.scrollTo(0,0);
 }
-function fillSale(){
- const p=document.getElementById('saleProduct');p.innerHTML=data.products.map((x,i)=>`<option value="${i}">${x.name} — ${money(x.price)}</option>`).join('');
- const c=document.getElementById('saleCustomer');c.innerHTML='<option value="-1">Walk-in Customer</option>'+data.customers.map((x,i)=>`<option value="${i}">${x.name}</option>`).join('');
- updateAmount();
+
+
+function openOwner(){
+  document.getElementById('ownerModal').classList.add('show');
+  document.getElementById('ownerPin').value='';
+  document.getElementById('pinError').innerText='';
 }
-document.getElementById('saleQty').addEventListener('input',updateAmount);
-document.getElementById('saleProduct').addEventListener('change',updateAmount);
-function updateAmount(){if(!data.products.length)return;let p=data.products[+document.getElementById('saleProduct').value||0];let q=+document.getElementById('saleQty').value||1;document.getElementById('saleAmount').textContent=money(p.price*q)}
-function saveSale(mode){
- let i=+document.getElementById('saleProduct').value||0,q=+document.getElementById('saleQty').value||1,p=data.products[i];
- if(!p||p.stock<q){toast('Stock available nahi hai');return}
- p.stock-=q;todaySales+=p.price*q;bills++;persist();
- document.getElementById('salesTotal').textContent=money(todaySales);document.getElementById('billTotal').textContent=bills;toast('Sale saved: '+mode);fillSale();
+
+
+function closeOwner(){
+  document.getElementById('ownerModal').classList.remove('show');
 }
-function renderStock(){document.getElementById('stockList').innerHTML=data.products.map((p,i)=>`<div class="list"><div><b>${p.name}</b><div class="muted">Purchase ${money(p.purchase)} · Selling ${money(p.price)} · Profit ${money(p.price-p.purchase)}</div></div><div class="${p.stock<=10?'low':''}">${p.stock} ${p.stock<=10?'<span class="pill">LOW</span>':''}</div></div>`).join('')}
-function addProduct(){let name=document.getElementById('pName').value.trim(),stock=+document.getElementById('pStock').value||0,price=+document.getElementById('pPrice').value||0;if(!name||!price){toast('Product name aur price bharein');return}data.products.push({name,stock,price,purchase:Math.round(price*.82)});persist();document.getElementById('pName').value='';document.getElementById('pStock').value='';document.getElementById('pPrice').value='';renderStock();toast('Product added')}
-function renderCustomers(){document.getElementById('customerList').innerHTML=data.customers.map((c,i)=>`<div class="list"><div><b>${c.name}</b><div class="muted">${c.due>0?'Due '+money(c.due):'No due'} · ${c.due>3000?'🔴 High Value':'🟢 Regular'}</div></div><button class="secondary" onclick="customerOffer(${i})">WhatsApp</button></div>`).join('')}
-function addCustomer(){let name=document.getElementById('cName').value.trim(),phone=document.getElementById('cPhone').value.replace(/\D/g,'');if(!name){toast('Customer name bharein');return}data.customers.push({name,phone,due:0});persist();renderCustomers();document.getElementById('cName').value='';document.getElementById('cPhone').value='';toast('Customer added')}
-function customerOffer(i){let c=data.customers[i];whatsapp(c.name,`Namaste ${c.name} ji! Aapke liye Dukaan Saathi par special offer hai. Aaj ₹500+ shopping par ₹30 OFF. Zaroor aaiye 😊`)}
-function whatsapp(name,msg){let c=data.customers.find(x=>x.name===name);let phone=c?.phone?.replace(/\D/g,'')||'';if(phone.length===10)phone='91'+phone;let url='https://wa.me/'+phone+'?text='+encodeURIComponent(msg);if(phone)location.href=url;else{navigator.clipboard?.writeText(msg);toast('WhatsApp number save nahi hai. Message copy kiya gaya.');}}
-function makeOffer(){let t=document.getElementById('offerText').value||'Sunday ko 10% discount';let out=`<div class="card" style="margin:0;background:#fff8e8"><h2>🎉 SUNDAY SPECIAL</h2><b style="font-size:25px">${t}</b><p>Aaj hi aayein aur shopping ka fayda uthayein!</p><button class="primary" onclick="whatsapp('', '🎉 SUNDAY SPECIAL\\n${t}\\nAaj hi aayein!')">WhatsApp Message</button></div>`;document.getElementById('offerOut').innerHTML=out}
-function renderReport(){document.getElementById('reportSales').textContent=money(todaySales);document.getElementById('salesTotal').textContent=money(todaySales);let b=[35,55,45,70,62,82,68];document.getElementById('bars').innerHTML=b.map(v=>`<div style="height:${v}%;flex:1;background:#166534;border-radius:7px 7px 0 0"></div>`).join('')}
+
+
+function loginOwner(){
+
+  var pin=document.getElementById('ownerPin').value;
+
+  if(pin==='1234'){
+    closeOwner();
+    showPage('owner');
+  }else{
+    document.getElementById('pinError').innerText='गलत PIN. कृपया दोबारा कोशिश करें.';
+  }
+
+}
+
+
+function saveSale(){
+
+  var customer=document.getElementById('saleCustomer').value || 'Walk-in Customer';
+  var product=document.getElementById('saleProduct').value;
+  var qty=document.getElementById('saleQty').value || 1;
+  var amount=document.getElementById('saleAmount').value || 0;
+  var payment=document.getElementById('payment').value;
+
+  alert(
+    'Sale Saved!\\n\\n' +
+    'Customer: '+customer+'\\n' +
+    'Product: '+product+'\\n' +
+    'Quantity: '+qty+'\\n' +
+    'Amount: ₹'+amount+'\\n' +
+    'Payment: '+payment
+  );
+
+}
+
+
 function voiceSale(){
- const box=document.getElementById('voiceResult');
- if(!('webkitSpeechRecognition' in window||'SpeechRecognition' in window)){box.innerHTML='<p class="muted">Is browser mein voice input available nahi hai. Chrome Android mein try karein.</p>';return}
- const R=window.SpeechRecognition||window.webkitSpeechRecognition,r=new R();r.lang='hi-IN';r.interimResults=false;r.onstart=()=>box.innerHTML='<p>🎙️ Sun raha hoon...</p>';r.onresult=e=>{let text=e.results[0][0].transcript;box.innerHTML=`<p><b>Aapne kaha:</b> ${text}</p><p>AI prototype is voice ko sale entry mein convert karne ke liye ready hai.</p>`};r.onerror=()=>box.innerHTML='<p class="muted">Voice samajh nahi aayi. Dobara try karein.</p>';r.start();
+
+  var result=document.getElementById('voiceResult');
+
+  if(!('webkitSpeechRecognition' in window)){
+    result.innerText='इस browser में Voice Recognition उपलब्ध नहीं है.';
+    return;
+  }
+
+  var recognition=new webkitSpeechRecognition();
+
+  recognition.lang='hi-IN';
+  recognition.start();
+
+  result.innerText='🎤 सुन रहा हूँ...';
+
+  recognition.onresult=function(event){
+
+    var text=event.results[0][0].transcript;
+
+    result.innerText='आपने कहा: '+text;
+
+  };
+
 }
-function toast(t){let x=document.getElementById('toast');x.textContent=t;x.style.display='block';clearTimeout(window.tt);window.tt=setTimeout(()=>x.style.display='none',2200)}
-renderStock();fillSale();renderReport();
+
+
+function makeOffer(){
+
+  alert(
+    '🎉 Offer तैयार है!\\n\\n' +
+    'SUNDAY SPECIAL\\n' +
+    '₹1,000+ Shopping पर ₹30 OFF\\n\\n' +
+    'WhatsApp message तैयार किया जाएगा.'
+  );
+
+}
+
+
+function orderSupplier(){
+
+  var message='Namaste, Surf Excel 50 pcs bhej dijiye.';
+
+  window.open(
+    'https://wa.me/?text='+encodeURIComponent(message),
+    '_blank'
+  );
+
+}
+
+
+function customerOffer(){
+
+  var message='Namaste! Aapke liye special offer hai. Aaj shopping par special discount paaiye.';
+
+  window.open(
+    'https://wa.me/?text='+encodeURIComponent(message),
+    '_blank'
+  );
+
+}
+
+
+function reminder(){
+
+  var message='Namaste Ramesh ji, aapke khaate mein ₹2,850 baki hai. Jab suvidha ho payment kar dijiye. Dhanyavaad.';
+
+  window.open(
+    'https://wa.me/?text='+encodeURIComponent(message),
+    '_blank'
+  );
+
+}
+
 </script>
+
 </body>
 </html>
