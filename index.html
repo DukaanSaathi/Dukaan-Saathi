@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#166534">
 <title>Dukaan Saathi</title>
-
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
 <style>
@@ -23,7 +22,6 @@ header p{margin:6px 0 0;opacity:.9}
 
 .card{background:#fff;margin:14px;padding:16px;border-radius:16px;box-shadow:0 2px 8px #0000000d}
 .greeting{font-size:18px;font-weight:bold}
-
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .stat{padding:15px;border-radius:14px;background:#f0fdf4}
 .stat b{font-size:20px;display:block;margin-top:5px}
@@ -41,117 +39,115 @@ header p{margin:6px 0 0;opacity:.9}
 .section-title{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .section-title h2{font-size:19px;margin:0}
 
-input,select{
-width:100%;padding:13px;margin:7px 0;border:1px solid #d0d5dd;
-border-radius:10px;font-size:15px;background:#fff
-}
+input,select{width:100%;padding:13px;margin:7px 0;border:1px solid #d0d5dd;border-radius:10px;font-size:15px;background:#fff}
 label{display:block;font-size:14px;font-weight:bold;margin-top:8px}
 
 .form-row{display:flex;gap:8px}
 .form-row>*{flex:1}
-
 .barcode-row{display:flex;gap:10px;align-items:stretch}
 .barcode-row input{flex:1}
 .barcode-camera{width:46%;min-height:64px;font-size:24px}
+.barcode-details{margin-top:8px}
+.barcode-details{display:inline-block}
 
-.barcode-details{margin-top:8px;display:inline-block}
-
-.product{
-display:flex;justify-content:space-between;align-items:center;
-padding:13px 0;border-bottom:1px solid #eee;gap:10px
-}
+.product{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid #eee;gap:10px}
 .product:last-child{border-bottom:0}
 
 .bill-summary{padding:12px 0;border-bottom:1px solid #eee}
 .bill-summary summary{list-style:none;cursor:pointer}
 .bill-summary summary::-webkit-details-marker{display:none}
-.bill-summary summary:after{
-content:"▼";float:right;font-size:12px;color:#667085
-}
+.bill-summary summary:after{content:"▼";float:right;font-size:12px;color:#667085}
 .bill-summary details[open] summary:after{content:"▲"}
-
-.bill-detail{
-margin-top:10px;padding:12px;border-radius:12px;background:#f8fafc
-}
+.bill-detail{margin-top:10px;padding:12px;border-radius:12px;background:#f8fafc}
 .return-inline{margin-top:10px;width:100%}
 .bill-no{font-weight:800;color:#166534}
 .bill-actions{display:flex;gap:8px;margin-top:10px}
 .bill-actions button{flex:1}
 
 .product-name{font-weight:bold}
-.badge{
-display:inline-block;padding:5px 9px;border-radius:20px;font-size:12px;
-background:#dcfce7;color:#166534
-}
+.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:12px;background:#dcfce7;color:#166534}
 .low{color:#dc2626;font-weight:bold}
 
 .nav{
-position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-max-width:520px;width:100%;background:#fff;border-top:1px solid #ddd;
-display:grid;grid-template-columns:repeat(5,1fr);padding:8px 4px;z-index:10
+position:fixed;
+bottom:0;
+left:50%;
+transform:translateX(-50%);
+max-width:520px;
+width:100%;
+background:#fff;
+border-top:1px solid #ddd;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+padding:8px 4px;
+z-index:10
 }
-.nav button{
-background:none;border:0;font-size:11px;color:#667085;padding:7px 2px
-}
+
+.nav button{background:none;border:0;font-size:11px;color:#667085;padding:7px 2px}
 .nav button span{display:block;font-size:20px;margin-bottom:2px}
 .nav .active{color:#166534;font-weight:bold}
 
 .page{display:none}
 .page.active{display:block}
+
 .back{background:none;border:0;font-size:17px;padding:0}
 
 .modal{
-position:fixed;inset:0;background:#0008;display:none;
-align-items:flex-end;justify-content:center;z-index:20
+position:fixed;
+inset:0;
+background:#0008;
+display:none;
+align-items:flex-end;
+justify-content:center;
+z-index:20
 }
+
 .modal-box{
-background:#fff;width:100%;max-width:520px;max-height:94vh;
-overflow:auto;padding:20px;border-radius:22px 22px 0 0
+background:#fff;
+width:100%;
+max-width:520px;
+max-height:94vh;
+overflow:auto;
+padding:20px;
+border-radius:22px 22px 0 0
 }
+
 .modal.show{display:flex}
 
 .center{text-align:center}
 .big{font-size:30px;font-weight:bold;color:#166534}
 .hidden{display:none!important}
 
-.scanner-box{
-background:#f8fafc;padding:10px;border-radius:14px;margin-top:10px
-}
-
-#reader{
-width:100%;
-border-radius:12px;
-overflow:hidden;
-background:#111;
-min-height:260px;
-position:relative
-}
-
-#reader video{
-width:100%!important;
-height:auto!important;
-object-fit:cover!important;
-border-radius:12px
-}
+.scanner-box{background:#f8fafc;padding:10px;border-radius:14px;margin-top:10px}
+#reader{width:100%;border-radius:12px;overflow:hidden;background:#111;min-height:220px}
 
 .scan-result{
-background:#ecfdf5;border:1px solid #bbf7d0;
-padding:12px;border-radius:12px;margin-top:10px
+background:#ecfdf5;
+border:1px solid #bbf7d0;
+padding:12px;
+border-radius:12px;
+margin-top:10px
 }
 
 .empty{text-align:center;padding:25px 10px;color:#667085}
-
 .small-btn{
-border:0;padding:8px 10px;border-radius:9px;
-font-weight:bold;cursor:pointer;margin-top:4px
+border:0;
+padding:8px 10px;
+border-radius:9px;
+font-weight:bold;
+cursor:pointer;
+margin-top:4px
 }
 
 .price{font-weight:bold;color:#166534}
 .stock-number{font-weight:bold}
 
 .lookup-card{
-background:#eff6ff;border:1px solid #bfdbfe;
-padding:12px;border-radius:12px;margin-top:8px
+background:#eff6ff;
+border:1px solid #bfdbfe;
+padding:12px;
+border-radius:12px;
+margin-top:8px
 }
 
 .lookup-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -163,24 +159,40 @@ padding:12px;border-radius:12px;margin-top:8px
 .success{color:#166534;font-weight:bold}
 
 .recovery{
-background:#fff7ed;border:1px solid #fed7aa;
-padding:12px;border-radius:12px;margin-top:10px
+background:#fff7ed;
+border:1px solid #fed7aa;
+padding:12px;
+border-radius:12px;
+margin-top:10px
 }
 
 .list-btn{
-width:100%;text-align:left;border:0;padding:12px;
-border-radius:10px;margin-top:7px;background:#f8fafc;font-weight:bold
+width:100%;
+text-align:left;
+border:0;
+padding:12px;
+border-radius:10px;
+margin-top:7px;
+background:#f8fafc;
+font-weight:bold
 }
 
 .due{color:#b91c1c;font-weight:bold}
 .reminder{
-background:#ecfdf5;border:1px solid #bbf7d0;
-padding:10px;border-radius:10px;margin-top:8px
+background:#ecfdf5;
+border:1px solid #bbf7d0;
+padding:10px;
+border-radius:10px;
+margin-top:8px
 }
 
 .owner-stock-controls{
-display:flex;gap:8px;align-items:center;margin:10px 0
+display:flex;
+gap:8px;
+align-items:center;
+margin:10px 0
 }
+
 .owner-stock-controls input{flex:1}
 .owner-stock-controls button{white-space:nowrap}
 .collapsed-list{display:none!important}
@@ -188,61 +200,72 @@ display:flex;gap:8px;align-items:center;margin:10px 0
 #saleProductSearch{width:100%}
 
 .product-picker{position:relative;width:100%}
+
 .product-picker-list{
-position:absolute;z-index:1000;left:0;right:0;top:calc(100% + 6px);
-max-height:300px;overflow:auto;background:#fff;
-border:1px solid #d8dde3;border-radius:14px;
+position:absolute;
+z-index:1000;
+left:0;
+right:0;
+top:calc(100% + 6px);
+max-height:300px;
+overflow:auto;
+background:#fff;
+border:1px solid #d8dde3;
+border-radius:14px;
 box-shadow:0 10px 30px rgba(0,0,0,.16)
 }
 
 .product-option{
-display:flex;flex-direction:column;align-items:flex-start;
-width:100%;padding:14px 16px;border:0;border-bottom:1px solid #eee;
-background:#fff;text-align:left;font-size:17px;cursor:pointer
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+width:100%;
+padding:14px 16px;
+border:0;
+border-bottom:1px solid #eee;
+background:#fff;
+text-align:left;
+font-size:17px;
+cursor:pointer
 }
+
 .product-option:last-child{border-bottom:0}
 .product-option span{font-size:14px;color:#687386;margin-top:4px}
 .product-option-empty{padding:18px;color:#687386;text-align:center}
 
 .sale-cart{
-margin-top:12px;padding:12px;border-radius:14px;
-background:#f8fafc;border:1px solid #e5e7eb
+margin-top:12px;
+padding:12px;
+border-radius:14px;
+background:#f8fafc;
+border:1px solid #e5e7eb
 }
+
 .sale-cart-title{font-weight:800;margin-bottom:6px}
+
 .cart-item{
-display:flex;justify-content:space-between;gap:8px;
-align-items:center;padding:10px 0;border-bottom:1px solid #e5e7eb
+display:flex;
+justify-content:space-between;
+gap:8px;
+align-items:center;
+padding:10px 0;
+border-bottom:1px solid #e5e7eb
 }
+
 .cart-item:last-child{border-bottom:0}
 .cart-item-name{font-weight:700}
 .cart-item-meta{font-size:12px;color:#667085;margin-top:3px}
+
 .cart-remove{
-border:0;background:#fee2e2;color:#991b1b;
-border-radius:9px;padding:7px 9px;font-weight:bold
+border:0;
+background:#fee2e2;
+color:#991b1b;
+border-radius:9px;
+padding:7px 9px;
+font-weight:bold
 }
+
 .cart-total{margin-top:8px;font-weight:800;text-align:right}
-
-.shop-contact{
-background:#f0fdf4;
-border:1px solid #bbf7d0;
-padding:10px;border-radius:10px;
-margin:8px 0
-}
-
-.scanner-status{
-background:#eff6ff;
-border:1px solid #bfdbfe;
-padding:9px;border-radius:10px;
-font-size:12px;
-margin-top:8px
-}
-
-.scanner-tools{
-display:flex;
-gap:8px;
-margin-top:8px
-}
-.scanner-tools button{flex:1}
 
 @media(max-width:360px){
 header h1{font-size:20px}
@@ -252,6 +275,7 @@ header h1{font-size:20px}
 </head>
 
 <body>
+
 <div class="app">
 
 <header>
@@ -269,28 +293,66 @@ header h1{font-size:20px}
 <div class="card">
 <div class="greeting">Good Morning 👋</div>
 <p>Aaj ka Business</p>
+
 <div class="stats">
-<div class="stat"><small>💰 Aaj ki Sales</small><b id="homeSales">₹0</b></div>
-<div class="stat"><small>🧾 Bills</small><b id="homeBills">0</b></div>
-<div class="stat"><small>💳 Udhaar</small><b id="homeDue">₹0</b></div>
-<div class="stat"><small>📦 Low Stock</small><b id="homeLowStock">0</b></div>
+
+<div class="stat">
+<small>💰 Aaj ki Sales</small>
+<b id="homeSales">₹0</b>
+</div>
+
+<div class="stat">
+<small>🧾 Bills</small>
+<b id="homeBills">0</b>
+</div>
+
+<div class="stat">
+<small>💳 Udhaar</small>
+<b id="homeDue">₹0</b>
+</div>
+
+<div class="stat">
+<small>📦 Low Stock</small>
+<b id="homeLowStock">0</b>
+</div>
+
 </div>
 </div>
 
 <div class="card">
-<div class="section-title"><h2>⚡ Quick Actions</h2></div>
+<div class="section-title">
+<h2>⚡ Quick Actions</h2>
+</div>
+
 <br>
+
 <div class="quick">
-<button class="primary" onclick="showPage('sale')">➕ New Sale</button>
-<button onclick="showPage('stock')">📦 Stock</button>
-<button onclick="showPage('khaata')">💳 Khaata</button>
-<button onclick="showPage('customers')">👥 Customers</button>
+
+<button class="primary" onclick="showPage('sale')">
+➕ New Sale
+</button>
+
+<button onclick="showPage('stock')">
+📦 Stock
+</button>
+
+<button onclick="showPage('khaata')">
+💳 Khaata
+</button>
+
+<button onclick="showPage('customers')">
+👥 Customers
+</button>
+
 </div>
 </div>
 
 <div class="card">
 <h2>📷 Fast Barcode Sale</h2>
-<p class="note">Packaged product ka barcode scan karke seedha sale entry karein.</p>
+<p class="note">
+Packaged product ka barcode scan karke seedha sale entry karein.
+</p>
+
 <button class="action primary" onclick="openScanner('sale')">
 📷 Scan Barcode & Sale
 </button>
@@ -298,7 +360,10 @@ header h1{font-size:20px}
 
 <div class="card ai">
 <div class="ai-title">🤖 Dukaan AI</div>
-<p>Udhaar customers ko time-line ke hisaab se reminder bhejein.</p>
+<p>
+Udhaar customers ko time-line ke hisaab se reminder bhejein.
+</p>
+
 <button class="action primary" onclick="showPage('khaata')">
 💬 Due Reminder
 </button>
@@ -307,8 +372,11 @@ header h1{font-size:20px}
 <div class="card">
 <div class="section-title">
 <h2>🔴 Stock Alert</h2>
-<button class="back" onclick="showPage('stock')">See All →</button>
+<button class="back" onclick="showPage('stock')">
+See All →
+</button>
 </div>
+
 <div id="homeStockAlerts"></div>
 </div>
 
@@ -320,14 +388,18 @@ header h1{font-size:20px}
 
 <div class="section-title">
 <h2>➕ New Sale</h2>
-<button class="action info" onclick="openScanner('sale')">📷 Scan</button>
+
+<button class="action info" onclick="openScanner('sale')">
+📷 Scan
+</button>
 </div>
 
 <label>Customer Name</label>
 <input id="saleCustomer" placeholder="Optional">
 
 <label>Customer WhatsApp / Mobile</label>
-<input id="saleCustomerPhone"
+<input
+id="saleCustomerPhone"
 type="tel"
 maxlength="10"
 inputmode="numeric"
@@ -341,7 +413,9 @@ Bill nahi bhejna ho to Skip & Save karein.
 <label>Product</label>
 
 <div class="product-picker">
-<input id="saleProductSearch"
+
+<input
+id="saleProductSearch"
 autocomplete="off"
 placeholder="🔍 Search / Select Product"
 onfocus="openSaleProductList()"
@@ -349,6 +423,7 @@ oninput="filterSaleProductList(this.value)"
 onclick="openSaleProductList()">
 
 <div id="saleProductList" class="product-picker-list hidden"></div>
+
 </div>
 
 <input id="saleProduct" type="hidden">
@@ -364,8 +439,16 @@ Camera na chale to barcode manually enter karein.
 </p>
 
 <div class="form-row">
-<input id="saleBarcode" placeholder="Barcode" inputmode="numeric">
-<button class="action" onclick="findSaleBarcode()">🔎 Find</button>
+
+<input
+id="saleBarcode"
+placeholder="Barcode"
+inputmode="numeric">
+
+<button class="action" onclick="findSaleBarcode()">
+🔎 Find
+</button>
+
 </div>
 
 </div>
@@ -373,7 +456,9 @@ Camera na chale to barcode manually enter karein.
 <div id="saleProductInfo" class="scan-result hidden"></div>
 
 <div class="form-row">
-<input id="saleQty"
+
+<input
+id="saleQty"
 type="number"
 min="0.001"
 step="0.001"
@@ -381,36 +466,36 @@ value="1"
 placeholder="Quantity"
 oninput="updateSaleAmount()">
 
-<input id="saleAmount"
+<input
+id="saleAmount"
 type="number"
-min="0"
-step="0.01"
-placeholder="Total Amount ₹"
-readonly>
+readonly
+placeholder="Amount">
+
 </div>
 
-<button class="action info"
-style="width:100%;margin-top:8px"
-onclick="addCurrentItemToBill()">
-➕ Add Product to Bill
+<button class="action primary" onclick="addCurrentItemToBill()">
+➕ Add Item to Bill
 </button>
 
 <div id="saleCart" class="sale-cart"></div>
 
 <label>Payment</label>
+
 <select id="payment">
-<option>Cash</option>
-<option>UPI</option>
-<option>Udhar</option>
+<option value="Cash">Cash</option>
+<option value="UPI">UPI</option>
+<option value="Udhar">Udhar</option>
 </select>
 
 <button class="action primary" onclick="prepareBill()">
-🧾 Bill Preview & Save
+🧾 Prepare Bill
 </button>
 
 <p id="saleMsg"></p>
 
 </div>
+
 </section>
 
 <section id="stock" class="page">
@@ -418,24 +503,23 @@ onclick="addCurrentItemToBill()">
 <div class="card">
 
 <div class="section-title">
-<h2>📦 Smart Stock</h2>
-<button class="action primary" onclick="openProductModal()">➕ Product</button>
-</div>
 
-<p class="note">
-Barcode optional hai. Aata, chawal, daal jaise loose items ke liye barcode zaroori nahi.
-</p>
+<h2>📦 Stock Management</h2>
 
-<button class="action info" onclick="openScanner('stock')">
-📷 Scan Barcode → Stock In
+<button
+class="action primary"
+onclick="openProductModal()">
+
+➕ Product
+
 </button>
 
-<div class="form-row">
-<input id="stockSearch"
-placeholder="🔍 Product search"
-oninput="renderProducts()">
-<button class="action" onclick="openProductModal()">➕ Add</button>
 </div>
+
+<input
+id="stockSearch"
+placeholder="🔍 Product name / Barcode search"
+oninput="renderProducts()">
 
 <div id="productList"></div>
 
@@ -443,65 +527,63 @@ oninput="renderProducts()">
 
 <div class="card">
 
-<h3>📥 Stock In / Purchase</h3>
+<h3>📥 Stock In</h3>
 
-<label>Barcode</label>
+<div class="barcode-row">
 
-<div class="form-row">
-<input id="stockBarcode" placeholder="Barcode">
-<button class="action info" onclick="openScanner('stock')">📷 Scan</button>
+<input
+id="stockBarcode"
+placeholder="Barcode"
+inputmode="numeric">
+
+<button
+class="action info barcode-camera"
+onclick="openScanner('stock')">
+
+📷
+
+</button>
+
 </div>
 
+<button
+class="action info"
+onclick="findStockBarcode()">
+
+🔎 Find Product
+</button>
+
 <div id="stockProductInfo" class="scan-result hidden"></div>
+
 <div id="stockLookupInfo" class="lookup-card hidden"></div>
 
-<div class="form-row">
-<input id="stockQty"
+<label>Quantity</label>
+
+<input
+id="stockQty"
 type="number"
 min="0.001"
 step="0.001"
 placeholder="Quantity">
 
-<input id="stockPurchaseRate"
+<label>Owner Purchase Rate ₹</label>
+
+<input
+id="stockPurchaseRate"
 type="number"
 min="0"
-placeholder="Purchase ₹">
-</div>
+step="0.01"
+placeholder="Optional purchase rate">
 
-<p class="note">
-⚠️ Purchase rate Owner-only hai.
-Staff/customer view me ye rate nahi dikhaya jayega.
-</p>
+<button
+class="action primary"
+onclick="saveStockIn()">
 
-<button class="action primary" onclick="saveStockIn()">
 📥 Add Stock
 </button>
 
 <p id="stockMsg"></p>
 
-</div>
-
-<div class="card">
-
-<div class="section-title">
-<h3>↩️ Sales Return</h3>
-<span class="badge">Audit</span>
-</div>
-
-<p class="note">
-Sale delete nahi hogi. Return karne par stock wapas add hoga aur
-Owner Dashboard ke separate Return Audit me entry hogi.
-</p>
-
-<button class="action warning" onclick="openReturnModal()">
-↩️ Create Sales Return
-</button>
-
-</div>
-
-<div class="card">
-<h3>🔴 Low Stock</h3>
-<div id="lowStockList"></div>
 </div>
 
 </section>
@@ -512,29 +594,27 @@ Owner Dashboard ke separate Return Audit me entry hogi.
 
 <div class="section-title">
 <h2>👥 Customers</h2>
-<span class="badge" id="customerCount">0</span>
+
+<button
+class="action primary"
+onclick="openCustomerModal()">
+
+➕ Add
+
+</button>
+
 </div>
 
-<input id="customerSearch"
+<input
+id="customerSearch"
 placeholder="🔍 Search customer"
 oninput="renderCustomers()">
 
-<div id="customerList"></div>
-
-</div>
-
-<div class="card ai">
-
-<div class="ai-title">💬 Customer Reminder Timeline</div>
-
-<p class="note">
-Customer ke liye 7 days, 15 days, 1 month ya custom follow-up set karein.
-Due customer highlight hoga.
+<p>Total Customers:
+<b id="customerCount">0</b>
 </p>
 
-<button class="action primary" onclick="openCustomerModal()">
-➕ Add Customer
-</button>
+<div id="customerList"></div>
 
 </div>
 
@@ -544,17 +624,15 @@ Due customer highlight hoga.
 
 <div class="card">
 
-<div class="section-title">
 <h2>💳 Khaata / Udhaar</h2>
-<span class="badge">Customer Due</span>
-</div>
 
 <div class="stat">
-<small>Total Due</small>
-<b id="totalDue">₹0</b>
-</div>
 
-<br>
+<small>Total Outstanding</small>
+
+<b id="totalDue">₹0</b>
+
+</div>
 
 <div id="dueList"></div>
 
@@ -562,92 +640,57 @@ Due customer highlight hoga.
 
 </section>
 
-<section id="reports" class="page">
-
-<div class="card">
-
-<h2>📊 Daily Business Report</h2>
-
-<div class="stats">
-
-<div class="stat">
-<small>Sales</small>
-<b id="reportSales">₹0</b>
-</div>
-
-<div class="stat">
-<small>Purchase</small>
-<b id="reportPurchase">₹0</b>
-</div>
-
-<div class="stat">
-<small>Bills</small>
-<b id="reportBills">0</b>
-</div>
-
-<div class="stat">
-<small>Products</small>
-<b id="reportProducts">0</b>
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-<h3>⭐ Top Products</h3>
-<div id="topProducts">
-<p>Abhi sales data nahi hai.</p>
-</div>
-</div>
-
-</section><section id="owner" class="page">
+<section id="owner" class="page">
 
 <div class="card">
 
 <div class="section-title">
-<h2>🔐 Owner Dashboard</h2>
-<span class="badge">Private</span>
-</div>
 
-<p>
-Purchase rate, profit aur complete stock details sirf Owner ke liye.
-</p>
+<h2>🔐 Owner Dashboard</h2>
+
+<button
+class="back"
+onclick="showPage('home')">
+
+← Home
+
+</button>
+
+</div>
 
 <div class="stats">
 
 <div class="stat">
-<small>💰 Gross Profit</small>
-<b id="grossProfit">₹0</b>
-</div>
-
-<div class="stat">
-<small>💵 Net Profit</small>
-<b id="netProfit">₹0</b>
-</div>
-
-<div class="stat">
-<small>🛒 Purchase</small>
+<small>Purchase</small>
 <b id="ownerPurchase">₹0</b>
 </div>
 
 <div class="stat">
-<small>📦 Products</small>
+<small>Gross Profit</small>
+<b id="grossProfit">₹0</b>
+</div>
+
+<div class="stat">
+<small>Net Profit</small>
+<b id="netProfit">₹0</b>
+</div>
+
+<div class="stat">
+<small>Products</small>
 <b id="ownerProducts">0</b>
 </div>
 
 </div>
+
 </div>
 
 <div class="card">
 
-<div class="section-title">
-<h3>📥 Added Stock — Last 30 Days</h3>
-<span class="badge" id="recentStockCount">0</span>
-</div>
+<h3>📦 Recent Stock</h3>
 
-<p class="note">
-Pichhle 30 din me Stock In/Purchase se add hua stock yahan dikhega.
+<p>
+Recent Records:
+<b id="recentStockCount">0</b>
 </p>
 
 <div id="recentStockList"></div>
@@ -657,24 +700,26 @@ Pichhle 30 din me Stock In/Purchase se add hua stock yahan dikhega.
 <div class="card">
 
 <div class="section-title">
-<h3>📦 All Products & Current Stock</h3>
-<span class="badge" id="ownerStockCount">0</span>
-</div>
 
-<p class="note">
-Sabhi products ka current available stock Owner ko yahan dikhega.
-</p>
+<h3>📦 Current Stock</h3>
+
+<span id="ownerStockCount">0</span>
+
+</div>
 
 <div class="owner-stock-controls">
 
-<input id="ownerStockSearch"
-placeholder="🔍 Product / Barcode search"
+<input
+id="ownerStockSearch"
+placeholder="🔍 Search product"
 oninput="renderOwnerStock()">
 
-<button class="action info"
-type="button"
+<button
+class="small-btn"
 onclick="toggleOwnerStock()">
+
 ▼ Minimize
+
 </button>
 
 </div>
@@ -685,14 +730,11 @@ onclick="toggleOwnerStock()">
 
 <div class="card">
 
-<div class="section-title">
-<h3>↩️ Sales Return Audit — Owner Only</h3>
-<span class="badge" id="returnCount">0</span>
-</div>
+<h3>↩️ Sales Return Audit</h3>
 
-<p class="note">
-Staff ne jo bhi Sales Return kiya hai, original sale delete kiye bina
-har return yahan date/time, quantity, amount aur reason ke saath dikhega.
+<p>
+Returns:
+<b id="returnCount">0</b>
 </p>
 
 <div id="ownerReturnList"></div>
@@ -701,68 +743,86 @@ har return yahan date/time, quantity, amount aur reason ke saath dikhega.
 
 <div class="card">
 
-<div class="section-title">
-<h3>🧾 Stock Activity Audit — Owner Only</h3>
-<span class="badge" id="activityCount">0</span>
-</div>
+<h3>📋 Activity Audit</h3>
 
-<p class="note">
-Sale, Stock In aur Sales Return ki activity ek timeline me.
+<p>
+Activities:
+<b id="activityCount">0</b>
 </p>
 
 <div id="ownerActivityList"></div>
 
 </div>
 
-<!-- SHOP BILL SETTINGS -->
+<div class="card">
+
+<h3>📊 Reports</h3>
+
+<p>
+Total Sales:
+<b id="reportSales">₹0</b>
+</p>
+
+<p>
+Purchase:
+<b id="reportPurchase">₹0</b>
+</p>
+
+<p>
+Bills:
+<b id="reportBills">0</b>
+</p>
+
+<p>
+Products:
+<b id="reportProducts">0</b>
+</p>
+
+</div>
 
 <div class="card">
 
-<div class="section-title">
-<h3>🧾 Bill & Shop Settings</h3>
-<span class="badge">Private</span>
-</div>
+<h3>🏪 Bill Settings</h3>
 
-<p class="note">
-Yahan se customer ke bill par dikhne wala
-Dukaan Name, Address aur Mobile Number set karein.
-Ye details Print aur WhatsApp Bill dono me jayengi.
-</p>
+<label>Shop Name</label>
 
-<label>🏪 Dukaan / Shop Name</label>
+<input
+id="ownerShopName"
+placeholder="Dukaan / Shop Name"
+oninput="updateShopSettingsPreview()">
 
-<input id="ownerShopName"
-placeholder="Example: Rakesh General Store"
-maxlength="80">
+<label>Shop Address</label>
 
-<label>📍 Dukaan Address</label>
-
-<textarea
+<input
 id="ownerShopAddress"
-placeholder="Example: Main Road, Chirkunda, Jharkhand"
-maxlength="200"
-style="width:100%;min-height:80px;padding:13px;margin:7px 0;border:1px solid #d0d5dd;border-radius:10px;font-size:15px;font-family:inherit;resize:vertical"
-></textarea>
+placeholder="Shop Address"
+oninput="updateShopSettingsPreview()">
 
-<label>📱 Dukaan Mobile Number</label>
+<label>Shop Mobile</label>
 
-<input id="ownerShopMobile"
+<input
+id="ownerShopMobile"
 type="tel"
-inputmode="numeric"
 maxlength="10"
-placeholder="10 digit shop mobile number">
+placeholder="10 digit shop mobile"
+oninput="updateShopSettingsPreview()">
 
-<div class="shop-contact">
-<b>📄 Bill par customer ko ye details dikhenge:</b>
-<br>
-<span id="shopSettingsPreview">Dukaan Saathi</span>
-</div>
+<div id="shopSettingsPreview" class="scan-result"></div>
 
 <label>Bill Type</label>
 
-<select id="ownerBillType" onchange="toggleGstSettings()">
-<option value="NORMAL">Normal Bill / Retail Receipt</option>
-<option value="GST">GST Tax Invoice</option>
+<select
+id="ownerBillType"
+onchange="toggleGstSettings()">
+
+<option value="NORMAL">
+Normal Bill / Retail Receipt
+</option>
+
+<option value="GST">
+GST Tax Invoice
+</option>
+
 </select>
 
 <div id="gstSettingsBox" class="hidden">
@@ -778,23 +838,28 @@ autocapitalize="characters">
 <label>GST Rate</label>
 
 <select id="ownerGstRate">
+
 <option value="0">0%</option>
 <option value="5">5%</option>
 <option value="12">12%</option>
 <option value="18">18%</option>
 <option value="28">28%</option>
+
 </select>
 
 <p class="note">
-GST bill me selling rate ko taxable value maana jayega
-aur tax alag dikhaya jayega.
+GST bill me selling rate ko taxable value maana jayega aur tax alag dikhaya jayega.
+GSTIN bharne par bill par GSTIN bhi dikhega.
 </p>
 
 </div>
 
-<button class="action primary"
+<button
+class="action primary"
 onclick="saveBillSettings()">
+
 💾 Save Bill Settings
+
 </button>
 
 <p id="billSettingsMsg"></p>
@@ -804,7 +869,10 @@ onclick="saveBillSettings()">
 <div class="card">
 
 <h3>🔒 Sensitive Information</h3>
-<p id="ownerSensitive">Purchase Cost: Protected</p>
+
+<p id="ownerSensitive">
+Purchase Cost: Protected
+</p>
 
 </div>
 
@@ -812,9 +880,12 @@ onclick="saveBillSettings()">
 
 <h3>⚙️ Owner Security</h3>
 
-<button class="action info"
+<button
+class="action info"
 onclick="openSecuritySettings()">
+
 🔐 Mobile / PIN / Recovery Settings
+
 </button>
 
 </div>
@@ -825,30 +896,34 @@ onclick="openSecuritySettings()">
 
 <nav class="nav">
 
-<button class="active"
-onclick="showPage('home',this)">
-<span>🏠</span>Home
+<button class="active" onclick="showPage('home',this)">
+<span>🏠</span>
+Home
 </button>
 
 <button onclick="showPage('sale',this)">
-<span>➕</span>Sale
+<span>➕</span>
+Sale
 </button>
 
 <button onclick="showPage('stock',this)">
-<span>📦</span>Stock
+<span>📦</span>
+Stock
 </button>
 
 <button onclick="showPage('customers',this)">
-<span>👥</span>Customer
+<span>👥</span>
+Customer
 </button>
 
 <button onclick="showPage('khaata',this)">
-<span>💳</span>Khaata
+<span>💳</span>
+Khaata
 </button>
 
 </nav>
 
-<!-- SCANNER -->
+<!-- Scanner -->
 
 <div class="modal" id="scannerModal">
 
@@ -856,50 +931,40 @@ onclick="showPage('home',this)">
 
 <div class="section-title">
 
-<h2>📷 Smart Barcode Scanner</h2>
+<h2>📷 Barcode Scanner</h2>
 
-<button class="back" onclick="closeScanner()">✕</button>
+<button class="back" onclick="closeScanner()">
+✕
+</button>
 
 </div>
 
 <p class="note">
-Camera ko barcode ke paas rakhein. Scanner autofocus, rear camera,
-high quality aur supported barcode formats ka use karega.
-Barcode thoda unclear ho to bhi maximum possible detection try karega.
+Camera ke liye browser/app ko camera permission deni hogi.
+GitHub Pages/HTTPS par camera normally work karta hai.
+Local <b>file://</b> link par camera block ho sakta hai.
 </p>
 
 <div id="cameraError" class="error"></div>
 
 <div id="reader"></div>
 
-<div class="scanner-status" id="scannerStatus">
-📷 Camera start ho raha hai...
-</div>
+<div class="form-row">
 
-<div class="scanner-tools">
-
-<button class="action info"
+<button
+class="action info"
 onclick="startScanner()">
-📷 Start / Retry
+
+📷 Start Camera
+
 </button>
 
-<button class="action warning"
+<button
+class="action warning"
 onclick="stopScanner()">
+
 ⏹ Stop
-</button>
 
-</div>
-
-<div class="scanner-tools">
-
-<button class="action"
-onclick="changeScannerZoom(-1)">
-➖ Zoom
-</button>
-
-<button class="action"
-onclick="changeScannerZoom(1)">
-➕ Zoom
 </button>
 
 </div>
@@ -913,15 +978,18 @@ id="manualBarcode"
 placeholder="Barcode number"
 inputmode="numeric">
 
-<button class="action primary"
+<button
+class="action primary"
 onclick="useManualBarcode()">
+
 ✔ Use Barcode
+
 </button>
 
 </div>
 </div>
 
-<!-- BILL -->
+<!-- Bill -->
 
 <div class="modal" id="billModal">
 
@@ -931,7 +999,13 @@ onclick="useManualBarcode()">
 
 <h2>🧾 Customer Bill</h2>
 
-<button class="back" onclick="closeBill()">✕</button>
+<button
+class="back"
+onclick="closeBill()">
+
+✕
+
+</button>
 
 </div>
 
@@ -944,19 +1018,28 @@ Bill WhatsApp karna optional hai.
 <b>Skip</b> karne par bhi sale record safe rahega.
 </p>
 
-<button class="action primary"
+<button
+class="action primary"
 onclick="sendBillWhatsApp()">
+
 📱 WhatsApp Bill
+
 </button>
 
-<button class="action warning"
+<button
+class="action warning"
 onclick="skipBill()">
+
 ⏭️ Skip WhatsApp & Save
+
 </button>
 
-<button class="action"
+<button
+class="action"
 onclick="printBill()">
+
 🖨️ Print Bill
+
 </button>
 
 <p id="billError" class="error"></p>
@@ -964,7 +1047,7 @@ onclick="printBill()">
 </div>
 </div>
 
-<!-- PRODUCT -->
+<!-- Product modal -->
 
 <div class="modal" id="productModal">
 
@@ -974,88 +1057,105 @@ onclick="printBill()">
 
 <h2>➕ Add Product</h2>
 
-<button class="back"
+<button
+class="back"
 onclick="closeModal('productModal')">
+
 ✕
+
 </button>
 
 </div>
 
-<div class="note"
+<div
+class="note"
 style="background:#eef8f2;border-radius:16px;padding:12px;margin-bottom:12px">
 
-<b>Product kaise add karein?</b>
+<b>Product Add Karein</b>
+
 <br>
-📷 Barcode scan karke details auto-fill karein,
-ya ✍️ barcode ke bina manually product add karein.
+
+📷 Barcode scan karke online details auto-fill karein,
+ya ✍️ barcode ke bina manually add karein.
 
 </div>
 
-<div class="form-row"
-style="margin-bottom:10px">
+<div class="form-row">
 
-<button type="button"
+<button
+type="button"
 class="action info"
 onclick="openScanner('product')">
+
 📷 Scan Barcode
+
 </button>
 
-<button type="button"
+<button
+type="button"
 class="action"
 onclick="document.getElementById('pName').focus()">
+
 ✍️ Manual Add
+
 </button>
 
 </div>
 
 <label>Product Name *</label>
 
-<input id="pName"
+<input
+id="pName"
 placeholder="Example: Surf Excel / Aata / Rin Soap">
 
-<label>Barcode <span class="note">(optional)</span></label>
+<label>
+Barcode <span class="note">(optional)</span>
+</label>
 
 <div class="barcode-row">
 
-<input id="pBarcode"
-placeholder="Barcode number — optional"
+<input
+id="pBarcode"
+placeholder="Barcode number"
 inputmode="numeric">
 
-<button type="button"
+<button
+type="button"
 class="action info barcode-camera"
 onclick="openScanner('product')">
+
 📷
+
 </button>
 
 </div>
 
-<button type="button"
-class="action info barcode-details"
+<button
+type="button"
+class="action info"
+style="width:100%"
 onclick="findProductBarcodeDetails()">
+
 🌐 Barcode Details Find Karein
+
 </button>
 
 <p id="productLookupMsg" class="note"></p>
+
+<label>Size / Pack</label>
+
+<input
+id="pSize"
+placeholder="Example: 750ml / 1kg / 10 pcs">
 
 <div class="form-row">
 
 <div>
 
-<label>Selling Rate ₹ *</label>
+<label>MRP ₹</label>
 
-<input id="pSell"
-type="number"
-min="0"
-step="0.01"
-placeholder="Selling price">
-
-</div>
-
-<div>
-
-<label>MRP ₹ <span class="note">(optional)</span></label>
-
-<input id="pMrp"
+<input
+id="pMrp"
 type="number"
 min="0"
 step="0.01"
@@ -1063,19 +1163,33 @@ placeholder="MRP">
 
 </div>
 
+<div>
+
+<label>Selling Price ₹ *</label>
+
+<input
+id="pSell"
+type="number"
+min="0"
+step="0.01"
+placeholder="Selling price">
+
+</div>
+
 </div>
 
 <div class="form-row">
 
 <div>
 
-<label>Quantity</label>
+<label>Opening Quantity</label>
 
-<input id="pStock"
+<input
+id="pStock"
 type="number"
 min="0"
 step="0.001"
-placeholder="Opening quantity">
+placeholder="Quantity">
 
 </div>
 
@@ -1084,50 +1198,73 @@ placeholder="Opening quantity">
 <label>Unit</label>
 
 <select id="pUnit">
-<option>pcs</option>
-<option>packet</option>
-<option>box</option>
-<option>kg</option>
-<option>gram</option>
-<option>litre</option>
-<option>ml</option>
+
+<option value="pcs">pcs</option>
+<option value="packet">packet</option>
+<option value="box">box</option>
+<option value="bottle">bottle</option>
+<option value="kg">kg</option>
+<option value="gram">gram</option>
+<option value="litre">litre</option>
+<option value="ml">ml</option>
+<option value="dozen">dozen</option>
+<option value="pair">pair</option>
+<option value="set">set</option>
+
 </select>
 
 </div>
 
 </div>
 
-<label>Purchase Rate ₹ <span class="note">(Owner)</span></label>
+<div class="form-row">
 
-<input id="pPurchase"
+<div>
+
+<label>
+Purchase Rate ₹
+<span class="note">(optional)</span>
+</label>
+
+<input
+id="pPurchase"
 type="number"
 min="0"
 step="0.01"
-placeholder="Purchase price">
+placeholder="Owner purchase rate">
 
-<label>Size / Pack</label>
+</div>
 
-<input id="pSize"
-placeholder="Example: 5 kg / 100 g">
+<div>
 
-<label>Low Stock Alert</label>
+<label>🔴 Low Stock Alert</label>
 
-<input id="pMin"
+<input
+id="pMin"
 type="number"
 min="0"
 step="0.001"
-value="10">
+value="10"
+placeholder="Example: 10">
+
+</div>
+
+</div>
 
 <p class="note">
-Purchase rate staff/customer ke normal product view me kabhi nahi dikhaya jayega.
-Owner login ke baad hi enter/update hoga.
+💡 Selling Price zaroori hai.
+Purchase Rate optional hai.
+Low Stock Alert par stock is quantity ke barabar ya kam hone par alert dikhega.
 </p>
 
 <div id="ownerPurchaseField" class="hidden"></div>
 
-<button class="action primary"
+<button
+class="action primary"
 onclick="saveProduct()">
+
 💾 Save Product
+
 </button>
 
 <p id="productMsg"></p>
@@ -1135,7 +1272,7 @@ onclick="saveProduct()">
 </div>
 </div>
 
-<!-- CUSTOMER -->
+<!-- Customer modal -->
 
 <div class="modal" id="customerModal">
 
@@ -1145,21 +1282,28 @@ onclick="saveProduct()">
 
 <h2>👤 Add Customer</h2>
 
-<button class="back"
+<button
+class="back"
 onclick="closeModal('customerModal')">
+
 ✕
+
 </button>
 
 </div>
 
 <label>Name</label>
-<input id="cName" placeholder="Customer name">
+
+<input
+id="cName"
+placeholder="Customer name">
 
 <label>WhatsApp / Mobile</label>
-<input id="cPhone"
+
+<input
+id="cPhone"
 type="tel"
 maxlength="10"
-inputmode="numeric"
 placeholder="10 digit number">
 
 <label>Reminder Timeline</label>
@@ -1175,19 +1319,24 @@ placeholder="10 digit number">
 
 <div id="customDateBox" class="hidden">
 
-<input id="cDate" type="date">
+<input
+id="cDate"
+type="date">
 
 </div>
 
-<button class="action primary"
+<button
+class="action primary"
 onclick="saveCustomer()">
+
 💾 Save Customer
+
 </button>
 
 </div>
 </div>
 
-<!-- RETURN -->
+<!-- Sales Return -->
 
 <div class="modal" id="returnModal">
 
@@ -1197,9 +1346,12 @@ onclick="saveCustomer()">
 
 <h2>↩️ Sales Return</h2>
 
-<button class="back"
+<button
+class="back"
 onclick="closeModal('returnModal')">
+
 ✕
+
 </button>
 
 </div>
@@ -1211,17 +1363,20 @@ Return hone par stock wapas add hoga aur Owner ke separate Return Audit me perma
 
 <label>Sale Select Karein</label>
 
-<select id="returnSale"
+<select
+id="returnSale"
 onchange="showReturnSaleInfo()">
 </select>
 
-<div id="returnSaleInfo"
+<div
+id="returnSaleInfo"
 class="scan-result hidden">
 </div>
 
 <label>Return Quantity</label>
 
-<input id="returnQty"
+<input
+id="returnQty"
 type="number"
 min="0.001"
 step="0.001"
@@ -1229,18 +1384,24 @@ placeholder="Quantity">
 
 <label>Return Reason</label>
 
-<input id="returnReason"
+<input
+id="returnReason"
 placeholder="Example: Customer ne product wapas kiya">
 
-<button class="action warning"
+<button
+class="action warning"
 onclick="saveSalesReturn()">
+
 ↩️ Save Sales Return
+
 </button>
 
 <p id="returnMsg"></p>
 
 </div>
-</div><!-- OWNER LOGIN -->
+</div>
+
+<!-- Owner -->
 
 <div class="modal" id="ownerModal">
 
@@ -1250,42 +1411,60 @@ onclick="saveSalesReturn()">
 
 <h2>🔐 Owner Login</h2>
 
-<button class="back" onclick="closeOwner()">✕</button>
+<button
+class="back"
+onclick="closeOwner()">
+
+✕
+
+</button>
 
 </div>
 
 <div id="loginNormalBox">
 
-<p>Owner Mobile Number aur PIN se login karein.</p>
+<p>
+Owner Mobile Number aur PIN se login karein.
+</p>
 
 <label>Owner Mobile Number</label>
 
-<input id="loginMobile"
+<input
+id="loginMobile"
 type="tel"
 maxlength="10"
-inputmode="numeric"
 placeholder="10 digit mobile number">
 
 <label>Owner PIN</label>
 
-<input id="ownerPin"
+<input
+id="ownerPin"
 type="password"
 maxlength="6"
 placeholder="PIN">
 
-<button class="action primary"
+<button
+class="action primary"
 onclick="loginOwner()">
+
 🔓 Login
+
 </button>
 
-<button class="list-btn"
+<button
+class="list-btn"
 onclick="showChangePinBox()">
+
 🔑 Change PIN
+
 </button>
 
-<button class="list-btn"
+<button
+class="list-btn"
 onclick="showRecoveryBox()">
+
 📱 Mobile Number nahi hai / Recovery
+
 </button>
 
 <p id="pinError" class="error"></p>
@@ -1296,33 +1475,43 @@ onclick="showRecoveryBox()">
 
 <h3>🔑 Change Owner PIN</h3>
 
-<input id="changeMobile"
+<input
+id="changeMobile"
 maxlength="10"
 placeholder="Current mobile number">
 
-<input id="oldPin"
+<input
+id="oldPin"
 type="password"
 maxlength="6"
 placeholder="Current PIN">
 
-<input id="newPin"
+<input
+id="newPin"
 type="password"
 maxlength="6"
 placeholder="New PIN">
 
-<input id="newPinConfirm"
+<input
+id="newPinConfirm"
 type="password"
 maxlength="6"
 placeholder="Confirm New PIN">
 
-<button class="action primary"
+<button
+class="action primary"
 onclick="changePin()">
+
 💾 Change PIN
+
 </button>
 
-<button class="list-btn"
+<button
+class="list-btn"
 onclick="backToLoginBox()">
+
 ← Back
+
 </button>
 
 <p id="changePinError" class="error"></p>
@@ -1340,23 +1529,31 @@ Alternative Recovery Code se Owner account recover karein.
 <div class="recovery">
 
 <b>Important:</b>
+
 Recovery Code safe jagah rakhein.
 Browser data delete hone par local data delete ho sakta hai.
 
 </div>
 
-<input id="recoveryCodeInput"
+<input
+id="recoveryCodeInput"
 type="password"
 placeholder="Recovery Code">
 
-<button class="action primary"
+<button
+class="action primary"
 onclick="recoverOwner()">
+
 🔓 Recover Owner
+
 </button>
 
-<button class="list-btn"
+<button
+class="list-btn"
 onclick="backToLoginBox()">
+
 ← Back
+
 </button>
 
 <p id="recoveryError" class="error"></p>
@@ -1366,7 +1563,7 @@ onclick="backToLoginBox()">
 </div>
 </div>
 
-<!-- OWNER SETUP -->
+<!-- Setup -->
 
 <div class="modal" id="setupModal">
 
@@ -1384,80 +1581,67 @@ onclick="backToLoginBox()">
 
 <label>Owner Mobile Number</label>
 
-<input id="setupMobile"
+<input
+id="setupMobile"
 type="tel"
 maxlength="10"
-inputmode="numeric"
 placeholder="10 digit mobile number">
 
 <label>Owner PIN</label>
 
-<input id="setupPin"
+<input
+id="setupPin"
 type="password"
 maxlength="6"
 placeholder="4-6 digit PIN">
 
 <label>Confirm PIN</label>
 
-<input id="setupPinConfirm"
+<input
+id="setupPinConfirm"
 type="password"
 maxlength="6"
 placeholder="Confirm PIN">
 
 <label>Recovery Code</label>
 
-<input id="setupRecovery"
+<input
+id="setupRecovery"
 placeholder="Example: DS-4829-HELP">
 
 <p class="note">
 Recovery Code aap khud set karein aur safe jagah likhkar rakhein.
 </p>
 
-<button class="action primary"
+<button
+class="action primary"
 onclick="setupOwner()">
+
 🔐 Secure Dukaan
+
 </button>
 
 <p id="setupError" class="error"></p>
 
 </div>
-</div>
-
-<script>
+</div><script>
 
 const KEY={
 products:"ds_products_v2",
 sales:"ds_sales_v2",
 customers:"ds_customers_v2",
-owner:"ds_owner_v2",
-stockIn:"ds_stockin_v2",
-returns:"ds_salesreturn_v2",
-settings:"ds_bill_settings_v2"
+owner:"ds_owner_v2"
 };
-
-let billSettings=load(KEY.settings,{
-shopName:"Dukaan Saathi",
-shopAddress:"",
-shopMobile:"",
-billType:"NORMAL",
-gstin:"",
-gstRate:0
-});
 
 let products=load(KEY.products,[]);
 let sales=load(KEY.sales,[]);
 let customers=load(KEY.customers,[]);
-let stockIn=load(KEY.stockIn,[]);
-let salesReturns=load(KEY.returns,[]);
 
-let scanner=null;
-let scannerTarget="sale";
-let scannerRunning=false;
-let ownerUnlocked=false;
-let pendingBill=null;
-let saleCart=[];
-let barcodeLookupCache=null;
-let scannerZoom=1;
+let scanner=null,
+scannerTarget="sale",
+scannerRunning=false,
+ownerUnlocked=false,
+pendingBill=null;
 
 function load(k,f){
 try{
@@ -1477,20 +1661,6 @@ maximumFractionDigits:2
 })
 }
 
-function formatDateTime(v){
-const d=new Date(v);
-if(isNaN(d))return "-";
-
-return d.toLocaleString("en-IN",{
-day:"2-digit",
-month:"2-digit",
-year:"numeric",
-hour:"2-digit",
-minute:"2-digit",
-hour12:true
-})
-}
-
 function esc(s){
 return String(s??"").replace(/[&<>"']/g,m=>({
 "&":"&amp;",
@@ -1506,7 +1676,8 @@ function showPage(id,btn){
 document.querySelectorAll(".page")
 .forEach(x=>x.classList.remove("active"));
 
-document.getElementById(id).classList.add("active");
+document.getElementById(id)
+.classList.add("active");
 
 if(btn){
 
@@ -1534,427 +1705,239 @@ function closeModal(id){
 document.getElementById(id).classList.remove("show")
 }
 
+
 /* =========================
-   SMART BARCODE SCANNER
+   BARCODE SCANNER
 ========================= */
 
 function openScanner(target){
 
-scannerTarget=target||"sale";
-scannerZoom=1;
+scannerTarget=target;
 
-const err=document.getElementById("cameraError");
-const reader=document.getElementById("reader");
-const status=document.getElementById("scannerStatus");
-const manual=document.getElementById("manualBarcode");
+const err=
+document.getElementById("cameraError");
 
-if(err)err.textContent="";
-if(manual)manual.value="";
+err.textContent="";
 
-if(reader){
+document.getElementById(
+"manualBarcode"
+).value="";
 
-reader.innerHTML=
-'<div style="color:#fff;text-align:center;padding:85px 10px;font-size:16px">'+
-'📷 Camera prepare ho raha hai…</div>';
-
-}
-
-if(status){
-status.textContent="📷 High-quality camera start ho raha hai…";
-}
+document.getElementById(
+"reader"
+).innerHTML="";
 
 openModal("scannerModal");
-
-setTimeout(()=>{
-startScanner()
-},450);
 
 }
 
 async function startScanner(){
 
-if(scannerRunning)return;
-
-const err=document.getElementById("cameraError");
-const reader=document.getElementById("reader");
-const status=document.getElementById("scannerStatus");
-
-if(!err||!reader)return;
+const err=
+document.getElementById("cameraError");
 
 err.textContent="";
-scannerRunning=false;
 
-if(status){
-status.textContent="📷 Camera permission mangi ja rahi hai…";
-}
-
-if(!window.isSecureContext||location.protocol!=="https:"){
-
-err.textContent=
-"⚠️ Camera ke liye GitHub Pages ka HTTPS link use karein. Chrome me file:// se camera nahi chalega.";
-
-return;
-}
-
-if(!navigator.mediaDevices||
-!navigator.mediaDevices.getUserMedia){
-
-err.textContent=
-"❌ Is browser me camera access available nahi hai. Chrome me HTTPS GitHub Pages link kholen.";
-
-return;
-}
+if(scannerRunning)return;
 
 if(!window.Html5Qrcode){
 
 err.textContent=
-"❌ Barcode Scanner library load nahi hui. Internet ON karke page refresh karein.";
+"❌ Scanner library load nahi hui. Internet ON karke page refresh karein.";
 
 return;
+
+}
+
+if(
+!window.isSecureContext &&
+location.hostname!=="localhost" &&
+location.hostname!=="127.0.0.1"
+){
+
+err.textContent=
+"⚠️ Camera ke liye HTTPS zaroori hai. GitHub Pages ka https:// link hi open karein.";
+
+return;
+
 }
 
 try{
 
 if(scanner){
 
-try{await scanner.stop()}catch(e){}
-try{scanner.clear()}catch(e){}
+try{
+await scanner.stop()
+}catch(e){}
+
+try{
+scanner.clear()
+}catch(e){}
 
 scanner=null;
 
 }
 
-reader.innerHTML="";
+document.getElementById(
+"reader"
+).innerHTML="";
 
-scanner=new Html5Qrcode("reader");
+scanner=
+new Html5Qrcode(
+"reader",
+{verbose:false}
+);
 
-let formats=[];
 
-try{
+/* Rear camera */
 
-const F=Html5QrcodeSupportedFormats;
+await scanner.start(
 
-formats=[
-F.EAN_13,
-F.EAN_8,
-F.UPC_A,
-F.UPC_E,
-F.CODE_128,
-F.CODE_39,
-F.CODE_93,
-F.ITF,
-F.CODABAR
-].filter(Boolean);
+{facingMode:{exact:"environment"}},
 
-}catch(e){}
+{
+fps:12,
 
-const config={
+qrbox:function(
+viewfinderWidth,
+viewfinderHeight
+){
 
-fps:15,
+const w=
+Math.min(
+viewfinderWidth*0.82,
+320
+);
 
-qrbox:function(viewfinderWidth,viewfinderHeight){
-
-let width=Math.floor(viewfinderWidth*0.92);
-
-let height=Math.min(
-220,
-Math.floor(viewfinderHeight*0.48)
+const h=
+Math.min(
+viewfinderHeight*0.42,
+180
 );
 
 return{
-width:Math.max(250,width),
-height:Math.max(120,height)
+width:Math.max(220,w),
+height:Math.max(120,h)
 };
 
 },
 
-aspectRatio:1.7777778,
+aspectRatio:1.777
 
-disableFlip:true,
-
-videoConstraints:{
-facingMode:{
-ideal:"environment"
 },
-width:{
-ideal:1920
-},
-height:{
-ideal:1080
-},
-frameRate:{
-ideal:30,
-max:60
-}
-}
 
-};
-
-if(formats.length){
-config.formatsToSupport=formats;
-}
-
-await scanner.start(
-{facingMode:{ideal:"environment"}},
-config,
 onScanSuccess,
-()=>{}
+
+function(errorMessage){}
+
 );
 
 scannerRunning=true;
-
-if(status){
-status.textContent=
-"✅ Camera ready. Barcode ko box ke andar rakhein.";
-}
-
-err.textContent="";
-
-setTimeout(()=>{
-optimizeCameraTrack()
-},700);
-
-}catch(firstError){
-
-try{
-
-const cameras=await Html5Qrcode.getCameras();
-
-if(!cameras||!cameras.length){
-throw firstError;
-}
-
-const cam=
-cameras.find(c=>
-/back|rear|environment|camera 0/i.test(c.label)
-)||cameras[0];
-
-if(scanner){
-
-try{await scanner.stop()}catch(e){}
-try{scanner.clear()}catch(e){}
-
-}
-
-reader.innerHTML="";
-
-scanner=new Html5Qrcode("reader");
-
-const config={
-fps:15,
-qrbox:{
-width:Math.min(
-Math.floor(window.innerWidth*.86),
-420
-),
-height:180
-},
-aspectRatio:1.7777778,
-disableFlip:true,
-videoConstraints:{
-width:{ideal:1920},
-height:{ideal:1080},
-frameRate:{ideal:30,max:60}
-}
-};
-
-try{
-
-const F=Html5QrcodeSupportedFormats;
-
-config.formatsToSupport=[
-F.EAN_13,
-F.EAN_8,
-F.UPC_A,
-F.UPC_E,
-F.CODE_128,
-F.CODE_39,
-F.ITF,
-F.CODABAR
-].filter(Boolean);
-
-}catch(e){}
-
-await scanner.start(
-cam.id,
-config,
-onScanSuccess,
-()=>{}
-);
-
-scannerRunning=true;
-
-if(status){
-status.textContent=
-"✅ Rear camera ready. Barcode scan karein.";
-}
-
-setTimeout(()=>{
-optimizeCameraTrack()
-},700);
 
 }catch(e){
 
 scannerRunning=false;
 
+
+/* Fallback camera */
+
 try{
-if(scanner)scanner.clear()
+
+if(scanner){
+
+try{
+scanner.clear()
 }catch(x){}
 
-scanner=null;
-
-let msg="❌ Camera start nahi hua.";
-
-if(e&&e.name==="NotAllowedError"){
-
-msg=
-"❌ Camera permission blocked hai. Chrome → Site Settings → Camera → Allow karein.";
-
-}else if(e&&e.name==="NotReadableError"){
-
-msg=
-"❌ Camera kisi aur app me use ho raha hai. WhatsApp/Camera/Instagram band karke dobara try karein.";
-
-}else if(e&&e.name==="NotFoundError"){
-
-msg="❌ Camera device nahi mila.";
-
 }
 
-err.textContent=
-msg+" Manual Barcode option bhi available hai.";
+document.getElementById(
+"reader"
+).innerHTML="";
 
-if(status){
-status.textContent="⚠️ Camera start failed.";
-}
-
-}
-
-}
-
-}
-
-async function optimizeCameraTrack(){
-
-try{
-
-const video=document.querySelector("#reader video");
-
-if(!video)return;
-
-const stream=video.srcObject;
-
-if(!stream)return;
-
-const tracks=stream.getVideoTracks();
-
-if(!tracks.length)return;
-
-const track=tracks[0];
-
-const caps=
-typeof track.getCapabilities==="function"
-?track.getCapabilities()
-:{};
-
-const constraints={};
-
-if(caps.focusMode){
-
-if(caps.focusMode.includes("continuous")){
-constraints.focusMode="continuous";
-}
-
-}
-
-if(caps.zoom){
-
-let z=Number(caps.zoom.min||1);
-
-if(caps.zoom.max){
-
-z=Math.min(
-Number(caps.zoom.max),
-Math.max(
-Number(caps.zoom.min||1),
-1.5
-)
+scanner=
+new Html5Qrcode(
+"reader",
+{verbose:false}
 );
 
+await scanner.start(
+
+{facingMode:"environment"},
+
+{
+fps:12,
+qrbox:{
+width:280,
+height:150
 }
+},
 
-scannerZoom=z;
+onScanSuccess,
 
-constraints.zoom=z;
+function(errorMessage){}
 
-}
+);
 
-if(Object.keys(constraints).length){
-
-await track.applyConstraints(constraints);
-
-}
-
-}catch(e){}
-
-}
-
-async function changeScannerZoom(direction){
-
-try{
-
-const video=document.querySelector("#reader video");
-
-if(!video){
-
-document.getElementById("cameraError").textContent=
-"Camera abhi ready nahi hai.";
+scannerRunning=true;
 
 return;
 
+}catch(e2){
+
+scannerRunning=false;
+
+let msg=
+"❌ Camera start nahi hua.";
+
+const text=
+String(
+e2?.message||
+e2||
+e
+).toLowerCase();
+
+if(
+text.includes("permission")||
+text.includes("notallowed")||
+text.includes("denied")
+){
+
+msg=
+"❌ Camera permission blocked hai. Browser ke 🔒 site settings me Camera = Allow karein, phir page refresh karke Start Camera dabayein.";
+
 }
 
-const stream=video.srcObject;
+else if(
+text.includes("notfound")||
+text.includes("camera device")
+){
 
-if(!stream)return;
-
-const track=stream.getVideoTracks()[0];
-
-if(!track)return;
-
-const caps=track.getCapabilities();
-
-if(!caps.zoom){
-
-document.getElementById("cameraError").textContent=
-"Is camera me manual zoom support available nahi hai.";
-
-return;
+msg=
+"❌ Camera device nahi mila. Phone ka normal Camera app band karke dobara try karein.";
 
 }
 
-let current=scannerZoom||caps.zoom.min||1;
+else if(
+text.includes("secure")||
+text.includes("https")
+){
 
-let next=current+(direction>0?0.5:-0.5);
+msg=
+"⚠️ HTTPS par page open karein. GitHub Pages ka https:// address use karein.";
 
-next=Math.max(
-caps.zoom.min,
-Math.min(caps.zoom.max,next)
-);
+}
 
-await track.applyConstraints({
-advanced:[{zoom:next}]
-});
+else{
 
-scannerZoom=next;
+msg=
+"❌ Camera start nahi hua. Camera permission Allow karein, normal Camera app band karein aur phir Start Camera dabayein.";
 
-document.getElementById("scannerStatus").textContent=
-"🔍 Camera Zoom: "+next.toFixed(1)+"×";
+}
 
-}catch(e){
+err.textContent=msg;
 
-document.getElementById("cameraError").textContent=
-"Camera zoom change nahi ho saka.";
+}
 
 }
 
@@ -1962,33 +1945,45 @@ document.getElementById("cameraError").textContent=
 
 function onScanSuccess(decodedText){
 
-if(!decodedText||!scannerRunning)return;
+if(!decodedText)return;
 
-const code=String(decodedText).trim();
+const code=
+String(decodedText).trim();
 
 if(!code)return;
 
+
+/* Duplicate scan ko ignore karein */
+
+if(scannerRunning)
+stopScanner();
+
+
 if(scannerTarget==="sale"){
 
-document.getElementById("saleBarcode").value=code;
+document.getElementById(
+"saleBarcode"
+).value=code;
+
 findSaleBarcode();
 
 }
 
 else if(scannerTarget==="stock"){
 
-document.getElementById("stockBarcode").value=code;
-findStockBarcode();
+document.getElementById(
+"stockBarcode"
+).value=code;
 
-if(!productByBarcode(code)){
-lookupBarcodeForStock(code);
-}
+findStockBarcode();
 
 }
 
 else if(scannerTarget==="product"){
 
-document.getElementById("pBarcode").value=code;
+document.getElementById(
+"pBarcode"
+).value=code;
 
 closeScanner();
 
@@ -2004,23 +1999,22 @@ closeScanner();
 
 async function stopScanner(){
 
-if(scanner&&scannerRunning){
+if(scanner){
 
 try{
-await scanner.stop()
+
+if(scannerRunning)
+await scanner.stop();
+
 }catch(e){}
-
-}
-
-scannerRunning=false;
-
-if(scanner){
 
 try{
 scanner.clear()
 }catch(e){}
 
 }
+
+scannerRunning=false;
 
 scanner=null;
 
@@ -2037,11 +2031,15 @@ closeModal("scannerModal");
 function useManualBarcode(){
 
 const code=
-document.getElementById("manualBarcode").value.trim();
+document.getElementById(
+"manualBarcode"
+).value.trim();
 
 if(!code){
 
-document.getElementById("cameraError").textContent=
+document.getElementById(
+"cameraError"
+).textContent=
 "Barcode number dalein.";
 
 return;
@@ -2050,25 +2048,29 @@ return;
 
 if(scannerTarget==="sale"){
 
-document.getElementById("saleBarcode").value=code;
+document.getElementById(
+"saleBarcode"
+).value=code;
+
 findSaleBarcode();
 
 }
 
 else if(scannerTarget==="stock"){
 
-document.getElementById("stockBarcode").value=code;
-findStockBarcode();
+document.getElementById(
+"stockBarcode"
+).value=code;
 
-if(!productByBarcode(code)){
-lookupBarcodeForStock(code);
-}
+findStockBarcode();
 
 }
 
 else if(scannerTarget==="product"){
 
-document.getElementById("pBarcode").value=code;
+document.getElementById(
+"pBarcode"
+).value=code;
 
 closeScanner();
 
@@ -2082,6 +2084,7 @@ closeScanner();
 
 }
 
+
 /* =========================
    PRODUCTS
 ========================= */
@@ -2089,15 +2092,24 @@ closeScanner();
 function renderProducts(){
 
 const q=
-(document.getElementById("stockSearch")?.value||"")
-.toLowerCase();
+(
+document.getElementById(
+"stockSearch"
+)?.value||""
+).toLowerCase();
 
-const list=products.filter(p=>
+const list=
+products.filter(p=>
 p.name.toLowerCase().includes(q)||
-String(p.barcode||"").includes(q)
+String(
+p.barcode||""
+).includes(q)
 );
 
-document.getElementById("productList").innerHTML=
+document.getElementById(
+"productList"
+).innerHTML=
+
 list.length?
 
 list.map(p=>`
@@ -2111,8 +2123,10 @@ ${esc(p.name)}
 </div>
 
 <small>
-Barcode: ${esc(p.barcode||"Not Added")}
-· ${esc(p.unit)}
+Barcode:
+${esc(p.barcode||"Not Added")}
+·
+${esc(p.unit)}
 </small>
 
 <br>
@@ -2123,15 +2137,24 @@ Sale ${money(p.sell)}
 
 ·
 
-<span class="${p.stock<=p.min?"low":""}">
-${p.stock} ${esc(p.unit)}
+<span class="${
+p.stock<=p.min
+?"low":""
+}">
+
+${p.stock}
+${esc(p.unit)}
+
 </span>
 
 </div>
 
-<button class="small-btn"
+<button
+class="small-btn"
 onclick="editProduct('${p.id}')">
+
 Edit
+
 </button>
 
 </div>
@@ -2144,122 +2167,27 @@ Edit
 
 }
 
-function refreshSaleSelect(query=""){
-filterSaleProductList(query)
-}
+function refreshSaleSelect(){
 
-function openSaleProductList(){
-
-const el=
-document.getElementById("saleProductList");
-
-if(!el)return;
-
-el.classList.remove("hidden");
-
-filterSaleProductList(
-document.getElementById("saleProductSearch").value||""
+const s=
+document.getElementById(
+"saleProduct"
 );
 
-}
+s.innerHTML=
+'<option value="">Product select karein</option>'+
 
-function filterSaleProductList(query=""){
+products.map(p=>`
 
-const el=
-document.getElementById("saleProductList");
-
-if(!el)return;
-
-const q=
-String(query||"").trim().toLowerCase();
-
-const list=products.filter(p=>
-p.name.toLowerCase().includes(q)||
-String(p.barcode||"").toLowerCase().includes(q)
-);
-
-el.innerHTML=
-
-list.length?
-
-list.map(p=>`
-
-<button type="button"
-class="product-option"
-onclick="chooseSaleProduct('${String(p.id).replace(/'/g,"\\'")}')">
-
-<b>${esc(p.name)}</b>
-
-<span>
+<option value="${p.id}">
+${esc(p.name)}
+—
 ${money(p.sell)}
-· Stock: ${p.stock} ${esc(p.unit)}
-</span>
+</option>
 
-</button>
-
-`).join("")
-
-:
-
-'<div class="product-option-empty">Product nahi mila.</div>';
-
-el.classList.remove("hidden");
+`).join("");
 
 }
-
-function chooseSaleProduct(id){
-
-const p=products.find(x=>x.id===id);
-
-if(!p)return;
-
-document.getElementById("saleProduct").value=p.id;
-
-document.getElementById("saleProductSearch").value=
-`${p.name} — ${money(p.sell)}`;
-
-showProductInfo(p,"saleProductInfo");
-
-updateSaleAmount();
-
-const el=
-document.getElementById("saleProductList");
-
-if(el)el.classList.add("hidden");
-
-document.getElementById("saleProductSearch").blur();
-
-}
-
-function selectSaleProductFromSearch(value){
-
-const v=String(value||"").trim().toLowerCase();
-
-const p=products.find(x=>
-x.name.toLowerCase()===v||
-String(x.barcode||"").toLowerCase()===v
-);
-
-if(p)chooseSaleProduct(p.id);
-else filterSaleProductList(value);
-
-}
-
-document.addEventListener("click",function(e){
-
-const picker=
-document.querySelector(".product-picker");
-
-if(picker&&!picker.contains(e.target)){
-
-const el=
-document.getElementById("saleProductList");
-
-if(el)el.classList.add("hidden");
-
-}
-
-});
 
 function productByBarcode(code){
 
@@ -2272,11 +2200,13 @@ String(code).trim()
 
 function showProductInfo(p,target){
 
-const el=document.getElementById(target);
+const el=
+document.getElementById(target);
 
 if(!p){
 
 el.classList.add("hidden");
+
 return;
 
 }
@@ -2287,19 +2217,16 @@ el.innerHTML=`
 
 <b>${esc(p.name)}</b>
 
-${p.size?
-`<br>Size/Pack: ${esc(p.size)}`
-:""}
-
 <br>
 
-Sale Price: ${money(p.sell)}
+Sale Price:
+${money(p.sell)}
 
-${Number(p.mrp||0)>0?
-` · MRP: ${money(p.mrp)}`
-:""}
+·
 
- · Stock: ${p.stock} ${esc(p.unit)}
+Stock:
+${p.stock}
+${esc(p.unit)}
 
 `;
 
@@ -2309,30 +2236,36 @@ function findSaleBarcode(){
 
 const p=
 productByBarcode(
-document.getElementById("saleBarcode").value
+document.getElementById(
+"saleBarcode"
+).value
 );
 
 if(!p){
 
-document.getElementById("saleProductInfo")
-.classList.remove("hidden");
+document.getElementById(
+"saleProductInfo"
+).classList.remove("hidden");
 
-document.getElementById("saleProductInfo").innerHTML=
+document.getElementById(
+"saleProductInfo"
+).innerHTML=
 "❌ Product nahi mila. Pehle Stock me barcode ke saath Product Add karein.";
 
 return;
 
 }
 
-const ps=
-document.getElementById("saleProductSearch");
+document.getElementById(
+"saleProduct"
+).value=p.id;
 
-if(ps)
-ps.value=p.name+" — "+money(p.sell);
+showProductInfo(
+p,
+"saleProductInfo"
+);
 
-refreshSaleSelect(p.name);
-
-chooseSaleProduct(p.id);
+updateSaleAmount();
 
 }
 
@@ -2340,23 +2273,35 @@ function findStockBarcode(){
 
 const p=
 productByBarcode(
-document.getElementById("stockBarcode").value
+document.getElementById(
+"stockBarcode"
+).value
 );
 
 if(!p){
 
-showProductInfo(null,"stockProductInfo");
+showProductInfo(
+null,
+"stockProductInfo"
+);
 
-document.getElementById("stockMsg").innerHTML=
+document.getElementById(
+"stockMsg"
+).innerHTML=
 '<span class="error">❌ Product nahi mila. Product Add karein.</span>';
 
 return;
 
 }
 
-showProductInfo(p,"stockProductInfo");
+showProductInfo(
+p,
+"stockProductInfo"
+);
 
-document.getElementById("stockMsg").textContent=
+document.getElementById(
+"stockMsg"
+).textContent=
 "Product mil gaya. Quantity aur Owner purchase rate enter karein.";
 
 }
@@ -2365,15 +2310,24 @@ function updateSaleAmount(){
 
 const p=
 products.find(x=>
-x.id===document.getElementById("saleProduct").value
+x.id===
+document.getElementById(
+"saleProduct"
+).value
 );
 
 const qty=
-Number(document.getElementById("saleQty").value||0);
+Number(
+document.getElementById(
+"saleQty"
+).value||0
+);
 
 if(p&&qty>0){
 
-document.getElementById("saleAmount").value=
+document.getElementById(
+"saleAmount"
+).value=
 (Number(p.sell)||0)*qty;
 
 }
@@ -2384,1672 +2338,176 @@ function showSelectedProduct(){
 
 const p=
 products.find(x=>
-x.id===document.getElementById("saleProduct").value
+x.id===
+document.getElementById(
+"saleProduct"
+).value
 );
 
 if(p){
 
-showProductInfo(p,"saleProductInfo");
+showProductInfo(
+p,
+"saleProductInfo"
+);
+
 updateSaleAmount();
 
 }else{
 
-document.getElementById("saleProductInfo")
-.classList.add("hidden");
+document.getElementById(
+"saleProductInfo"
+).classList.add("hidden");
 
-document.getElementById("saleAmount").value="";
+document.getElementById(
+"saleAmount"
+).value="";
 
 }
 
-}function openProductModal(){
+}
+
+
+/* =========================
+   ADD PRODUCT
+========================= */
+
+function openProductModal(){
+
+document.getElementById(
+"productMsg"
+).textContent="";
+
+document.getElementById(
+"productLookupMsg"
+).textContent="";
 
 [
 "pName",
 "pBarcode",
-"pPurchase",
 "pSell",
-"pMrp",
-"pSize",
-"pStock"
-].forEach(id=>{
+"pStock",
+"pPurchase"
+].forEach(id=>
+document.getElementById(id).value=""
+);
 
-const el=document.getElementById(id);
+document.getElementById(
+"pMin"
+).value="10";
 
-if(el)el.value="";
+document.getElementById(
+"pUnit"
+).value="pcs";
 
-});
-
-const min=document.getElementById("pMin");
-if(min)min.value="10";
-
-const unit=document.getElementById("pUnit");
-if(unit)unit.value="pcs";
-
-const msg=document.getElementById("productMsg");
-if(msg)msg.textContent="";
-
-const lookup=
-document.getElementById("productLookupMsg");
-
-if(lookup)lookup.textContent="";
-
-openModal("productModal");
+openModal(
+"productModal"
+);
 
 }
 
 function saveProduct(){
 
 const name=
-document.getElementById("pName").value.trim();
+document.getElementById(
+"pName"
+).value.trim();
 
 const barcode=
-document.getElementById("pBarcode").value.trim();
+document.getElementById(
+"pBarcode"
+).value.trim();
 
 const sell=
-Number(document.getElementById("pSell").value);
-
-const mrp=
-Number(document.getElementById("pMrp").value||0);
-
-const size=
-document.getElementById("pSize").value.trim();
+Number(
+document.getElementById(
+"pSell"
+).value
+);
 
 const stock=
-Number(document.getElementById("pStock").value||0);
+Number(
+document.getElementById(
+"pStock"
+).value||0
+);
 
 const purchase=
-Number(document.getElementById("pPurchase").value||0);
+Number(
+document.getElementById(
+"pPurchase"
+).value||0
+);
 
 const min=
-Number(document.getElementById("pMin").value||10);
+Number(
+document.getElementById(
+"pMin"
+).value||10
+);
 
 if(!name||sell<0){
 
-document.getElementById("productMsg").innerHTML=
+document.getElementById(
+"productMsg"
+).innerHTML=
 '<span class="error">Product name aur sale price zaroori hai.</span>';
 
 return;
 
 }
 
-if(barcode&&products.some(p=>
+if(
+barcode&&
+products.some(p=>
 String(p.barcode||"")===barcode
-)){
+)
+){
 
-document.getElementById("productMsg").innerHTML=
+document.getElementById(
+"productMsg"
+).innerHTML=
 '<span class="error">Ye barcode already added hai.</span>';
 
 return;
 
 }
 
-const createdAt=new Date().toISOString();
+products.push({
 
-const newProduct={
 id:Date.now().toString(),
+
 name,
+
 barcode,
+
 sell,
-mrp,
-size,
+
 stock,
-unit:document.getElementById("pUnit").value,
+
+unit:
+document.getElementById(
+"pUnit"
+).value,
+
 purchase,
-min,
-createdAt
-};
 
-products.push(newProduct);
+min
 
-if(stock>0){
-
-stockIn.push({
-id:(Date.now()+1).toString(),
-date:createdAt,
-pid:newProduct.id,
-name,
-qty:stock,
-unit:newProduct.unit,
-purchaseRate:purchase,
-totalPurchase:stock*purchase,
-type:"Opening Stock"
 });
 
-}
+save(
+KEY.products,
+products
+);
 
-save(KEY.products,products);
-save(KEY.stockIn,stockIn);
-
-closeModal("productModal");
+closeModal(
+"productModal"
+);
 
 updateAll();
 
-}
-
-async function fetchBarcodeDetails(code){
-
-code=String(code||"").trim();
-
-if(!code)return null;
-
-const sources=[
-
-async()=>{
-
-const r=await fetch(
-"https://world.openfoodfacts.org/api/v2/product/"+
-encodeURIComponent(code)+".json"
-);
-
-const d=await r.json();
-
-if(d.status!==1||!d.product)return null;
-
-const p=d.product;
-
-return{
-name:
-p.product_name_hi||
-p.product_name_en||
-p.product_name||
-p.generic_name_hi||
-p.generic_name_en||
-"",
-size:
-p.quantity||
-p.product_quantity||
-p.packaging||
-"",
-brand:p.brands||"",
-mrp:Number(p.mrp||p.mrp_inr||0)||0,
-source:"Open Food Facts"
-};
-
-},
-
-async()=>{
-
-const r=await fetch(
-"https://api.upcitemdb.com/prod/trial/lookup?upc="+
-encodeURIComponent(code)
-);
-
-if(!r.ok)return null;
-
-const d=await r.json();
-
-const p=d.items&&d.items[0];
-
-if(!p)return null;
-
-return{
-name:p.title||"",
-size:p.size||"",
-brand:p.brand||"",
-mrp:0,
-source:"UPCitemdb"
-};
-
-}
-
-];
-
-for(const source of sources){
-
-try{
-
-const x=await source();
-
-if(x&&(x.name||x.size||x.brand||x.mrp))
-return x;
-
-}catch(e){}
-
-}
-
-return null;
-
-}
-
-function fillBarcodeProductFields(d){
-
-if(!d)return;
-
-if(d.name)
-document.getElementById("pName").value=d.name;
-
-if(d.size)
-document.getElementById("pSize").value=d.size;
-
-if(d.mrp)
-document.getElementById("pMrp").value=d.mrp;
-
-}
-
-async function findProductBarcodeDetails(){
-
-const code=
-document.getElementById("pBarcode").value.trim();
-
-const msg=
-document.getElementById("productLookupMsg");
-
-if(!code){
-
-msg.innerHTML=
-'<span class="error">Pehle barcode number dalein ya 📷 camera se scan karein.</span>';
-
-return;
-
-}
-
-const saved=productByBarcode(code);
-
-if(saved){
-
-document.getElementById("pName").value=saved.name||"";
-document.getElementById("pSell").value=saved.sell||"";
-document.getElementById("pMrp").value=saved.mrp||"";
-document.getElementById("pSize").value=saved.size||"";
-
-msg.innerHTML=
-'✅ Saved product mil gaya: <b>'+
-esc(saved.name)+
-'</b>. MRP/Size manual change kar sakte hain.';
-
-return;
-
-}
-
-msg.textContent=
-"🌐 Barcode se product details search ho rahi hain…";
-
-const d=await fetchBarcodeDetails(code);
-
-if(d){
-
-fillBarcodeProductFields(d);
-
-msg.innerHTML=
-'✅ Online details mil gayi ('+
-esc(d.source)+
-'). Naam/Size/MRP ko save se pehle manual change kar sakte hain.';
-
-}else{
-
-msg.innerHTML=
-'⚠️ Is barcode ki online details nahi mili. Product name, Size/Pack, MRP aur Selling Rate manually bharein.';
-
-}
-
-}
-
-async function lookupBarcodeForStock(code){
-
-const box=
-document.getElementById("stockLookupInfo");
-
-if(!box)return;
-
-box.classList.remove("hidden");
-
-box.innerHTML=
-"🌐 Barcode details search ho rahi hain…";
-
-const d=await fetchBarcodeDetails(code);
-
-if(!d){
-
-box.innerHTML=
-'⚠️ Online product details nahi mili. '+
-'<button type="button" class="small-btn" onclick="openProductFromStockBarcode()">➕ Product Add Karein</button>';
-
-return;
-
-}
-
-barcodeLookupCache={
-code,
-d
-};
-
-box.innerHTML=`
-
-<b>🔎 Online Barcode Result</b>
-<br>
-${d.name?`Product: <b>${esc(d.name)}</b><br>`:""}
-${d.brand?`Brand: ${esc(d.brand)}<br>`:""}
-${d.size?`Size/Pack: ${esc(d.size)}<br>`:""}
-${d.mrp?`MRP: ${money(d.mrp)}<br>`:""}
-
-<div class="lookup-actions">
-
-<button type="button"
-class="action primary"
-onclick="openProductFromLookup()">
-➕ Add Product
-</button>
-
-</div>
-
-`;
-
-}
-
-function openProductFromStockBarcode(){
-
-openProductModal();
-
-document.getElementById("pBarcode").value=
-document.getElementById("stockBarcode").value.trim();
-
-findProductBarcodeDetails();
-
-}
-
-function openProductFromLookup(){
-
-const data=barcodeLookupCache;
-
-if(!data)return;
-
-openProductModal();
-
-document.getElementById("pBarcode").value=
-data.code;
-
-fillBarcodeProductFields(data.d);
-
-document.getElementById("productLookupMsg").innerHTML=
-'✅ Barcode details loaded. MRP/Size/Selling Rate manual change kar sakte hain.';
-
-}
-
-function editProduct(id){
-
-const p=products.find(x=>x.id===id);
-
-if(!p)return;
-
-if(!ownerUnlocked){
-
-alert(
-"Product rate/MRP update karne ke liye Owner login zaroori hai."
-);
-
-return;
-
-}
-
-const rate=prompt(
-"Owner Purchase Rate (₹ per unit)",
-p.purchase||0
-);
-
-if(rate===null)return;
-
-const mrp=prompt(
-"MRP (manual change allowed)",
-p.mrp||0
-);
-
-if(mrp===null)return;
-
-const sell=prompt(
-"Selling Rate (₹)",
-p.sell||0
-);
-
-if(sell===null)return;
-
-const size=prompt(
-"Size / Pack",
-p.size||""
-);
-
-if(size===null)return;
-
-p.purchase=Number(rate)||0;
-p.mrp=Number(mrp)||0;
-p.sell=Number(sell)||0;
-p.size=size.trim();
-
-save(KEY.products,products);
-
-updateAll();
-
-}
-
-function saveStockIn(){
-
-const code=
-document.getElementById("stockBarcode").value.trim();
-
-const p=productByBarcode(code);
-
-const qty=
-Number(document.getElementById("stockQty").value);
-
-const rate=
-Number(
-document.getElementById("stockPurchaseRate").value||0
-);
-
-if(!p){
-
-document.getElementById("stockMsg").innerHTML=
-'<span class="error">Product nahi mila.</span>';
-
-return;
-
-}
-
-if(!qty||qty<=0){
-
-document.getElementById("stockMsg").innerHTML=
-'<span class="error">Quantity dalein.</span>';
-
-return;
-
-}
-
-if(!ownerUnlocked){
-
-document.getElementById("stockMsg").innerHTML=
-'<span class="error">Purchase rate/Stock purchase update ke liye Owner login karein.</span>';
-
-return;
-
-}
-
-if(rate>0)p.purchase=rate;
-
-p.stock=Number(p.stock||0)+qty;
-
-stockIn.push({
-
-id:Date.now().toString(),
-
-date:new Date().toISOString(),
-
-pid:p.id,
-
-name:p.name,
-
-qty,
-
-unit:p.unit,
-
-purchaseRate:
-rate>0?rate:Number(p.purchase||0),
-
-totalPurchase:
-qty*(rate>0?rate:Number(p.purchase||0)),
-
-type:"Stock In"
-
-});
-
-save(KEY.products,products);
-save(KEY.stockIn,stockIn);
-
-document.getElementById("stockQty").value="";
-document.getElementById("stockPurchaseRate").value="";
-
-document.getElementById("stockMsg").innerHTML=
-'<span class="success">✅ Stock update ho gaya. Owner Dashboard me record save ho gaya.</span>';
-
-updateAll();
-
-}
-
-function renderSaleCart(){
-
-const el=document.getElementById("saleCart");
-
-if(!el)return;
-
-if(!saleCart.length){
-
-el.innerHTML=
-'<div class="note">Abhi bill me koi product add nahi hua.</div>';
-
-return;
-
-}
-
-const total=saleCart.reduce(
-(a,i)=>a+Number(i.amount||0),
-0
-);
-
-el.innerHTML=
-'<div class="sale-cart-title">🧾 Bill Items ('+
-saleCart.length+
-')</div>'+
-
-saleCart.map((i,idx)=>`
-
-<div class="cart-item">
-
-<div>
-
-<div class="cart-item-name">
-${esc(i.name)}
-</div>
-
-<div class="cart-item-meta">
-${i.qty} ${esc(i.unit||"")}
-× ${money(i.rate)}
-= <b>${money(i.amount)}</b>
-</div>
-
-</div>
-
-<button class="cart-remove"
-onclick="removeCartItem(${idx})">
-✕
-</button>
-
-</div>
-
-`).join("")+
-
-`<div class="cart-total">
-Subtotal: ${money(total)}
-</div>`;
-
-}
-
-function addCurrentItemToBill(){
-
-const pid=
-document.getElementById("saleProduct").value;
-
-const p=products.find(x=>x.id===pid);
-
-const qty=
-Number(document.getElementById("saleQty").value);
-
-const amount=
-Number(document.getElementById("saleAmount").value);
-
-if(!p){
-
-document.getElementById("saleMsg").innerHTML=
-'<span class="error">Pehle product select/scan karein.</span>';
-
-return;
-
-}
-
-if(!qty||qty<=0){
-
-document.getElementById("saleMsg").innerHTML=
-'<span class="error">Quantity dalein.</span>';
-
-return;
-
-}
-
-if(p.stock<qty){
-
-document.getElementById("saleMsg").innerHTML=
-'<span class="error">'+
-esc(p.name)+
-' ka stock kam hai. Available: '+
-p.stock+" "+esc(p.unit||"")+
-'</span>';
-
-return;
-
-}
-
-const existing=
-saleCart.find(i=>i.pid===p.id);
-
-if(existing){
-
-const newQty=existing.qty+qty;
-
-if(newQty>p.stock){
-
-document.getElementById("saleMsg").innerHTML=
-'<span class="error">'+
-esc(p.name)+
-' ka total quantity stock se zyada ho raha hai.</span>';
-
-return;
-
-}
-
-existing.qty=newQty;
-existing.amount=
-Number(p.sell||0)*newQty;
-existing.rate=
-Number(p.sell||0);
-
-}else{
-
-saleCart.push({
-pid:p.id,
-name:p.name,
-unit:p.unit,
-qty,
-rate:Number(p.sell||0),
-amount
-});
-
-}
-
-document.getElementById("saleProduct").value="";
-document.getElementById("saleProductSearch").value="";
-document.getElementById("saleQty").value=1;
-document.getElementById("saleAmount").value="";
-
-document.getElementById("saleProductInfo")
-.classList.add("hidden");
-
-document.getElementById("saleMsg").innerHTML=
-'<span class="success">✅ '+
-esc(p.name)+
-' bill me add ho gaya.</span>';
-
-renderSaleCart();
-
-}
-
-function removeCartItem(index){
-
-saleCart.splice(index,1);
-
-renderSaleCart();
-
-}
-
-function getNextBillNo(date){
-
-const d=new Date(date);
-
-const key=d.getFullYear()+"-"+d.getMonth();
-
-const used=new Set();
-
-sales.forEach(x=>{
-
-const z=new Date(x.date);
-
-if(
-z.getFullYear()+"-"+z.getMonth()===key&&
-x.billNo
-)
-used.add(String(x.billNo));
-
-});
-
-let n=1;
-
-while(
-used.has(
-String(n).padStart(2,"0")+
-String(d.getMonth()+1).padStart(2,"0")+
-String(d.getFullYear()).slice(-2)
-)
-)n++;
-
-return(
-String(n).padStart(2,"0")+
-String(d.getMonth()+1).padStart(2,"0")+
-String(d.getFullYear()).slice(-2)
-);
-
-}
-
-function prepareBill(){
-
-const name=
-document.getElementById("saleCustomer").value.trim();
-
-const phone=
-document.getElementById("saleCustomerPhone").value.trim();
-
-if(!saleCart.length){
-
-document.getElementById("saleMsg").innerHTML=
-'<span class="error">Kam se kam 1 product bill me add karein.</span>';
-
-return;
-
-}
-
-if(
-phone&&
-!/^\d{10}$/.test(phone.replace(/\D/g,""))
-){
-
-document.getElementById("saleMsg").innerHTML=
-'<span class="error">WhatsApp/Mobile 10 digit ka dalein.</span>';
-
-return;
-
-}
-
-const baseAmount=saleCart.reduce(
-(a,i)=>a+Number(i.amount||0),
-0
-);
-
-const gstRate=
-billSettings.billType==="GST"
-?Number(billSettings.gstRate||0)
-:0;
-
-const gstAmount=
-baseAmount*gstRate/100;
-
-const totalAmount=
-baseAmount+gstAmount;
-
-const bd=new Date();
-
-const billNo=getNextBillNo(bd);
-
-pendingBill={
-
-items:saleCart.map(i=>({...i})),
-
-baseAmount,
-gstRate,
-gstAmount,
-totalAmount,
-amount:totalAmount,
-
-payment:
-document.getElementById("payment").value,
-
-customer:
-name||"Walk-in Customer",
-
-phone:
-phone.replace(/\D/g,""),
-
-billNo,
-
-shopName:
-billSettings.shopName||"Dukaan Saathi",
-
-shopAddress:
-billSettings.shopAddress||"",
-
-shopMobile:
-billSettings.shopMobile||"",
-
-billType:
-billSettings.billType||"NORMAL",
-
-gstin:
-billSettings.gstin||"",
-
-createdAt:
-bd.toISOString()
-
-};
-
-document.getElementById("billError").textContent="";
-
-const taxLine=
-pendingBill.billType==="GST"
-?
-`<br>
-<b>Taxable Value:</b> ${money(baseAmount)}
-<br>
-<b>GST (${gstRate}%):</b> ${money(gstAmount)}
-<br>
-${pendingBill.gstin?
-`<b>GSTIN:</b> ${esc(pendingBill.gstin)}<br>`
-:""}`
-:"";
-
-const itemsHtml=
-pendingBill.items.map(i=>`
-
-<tr>
-<td>${esc(i.name)}</td>
-<td>${i.qty} ${esc(i.unit||"")}</td>
-<td>${money(i.rate)}</td>
-<td>${money(i.amount)}</td>
-</tr>
-
-`).join("");
-
-const billTitle=
-pendingBill.billType==="GST"
-?"🧾 GST Tax Invoice"
-:"🧾 Retail Sale Receipt";
-
-const contactHtml=`
-
-<div style="text-align:center;margin-bottom:8px">
-
-<div style="font-size:20px;font-weight:bold">
-${esc(pendingBill.shopName)}
-</div>
-
-${pendingBill.shopAddress?
-`<div>${esc(pendingBill.shopAddress)}</div>`
-:""}
-
-${pendingBill.shopMobile?
-`<div>📱 ${esc(pendingBill.shopMobile)}</div>`
-:""}
-
-</div>
-
-`;
-
-document.getElementById("billPreview").innerHTML=
-
-contactHtml+
-
-billTitle+
-
-`<br>
-<b>Bill No:</b> ${pendingBill.billNo}
-<br>
-<small>Date: ${formatDateTime(pendingBill.createdAt)}</small>
-<hr>
-
-<b>Customer:</b> ${esc(pendingBill.customer)}
-
-<br>
-
-${pendingBill.phone?
-`<b>Mobile:</b> ${esc(pendingBill.phone)}<br>`
-:""}
-
-<table style="
-width:100%;
-border-collapse:collapse;
-margin-top:8px
-">
-
-<thead>
-
-<tr>
-<th style="text-align:left">Product</th>
-<th>Qty</th>
-<th>Rate</th>
-<th>Amount</th>
-</tr>
-
-</thead>
-
-<tbody>
-${itemsHtml}
-</tbody>
-
-</table>
-
-${taxLine}
-
-<br>
-
-<div style="
-font-size:20px;
-font-weight:bold;
-border-top:1px solid #ddd;
-padding-top:8px
-">
-
-Total: ${money(totalAmount)}
-
-</div>
-
-<b>Payment:</b> ${esc(pendingBill.payment)}
-
-<br><br>
-
-Thank you! 🙏
-
-`;
-
-openModal("billModal");
-
-}
-
-function commitPendingSale(){
-
-if(!pendingBill||!pendingBill.items?.length)
-return false;
-
-for(const i of pendingBill.items){
-
-const p=products.find(x=>x.id===i.pid);
-
-if(!p||Number(p.stock)<Number(i.qty))
-return false;
-
-}
-
-const saleDate=
-pendingBill.createdAt||
-new Date().toISOString();
-
-pendingBill.items.forEach((i,idx)=>{
-
-const p=products.find(x=>x.id===i.pid);
-
-p.stock=
-Number(p.stock||0)-Number(i.qty);
-
-sales.push({
-
-id:Date.now()+idx,
-
-date:saleDate,
-
-billNo:pendingBill.billNo,
-
-pid:p.id,
-
-name:p.name,
-
-qty:i.qty,
-
-amount:i.amount,
-
-taxableAmount:
-i.amount*(100-pendingBill.gstRate)/100,
-
-gstRate:
-pendingBill.gstRate||0,
-
-gstAmount:
-i.amount*pendingBill.gstRate/100,
-
-billType:
-pendingBill.billType||"NORMAL",
-
-shopName:
-pendingBill.shopName||"Dukaan Saathi",
-
-shopAddress:
-pendingBill.shopAddress||"",
-
-shopMobile:
-pendingBill.shopMobile||"",
-
-gstin:
-pendingBill.gstin||"",
-
-payment:
-pendingBill.payment,
-
-customer:
-pendingBill.customer,
-
-customerPhone:
-pendingBill.phone,
-
-billShared:false
-
-});
-
-});
-
-save(KEY.products,products);
-save(KEY.sales,sales);
-
-if(
-pendingBill.payment==="Udhar"&&
-pendingBill.customer&&
-pendingBill.customer!=="Walk-in Customer"
-){
-
-let c=customers.find(x=>
-x.name.toLowerCase()===
-pendingBill.customer.toLowerCase()
-);
-
-if(!c){
-
-c={
-id:Date.now().toString(),
-name:pendingBill.customer,
-phone:pendingBill.phone||"",
-due:0,
-timeline:7,
-nextDate:addDays(
-new Date(),
-7
-).toISOString().slice(0,10)
-};
-
-customers.push(c);
-
-}else if(
-pendingBill.phone&&!c.phone
-){
-
-c.phone=pendingBill.phone;
-
-}
-
-c.due=
-Number(c.due||0)+pendingBill.amount;
-
-save(KEY.customers,customers);
-
-}
-
-return true;
-
-}
-
-function resetSaleForm(){
-
-document.getElementById("saleCustomer").value="";
-document.getElementById("saleCustomerPhone").value="";
-document.getElementById("saleQty").value=1;
-document.getElementById("saleAmount").value="";
-document.getElementById("saleBarcode").value="";
-document.getElementById("saleProduct").value="";
-
-if(document.getElementById("saleProductSearch"))
-document.getElementById("saleProductSearch").value="";
-
-document.getElementById("saleProductInfo")
-.classList.add("hidden");
-
-saleCart=[];
-
-renderSaleCart();
-
-pendingBill=null;
-
-updateAll();
-
-}
-
-function sendBillWhatsApp(){
-
-if(!pendingBill)return;
-
-if(!pendingBill.phone){
-
-document.getElementById("billError").textContent=
-"Customer WhatsApp/Mobile number nahi hai. Number add karein ya Skip & Save karein.";
-
-return;
-
-}
-
-if(!commitPendingSale()){
-
-document.getElementById("billError").textContent=
-"Stock badal gaya hai. Sale save nahi ho payi.";
-
-return;
-
-}
-
-const lines=[
-
-pendingBill.shopName||"Dukaan Saathi",
-
-pendingBill.shopAddress?
-"Address: "+pendingBill.shopAddress
-:null,
-
-pendingBill.shopMobile?
-"Mobile: "+pendingBill.shopMobile
-:null,
-
-pendingBill.billType==="GST"
-?"🧾 GST TAX INVOICE"
-:"🧾 RETAIL SALE RECEIPT",
-
-"Bill No: "+pendingBill.billNo,
-
-"Date: "+formatDateTime(
-pendingBill.createdAt
-),
-
-"Customer: "+pendingBill.customer,
-
-pendingBill.phone?
-"Customer Mobile: "+pendingBill.phone
-:null,
-
-"",
-
-...pendingBill.items.map(i=>
-i.name+
-" x "+
-i.qty+
-" "+
-(i.unit||"")+
-" @ "+
-money(i.rate)+
-" = "+
-money(i.amount)
-),
-
-pendingBill.billType==="GST"
-?
-"Taxable Value: "+money(pendingBill.baseAmount)
-:null,
-
-pendingBill.billType==="GST"
-?
-"GST ("+
-pendingBill.gstRate+
-"%): "+
-money(pendingBill.gstAmount)
-:null,
-
-"Total: "+money(pendingBill.totalAmount),
-
-"Payment: "+pendingBill.payment,
-
-pendingBill.gstin?
-"GSTIN: "+pendingBill.gstin
-:null,
-
-"",
-
-"Thank you! 🙏"
-
-].filter(x=>x!==null).join("\n");
-
-sales
-.filter(s=>s.billNo===pendingBill.billNo)
-.forEach(s=>s.billShared=true);
-
-save(KEY.sales,sales);
-
-window.open(
-"https://wa.me/91"+
-pendingBill.phone+
-"?text="+
-encodeURIComponent(lines),
-"_blank"
-);
-
-closeBill();
-
-resetSaleForm();
-
-document.getElementById("saleMsg").innerHTML=
-'<span class="success">✅ Sale saved. WhatsApp khul gaya—Send dabakar bill bhej dein.</span>';
-
-}
-
-function skipBill(){
-
-if(!pendingBill)return;
-
-if(!commitPendingSale()){
-
-document.getElementById("billError").textContent=
-"Stock badal gaya hai. Sale save nahi ho payi.";
-
-return;
-
-}
-
-closeBill();
-
-resetSaleForm();
-
-document.getElementById("saleMsg").innerHTML=
-'<span class="success">✅ Sale saved. WhatsApp bill skip kiya gaya.</span>';
-
-}
-
-function printBill(){
-
-if(!pendingBill)return;
-
-const html=
-document.getElementById("billPreview").innerHTML;
-
-const w=window.open(
-"",
-"_blank"
-);
-
-if(!w){
-
-document.getElementById("billError").textContent=
-"Print window block ho gayi. Browser popup allow karein.";
-
-return;
-
-}
-
-w.document.write(`
-
-<html>
-
-<head>
-
-<title>Dukaan Saathi Bill</title>
-
-<meta name="viewport"
-content="width=device-width,initial-scale=1">
-
-<style>
-
-body{
-font-family:Arial,sans-serif;
-padding:20px;
-max-width:420px;
-margin:auto
-}
-
-table{
-width:100%;
-font-size:12px
-}
-
-th,td{
-padding:5px 2px;
-border-bottom:1px solid #ddd
-}
-
-</style>
-
-</head>
-
-<body>
-
-${html}
-
-</body>
-
-</html>
-
-`);
-
-w.document.close();
-
-w.focus();
-
-setTimeout(()=>{
-w.print()
-},400);
-
-}
-
-function closeBill(){
-closeModal("billModal")
-}
-
-function addDays(d,n){
-
-const x=new Date(d);
-
-x.setDate(
-x.getDate()+Number(n)
-);
-
-return x;
-
-}
-
-function getReturnedQty(saleId){
-
-return salesReturns
-.filter(r=>
-String(r.saleId)===String(saleId)
-)
-.reduce(
-(a,r)=>a+Number(r.qty||0),
-0
-);
-
-}
-
-function openReturnForSale(saleId){
-
-const s=sales.find(x=>
-String(x.id)===String(saleId)
-);
-
-if(!s)return;
-
-renderReturnSales();
-
-const sel=
-document.getElementById("returnSale");
-
-if(sel){
-
-sel.value=String(s.id);
-
-showReturnSaleInfo();
-
-}
-
-document.getElementById("returnQty").value="";
-document.getElementById("returnReason").value="";
-document.getElementById("returnMsg").textContent="";
-
-openModal("returnModal");
-
-}
-
-function renderReturnSales(){
-
-const sel=
-document.getElementById("returnSale");
-
-if(!sel)return;
-
-const available=
-sales
-.filter(s=>
-Number(s.qty||0)-
-getReturnedQty(s.id)>0
-)
-.sort(
-(a,b)=>
-new Date(b.date)-
-new Date(a.date)
-);
-
-sel.innerHTML=
-'<option value="">Sale select karein</option>'+
-
-available.map(s=>{
-
-const left=
-Number(s.qty||0)-
-getReturnedQty(s.id);
-
-return`
-
-<option value="${s.id}">
-
-Bill ${esc(s.billNo||getBillNo(s))}
-· ${esc(s.name)}
-· ${left} returnable
-· ${money(s.amount)}
-
-</option>
-
-`;
-
-}).join("");
-
-if(!available.length){
-
-sel.innerHTML=
-'<option value="">Koi returnable sale nahi hai</option>';
-
-}
-
-showReturnSaleInfo();
-
-}
-
-function showReturnSaleInfo(){
-
-const id=
-document.getElementById("returnSale")?.value;
-
-const el=
-document.getElementById("returnSaleInfo");
-
-if(!el)return;
-
-const s=sales.find(x=>
-String(x.id)===String(id)
-);
-
-if(!s){
-
-el.classList.add("hidden");
-return;
-
-}
-
-const p=
-products.find(x=>x.id===s.pid);
-
-const left=
-Number(s.qty||0)-
-getReturnedQty(s.id);
-
-const unitRate=
-Number(s.amount||0)/
-Math.max(Number(s.qty||1),.0001);
-
-el.classList.remove("hidden");
-
-el.innerHTML=`
-
-<b>${esc(s.name)}</b>
-
-<br>
-
-Sale Date:
-${esc(formatDateTime(s.date))}
-
-<br>
-
-Original Qty:
-${s.qty} ${esc(p?.unit||"")}
-
-· Already Returned:
-${getReturnedQty(s.id)}
-
-·
-
-<b>
-Returnable:
-${left} ${esc(p?.unit||"")}
-</b>
-
-<br>
-
-Rate:
-${money(unitRate)}
-
-· Customer:
-${esc(s.customer||"Walk-in Customer")}
-
-`;
-
-document.getElementById("returnQty").max=left;
-
-}
-
-function openReturnModal(){
-
-if(!sales.length){
-
-alert("Pehle sale record hona chahiye.");
-
-return;
-
-}
-
-document.getElementById("returnMsg").textContent="";
-document.getElementById("returnQty").value="";
-document.getElementById("returnReason").value="";
-
-renderReturnSales();
-
-openModal("returnModal");
-
-}
-
-function saveSalesReturn(){
-
-const saleId=
-document.getElementById("returnSale").value;
-
-const s=sales.find(x=>
-String(x.id)===String(saleId)
-);
-
-const qty=
-Number(
-document.getElementById("returnQty").value
-);
-
-const reason=
-document.getElementById("returnReason")
-.value.trim()||
-"Customer return";
-
-const msg=
-document.getElementById("returnMsg");
-
-if(!s){
-
-msg.innerHTML=
-'<span class="error">Sale select karein.</span>';
-
-return;
-
-}
-
-const p=
-products.find(x=>x.id===s.pid);
-
-const already=
-getReturnedQty(s.id);
-
-const left=
-Number(s.qty||0)-already;
-
-if(!p||left<=0){
-
-msg.innerHTML=
-'<span class="error">Is sale ki return quantity available nahi hai.</span>';
-
-return;
-
-}
-
-if(!qty||qty<=0||qty>left){
-
-msg.innerHTML=
-'<span class="error">Return quantity 0 se badi aur '+
-left+
-' se zyada nahi ho sakti.</span>';
-
-return;
-
-}
-
-const unitRate=
-Number(s.amount||0)/
-Math.max(Number(s.qty||1),.0001);
-
-const amount=qty*unitRate;
-
-const now=
-new Date().toISOString();
-
-p.stock=
-Number(p.stock||0)+qty;
-
-const entry={
-
-id:Date.now().toString(),
-
-date:now,
-
-saleId:s.id,
-
-pid:p.id,
-
-name:p.name,
-
-qty,
-
-unit:p.unit,
-
-amount,
-
-customer:
-s.customer||"Walk-in Customer",
-
-customerPhone:
-s.customerPhone||"",
-
-reason
-
-};
-
-salesReturns.push(entry);
-
-save(KEY.products,products);
-save(KEY.returns,salesReturns);
-
-msg.innerHTML=
-'<span class="success">✅ Sales Return save ho gaya. Owner Audit me date/time ke saath record ho gaya.</span>';
-
-renderReturnSales();
-
-updateAll();
-
-setTimeout(()=>{
-closeModal("returnModal")
-},700);
-
-}
-
-function getBillNo(sale){
-
-if(sale&&sale.billNo)
-return sale.billNo;
-
-const d=
-new Date(sale?.date||Date.now());
-
-const month=d.getMonth();
-const year=d.getFullYear();
-
-const same=
-sales
-.filter(x=>{
-
-const z=new Date(x.date);
-
-return(
-z.getMonth()===month&&
-z.getFullYear()===year
-);
-
-})
-.sort(
-(a,b)=>
-new Date(a.date)-new Date(b.date)||
-Number(a.id)-Number(b.id)
-);
-
-const idx=
-Math.max(
-0,
-same.findIndex(x=>
-String(x.id)===String(sale.id)
-)
-)+1;
-
-return(
-String(idx).padStart(2,"0")+
-String(month+1).padStart(2,"0")+
-String(year).slice(-2)
-);
-
-}
-
-function renderCustomers(){
+}function renderCustomers(){
 
 const q=
 (document.getElementById("customerSearch")?.value||"")
@@ -4137,6 +2595,7 @@ onclick="whatsappReminder('${c.id}')">
 
 }
 
+
 function renderDue(){
 
 const total=
@@ -4204,6 +2663,7 @@ onclick="whatsappReminder('${c.id}')">
 
 }
 
+
 function openCustomerModal(){
 
 document.getElementById("cName").value="";
@@ -4217,6 +2677,7 @@ openModal("customerModal");
 
 }
 
+
 document.getElementById("cTimeline")
 .addEventListener("change",e=>
 document.getElementById("customDateBox")
@@ -4225,6 +2686,7 @@ document.getElementById("customDateBox")
 e.target.value!=="0"
 )
 );
+
 
 function saveCustomer(){
 
@@ -4245,6 +2707,17 @@ return;
 
 }
 
+if(
+phone&&
+!/^\d{10}$/.test(phone.replace(/\D/g,""))
+){
+
+alert("Mobile number 10 digit ka hona chahiye.");
+
+return;
+
+}
+
 let next=
 tl==="0"
 ?
@@ -4255,13 +2728,21 @@ new Date(),
 Number(tl)
 ).toISOString().slice(0,10);
 
+if(tl==="0"&&!next){
+
+alert("Reminder date select karein.");
+
+return;
+
+}
+
 customers.push({
 
 id:Date.now().toString(),
 
 name,
 
-phone,
+phone:phone.replace(/\D/g,""),
 
 due:0,
 
@@ -4278,6 +2759,7 @@ closeModal("customerModal");
 updateAll();
 
 }
+
 
 function whatsappReminder(id){
 
@@ -4319,6 +2801,11 @@ encodeURIComponent(msg),
 );
 
 }
+
+
+/* =========================
+   DASHBOARD UPDATE
+========================= */
 
 function updateAll(){
 
@@ -4372,10 +2859,17 @@ p=>p.stock<=p.min
 
 }
 
+
+/* =========================
+   STOCK ALERTS
+========================= */
+
 function renderAlerts(){
 
 const low=
-products.filter(p=>p.stock<=p.min);
+products.filter(p=>
+Number(p.stock||0)<=Number(p.min||0)
+);
 
 document.getElementById("homeStockAlerts").innerHTML=
 
@@ -4404,6 +2898,7 @@ ${p.stock} ${esc(p.unit)} remaining
 :
 
 '<div class="empty">Stock theek hai ✅</div>';
+
 
 document.getElementById("lowStockList").innerHTML=
 
@@ -4435,6 +2930,11 @@ ${p.stock} ${esc(p.unit)}
 
 }
 
+
+/* =========================
+   REPORTS
+========================= */
+
 function renderReports(){
 
 const totalSales=
@@ -4451,6 +2951,7 @@ Number(s.gstAmount||0)
 0
 );
 
+
 const purchase=
 sales.reduce(
 (a,s)=>{
@@ -4460,13 +2961,14 @@ products.find(x=>x.id===s.pid);
 
 return(
 a+
-s.qty*
+Number(s.qty||0)*
 Number(p?.purchase||0)
 );
 
 },
 0
 );
+
 
 document.getElementById("reportSales").textContent=
 money(totalSales);
@@ -4479,6 +2981,7 @@ sales.length;
 
 document.getElementById("reportProducts").textContent=
 products.length;
+
 
 if(ownerUnlocked){
 
@@ -4499,6 +3002,11 @@ renderOwnerStock();
 }
 
 }
+
+
+/* =========================
+   OWNER STOCK
+========================= */
 
 function toggleOwnerStock(){
 
@@ -4523,6 +3031,7 @@ collapsed
 
 }
 
+
 function renderOwnerStock(){
 
 const cutoff=
@@ -4540,8 +3049,10 @@ new Date(b.date)-
 new Date(a.date)
 );
 
+
 document.getElementById("recentStockCount").textContent=
 recent.length;
+
 
 document.getElementById("recentStockList").innerHTML=
 
@@ -4588,13 +3099,16 @@ ${money(x.totalPurchase)}
 
 '<div class="empty">Pichhle 30 din me koi Stock In record nahi hai.</div>';
 
+
 document.getElementById("ownerStockCount").textContent=
 products.length;
+
 
 const q=
 (document.getElementById("ownerStockSearch")?.value||"")
 .trim()
 .toLowerCase();
+
 
 const list=
 [...products]
@@ -4605,6 +3119,7 @@ String(p.barcode||"").toLowerCase().includes(q)
 .sort(
 (a,b)=>a.name.localeCompare(b.name)
 );
+
 
 document.getElementById("ownerStockList").innerHTML=
 
@@ -4662,6 +3177,11 @@ Number(p.stock)<=Number(p.min)
 
 '<div class="empty">Koi product nahi hai.</div>';
 
+
+/* =========================
+   SALES RETURN AUDIT
+========================= */
+
 const rs=
 [...salesReturns]
 .sort(
@@ -4670,8 +3190,10 @@ new Date(b.date)-
 new Date(a.date)
 );
 
+
 document.getElementById("returnCount").textContent=
 rs.length;
+
 
 document.getElementById("ownerReturnList").innerHTML=
 
@@ -4733,44 +3255,77 @@ ${esc(r.reason||"-")}
 
 '<div class="empty">Abhi koi Sales Return nahi hua hai.</div>';
 
+
+/* =========================
+   OWNER ACTIVITY
+========================= */
+
 const activity=[];
+
 
 sales.forEach(x=>
 activity.push({
+
 date:x.date,
+
 type:"SALE",
+
 name:x.name,
+
 qty:x.qty,
+
 unit:
 products.find(p=>p.id===x.pid)?.unit||"",
+
 amount:x.amount,
+
 detail:x.customer||"Walk-in Customer"
+
 })
 );
+
 
 stockIn.forEach(x=>
 activity.push({
+
 date:x.date,
+
 type:x.type||"STOCK IN",
+
 name:x.name,
+
 qty:x.qty,
+
 unit:x.unit||"",
+
 amount:x.totalPurchase,
+
 detail:"Stock Added"
+
 })
 );
 
+
 salesReturns.forEach(x=>
 activity.push({
+
 date:x.date,
+
 type:"SALES RETURN",
+
 name:x.name,
+
 qty:x.qty,
+
 unit:x.unit||"",
+
 amount:x.amount,
+
 detail:x.reason||"Customer return"
+
 })
 );
+
 
 activity.sort(
 (a,b)=>
@@ -4778,8 +3333,10 @@ new Date(b.date)-
 new Date(a.date)
 );
 
+
 document.getElementById("activityCount").textContent=
 activity.length;
+
 
 document.getElementById("ownerActivityList").innerHTML=
 
@@ -4831,9 +3388,7 @@ ${esc(a.detail)}
 
 '<div class="empty">Koi activity nahi hai.</div>';
 
-}
-
-/* =========================
+   }/* =========================
    BILL SETTINGS
 ========================= */
 
@@ -4862,13 +3417,25 @@ if(mobile)
 mobile.value=
 billSettings.shopMobile||"";
 
-document.getElementById("ownerBillType").value=
+const type=
+document.getElementById("ownerBillType");
+
+if(type)
+type.value=
 billSettings.billType||"NORMAL";
 
-document.getElementById("ownerGstin").value=
+const gstin=
+document.getElementById("ownerGstin");
+
+if(gstin)
+gstin.value=
 billSettings.gstin||"";
 
-document.getElementById("ownerGstRate").value=
+const rate=
+document.getElementById("ownerGstRate");
+
+if(rate)
+rate.value=
 String(billSettings.gstRate??0);
 
 toggleGstSettings();
@@ -4876,6 +3443,7 @@ toggleGstSettings();
 updateShopSettingsPreview();
 
 }
+
 
 function updateShopSettingsPreview(){
 
@@ -4910,6 +3478,7 @@ el.innerHTML=
 
 }
 
+
 document.addEventListener("input",function(e){
 
 if(
@@ -4924,6 +3493,7 @@ updateShopSettingsPreview();
 
 });
 
+
 function toggleGstSettings(){
 
 const type=
@@ -4936,6 +3506,7 @@ type!=="GST"
 );
 
 }
+
 
 function saveBillSettings(){
 
@@ -4990,6 +3561,15 @@ document.getElementById("ownerGstRate")
 .value||0
 );
 
+if(rate<0||rate>100){
+
+document.getElementById("billSettingsMsg").innerHTML=
+'<span class="error">GST Rate 0 se 100 ke beech hona chahiye.</span>';
+
+return;
+
+}
+
 if(
 type==="GST"&&
 gstin&&
@@ -5033,6 +3613,7 @@ updateShopSettingsPreview();
 
 }
 
+
 /* =========================
    OWNER SECURITY
 ========================= */
@@ -5041,6 +3622,11 @@ function openOwner(){
 
 document.getElementById("pinError").textContent="";
 
+document.getElementById("loginMobile").value="";
+document.getElementById("ownerPin").value="";
+
+backToLoginBox();
+
 openModal("ownerModal");
 
 if(!localStorage.getItem(KEY.owner))
@@ -5048,9 +3634,13 @@ openModal("setupModal");
 
 }
 
+
 function closeOwner(){
-closeModal("ownerModal")
+
+closeModal("ownerModal");
+
 }
+
 
 function setupOwner(){
 
@@ -5083,9 +3673,13 @@ return;
 localStorage.setItem(
 KEY.owner,
 JSON.stringify({
+
 mobile:m,
+
 pin:p,
+
 recovery:rc
+
 })
 );
 
@@ -5097,9 +3691,11 @@ alert(
 
 }
 
+
 function loginOwner(){
 
-const o=load(KEY.owner,null);
+const o=
+load(KEY.owner,null);
 
 if(!o){
 
@@ -5111,17 +3707,28 @@ return;
 
 }
 
+const mobile=
+document.getElementById("loginMobile")
+.value.trim();
+
+const pin=
+document.getElementById("ownerPin")
+.value;
+
 if(
-document.getElementById("loginMobile").value.trim()===o.mobile&&
-document.getElementById("ownerPin").value===o.pin
+mobile===o.mobile&&
+pin===o.pin
 ){
 
 ownerUnlocked=true;
 
 closeOwner();
 
-document.getElementById("ownerPurchaseField")
-.classList.remove("hidden");
+const purchaseField=
+document.getElementById("ownerPurchaseField");
+
+if(purchaseField)
+purchaseField.classList.remove("hidden");
 
 showPage("owner");
 
@@ -5140,6 +3747,7 @@ document.getElementById("pinError").textContent=
 
 }
 
+
 function showChangePinBox(){
 
 document.getElementById("loginNormalBox")
@@ -5151,7 +3759,10 @@ document.getElementById("changePinBox")
 document.getElementById("recoveryBox")
 .classList.add("hidden");
 
+document.getElementById("changePinError").textContent="";
+
 }
+
 
 function showRecoveryBox(){
 
@@ -5164,38 +3775,56 @@ document.getElementById("changePinBox")
 document.getElementById("recoveryBox")
 .classList.remove("hidden");
 
+document.getElementById("recoveryError").textContent="";
+
 }
+
 
 function backToLoginBox(){
 
-document.getElementById("loginNormalBox")
-.classList.remove("hidden");
+const normal=
+document.getElementById("loginNormalBox");
 
-document.getElementById("changePinBox")
-.classList.add("hidden");
+const change=
+document.getElementById("changePinBox");
 
-document.getElementById("recoveryBox")
-.classList.add("hidden");
+const recovery=
+document.getElementById("recoveryBox");
+
+if(normal)
+normal.classList.remove("hidden");
+
+if(change)
+change.classList.add("hidden");
+
+if(recovery)
+recovery.classList.add("hidden");
 
 }
 
+
 function changePin(){
 
-const o=load(KEY.owner,null);
+const o=
+load(KEY.owner,null);
 
 if(!o)return;
 
 const m=
-document.getElementById("changeMobile").value.trim();
+document.getElementById("changeMobile")
+.value.trim();
 
 const old=
-document.getElementById("oldPin").value;
+document.getElementById("oldPin")
+.value;
 
 const n=
-document.getElementById("newPin").value;
+document.getElementById("newPin")
+.value;
 
 const cn=
-document.getElementById("newPinConfirm").value;
+document.getElementById("newPinConfirm")
+.value;
 
 if(
 m!==o.mobile||
@@ -5205,7 +3834,16 @@ n!==cn
 ){
 
 document.getElementById("changePinError").textContent=
-"Details verify nahi hue.";
+"Details verify nahi hue. Mobile, Current PIN aur New PIN check karein.";
+
+return;
+
+}
+
+if(n===old){
+
+document.getElementById("changePinError").textContent=
+"New PIN current PIN se alag hona chahiye.";
 
 return;
 
@@ -5220,22 +3858,36 @@ JSON.stringify(o)
 
 alert("PIN changed successfully.");
 
+document.getElementById("changeMobile").value="";
+document.getElementById("oldPin").value="";
+document.getElementById("newPin").value="";
+document.getElementById("newPinConfirm").value="";
+
 backToLoginBox();
 
 }
 
+
 function recoverOwner(){
 
-const o=load(KEY.owner,null);
+const o=
+load(KEY.owner,null);
 
 if(!o)return;
 
-if(
+const code=
 document.getElementById("recoveryCodeInput")
-.value.trim()===o.recovery
-){
+.value.trim();
+
+if(code===o.recovery){
 
 ownerUnlocked=true;
+
+const purchaseField=
+document.getElementById("ownerPurchaseField");
+
+if(purchaseField)
+purchaseField.classList.remove("hidden");
 
 alert(
 "Recovery successful. Owner mode unlock ho gaya."
@@ -5258,13 +3910,46 @@ document.getElementById("recoveryError").textContent=
 
 }
 
+
 function openSecuritySettings(){
+
+if(!ownerUnlocked){
+
+alert(
+"Security settings dekhne ke liye Owner login zaroori hai."
+);
+
+return;
+
+}
 
 alert(
 "Security settings: Owner Mobile, PIN aur Recovery Code ko login flow se manage kiya ja sakta hai."
 );
 
 }
+
+
+/* =========================
+   LOGOUT OWNER
+========================= */
+
+function logoutOwner(){
+
+ownerUnlocked=false;
+
+const purchaseField=
+document.getElementById("ownerPurchaseField");
+
+if(purchaseField)
+purchaseField.classList.add("hidden");
+
+showPage("home");
+
+alert("Owner mode locked.");
+
+}
+
 
 /* =========================
    OLD DATA MIGRATION
@@ -5273,10 +3958,11 @@ alert(
 if(!localStorage.getItem(KEY.owner)){
 
 setTimeout(()=>{
-openModal("setupModal")
+openModal("setupModal");
 },500);
 
 }
+
 
 /*
 Old v1 bill settings ko v2 me migrate karein.
@@ -5324,6 +4010,11 @@ billSettings
 
 }
 
+
+/* =========================
+   PRODUCT DATA NORMALIZATION
+========================= */
+
 products.forEach(p=>{
 
 if(p.mrp===undefined)
@@ -5332,12 +4023,181 @@ p.mrp=0;
 if(p.size===undefined)
 p.size="";
 
+if(p.purchase===undefined)
+p.purchase=0;
+
+if(p.min===undefined)
+p.min=10;
+
+if(p.stock===undefined)
+p.stock=0;
+
+if(!p.unit)
+p.unit="pcs";
+
+if(!p.barcode)
+p.barcode="";
+
 });
 
 save(
 KEY.products,
 products
 );
+
+
+/* =========================
+   CUSTOMER DATA NORMALIZATION
+========================= */
+
+customers.forEach(c=>{
+
+if(c.due===undefined)
+c.due=0;
+
+if(!c.phone)
+c.phone="";
+
+if(!c.timeline)
+c.timeline="7";
+
+if(!c.nextDate){
+
+c.nextDate=
+addDays(
+new Date(),
+7
+).toISOString().slice(0,10);
+
+}
+
+});
+
+save(
+KEY.customers,
+customers
+);
+
+
+/* =========================
+   SAFE ELEMENT EVENTS
+========================= */
+
+const billTypeSelect=
+document.getElementById("ownerBillType");
+
+if(billTypeSelect){
+
+billTypeSelect.addEventListener(
+"change",
+toggleGstSettings
+);
+
+}
+
+
+const saleQty=
+document.getElementById("saleQty");
+
+if(saleQty){
+
+saleQty.addEventListener(
+"input",
+updateSaleAmount
+);
+
+}
+
+
+const saleProduct=
+document.getElementById("saleProduct");
+
+if(saleProduct){
+
+saleProduct.addEventListener(
+"change",
+showSelectedProduct
+);
+
+}
+
+
+/* =========================
+   KEYBOARD BARCODE SUPPORT
+========================= */
+
+document.addEventListener(
+"keydown",
+function(e){
+
+if(e.key!=="Enter")return;
+
+const active=
+document.activeElement;
+
+if(!active)return;
+
+if(active.id==="saleBarcode"){
+
+e.preventDefault();
+
+findSaleBarcode();
+
+}
+
+if(active.id==="stockBarcode"){
+
+e.preventDefault();
+
+findStockBarcode();
+
+}
+
+if(active.id==="pBarcode"){
+
+e.preventDefault();
+
+findProductBarcodeDetails();
+
+}
+
+}
+);
+
+
+/* =========================
+   MODAL ESCAPE
+========================= */
+
+document.addEventListener(
+"keydown",
+function(e){
+
+if(e.key!=="Escape")return;
+
+document
+.querySelectorAll(".modal.show")
+.forEach(m=>{
+
+if(m.id==="scannerModal"){
+
+closeScanner();
+
+}else{
+
+m.classList.remove("show");
+
+}
+
+});
+
+}
+);
+
+
+/* =========================
+   INITIAL LOAD
+========================= */
 
 updateAll();
 
