@@ -7,7 +7,6 @@
 
 <title>Dukaan Saathi</title>
 
-<!-- Barcode Scanner Library -->
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
 <style>
@@ -18,6 +17,14 @@ body{
   font-family:Arial,sans-serif;
   background:#f4f6f8;
   color:#17202a;
+}
+
+button,input,select{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
 }
 
 .app{
@@ -39,6 +46,7 @@ header{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:10px;
 }
 
 header h1{
@@ -101,29 +109,14 @@ header p{
   gap:10px;
 }
 
-.quick button,.action{
+.quick button,
+.action{
   border:0;
   background:#f8fafc;
   padding:16px 10px;
   border-radius:14px;
   font-size:15px;
   font-weight:bold;
-  cursor:pointer;
-}
-
-.ai{
-  background:#ecfdf5;
-  border:1px solid #bbf7d0;
-}
-
-.ai-title{
-  font-weight:bold;
-  color:#166534;
-  font-size:17px;
-}
-
-button{
-  font-family:inherit;
 }
 
 .primary{
@@ -144,6 +137,22 @@ button{
 .info{
   background:#eff6ff;
   color:#1d4ed8;
+}
+
+.success-bg{
+  background:#ecfdf5;
+  border:1px solid #bbf7d0;
+}
+
+.ai{
+  background:#ecfdf5;
+  border:1px solid #bbf7d0;
+}
+
+.ai-title{
+  font-weight:bold;
+  color:#166534;
+  font-size:17px;
 }
 
 .section-title{
@@ -262,7 +271,6 @@ label{
   border:0;
   font-size:17px;
   padding:0;
-  cursor:pointer;
 }
 
 .modal{
@@ -279,7 +287,7 @@ label{
   background:white;
   width:100%;
   max-width:520px;
-  max-height:92vh;
+  max-height:94vh;
   overflow:auto;
   padding:20px;
   border-radius:22px 22px 0 0;
@@ -336,6 +344,7 @@ label{
   border-radius:9px;
   font-weight:bold;
   cursor:pointer;
+  margin-top:4px;
 }
 
 .price{
@@ -367,6 +376,45 @@ hr{
   font-size:12px;
   color:#667085;
   line-height:1.5;
+}
+
+.recovery{
+  background:#fff7ed;
+  border:1px solid #fed7aa;
+  padding:12px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+.online-box{
+  background:#eff6ff;
+  border:1px solid #bfdbfe;
+  padding:12px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+.pin-box{
+  background:#f8fafc;
+  padding:12px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+.list-btn{
+  width:100%;
+  text-align:left;
+  border:0;
+  padding:12px;
+  border-radius:10px;
+  margin-top:7px;
+  background:#f8fafc;
+  font-weight:bold;
+}
+
+@media(max-width:360px){
+  header h1{font-size:20px}
+  .quick button,.action{font-size:13px}
 }
 </style>
 </head>
@@ -524,7 +572,6 @@ hr{
     </button>
   </div>
 
-
   <label>Customer</label>
 
   <input
@@ -532,11 +579,9 @@ hr{
     placeholder="Customer name"
   >
 
-
   <label>Product</label>
 
-  <select id="saleProduct">
-  </select>
+  <select id="saleProduct"></select>
 
 
   <div class="scanner-box">
@@ -557,6 +602,7 @@ hr{
       <input
         id="saleBarcode"
         placeholder="Barcode"
+        inputmode="numeric"
       >
 
       <button
@@ -571,8 +617,7 @@ hr{
   </div>
 
 
-  <div id="saleProductInfo" class="scan-result hidden">
-  </div>
+  <div id="saleProductInfo" class="scan-result hidden"></div>
 
 
   <div class="form-row">
@@ -606,10 +651,7 @@ hr{
   </select>
 
 
-  <button
-    class="action primary"
-    onclick="saveSale()"
-  >
+  <button class="action primary" onclick="saveSale()">
     💾 Save Sale
   </button>
 
@@ -626,10 +668,7 @@ hr{
     बोलकर sale entry करें:
   </p>
 
-  <button
-    class="action"
-    onclick="voiceSale()"
-  >
+  <button class="action" onclick="voiceSale()">
     🎤 Start Voice Sale
   </button>
 
@@ -662,7 +701,6 @@ hr{
   <p class="note">
     Barcode scan karke stock/purchase update karein.
   </p>
-
 
   <button
     class="action info"
@@ -706,6 +744,7 @@ hr{
     <input
       id="stockBarcode"
       placeholder="Barcode"
+      inputmode="numeric"
     >
 
     <button
@@ -718,8 +757,7 @@ hr{
   </div>
 
 
-  <div id="stockProductInfo" class="scan-result hidden">
-  </div>
+  <div id="stockProductInfo" class="scan-result hidden"></div>
 
 
   <div class="form-row">
@@ -741,10 +779,7 @@ hr{
   </div>
 
 
-  <button
-    class="action primary"
-    onclick="saveStockIn()"
-  >
+  <button class="action primary" onclick="saveStockIn()">
     📥 Add Stock
   </button>
 
@@ -772,10 +807,7 @@ hr{
 
     <h2>👥 Customers</h2>
 
-    <span
-      class="badge"
-      id="customerCount"
-    >
+    <span class="badge" id="customerCount">
       0
     </span>
 
@@ -785,71 +817,67 @@ hr{
   <input
     id="customerSearch"
     placeholder="🔍 Search customer"
+    oninput="filterCustomers()"
   >
 
 
-  <div class="product">
+  <div id="customerList">
 
-    <div>
-      <div class="product-name">
-        Ramesh Kumar
+    <div class="product customer-item">
+
+      <div>
+        <div class="product-name">
+          Ramesh Kumar
+        </div>
+
+        <small>
+          Regular Customer
+        </small>
       </div>
 
-      <small>
-        Regular Customer
-      </small>
+      <button class="action" onclick="customerOffer()">
+        📱
+      </button>
+
     </div>
 
-    <button
-      class="action"
-      onclick="customerOffer()"
-    >
-      📱
-    </button>
 
-  </div>
+    <div class="product customer-item">
 
+      <div>
+        <div class="product-name">
+          Ravi
+        </div>
 
-  <div class="product">
-
-    <div>
-      <div class="product-name">
-        Ravi
+        <small>
+          ⭐ High Value Customer
+        </small>
       </div>
 
-      <small>
-        ⭐ High Value Customer
-      </small>
+      <button class="action" onclick="customerOffer()">
+        📱
+      </button>
+
     </div>
 
-    <button
-      class="action"
-      onclick="customerOffer()"
-    >
-      📱
-    </button>
 
-  </div>
+    <div class="product customer-item">
 
+      <div>
+        <div class="product-name">
+          Amit
+        </div>
 
-  <div class="product">
-
-    <div>
-      <div class="product-name">
-        Amit
+        <small>
+          🟡 Inactive
+        </small>
       </div>
 
-      <small>
-        🟡 Inactive
-      </small>
-    </div>
+      <button class="action" onclick="customerOffer()">
+        📱
+      </button>
 
-    <button
-      class="action"
-      onclick="customerOffer()"
-    >
-      📱
-    </button>
+    </div>
 
   </div>
 
@@ -898,9 +926,7 @@ hr{
 
   <div class="stat">
 
-    <small>
-      Total Due
-    </small>
+    <small>Total Due</small>
 
     <b id="totalDue">
       ₹0
@@ -926,10 +952,7 @@ hr{
 
     </div>
 
-    <button
-      class="action"
-      onclick="reminder()"
-    >
+    <button class="action" onclick="reminder()">
       📱
     </button>
 
@@ -950,10 +973,7 @@ hr{
 
     </div>
 
-    <button
-      class="action"
-      onclick="reminder()"
-    >
+    <button class="action" onclick="reminder()">
       📱
     </button>
 
@@ -974,10 +994,7 @@ hr{
 
     </div>
 
-    <button
-      class="action"
-      onclick="reminder()"
-    >
+    <button class="action" onclick="reminder()">
       📱
     </button>
 
@@ -994,62 +1011,28 @@ hr{
 
 <div class="card">
 
-  <h2>
-    📊 Daily Business Report
-  </h2>
-
+  <h2>📊 Daily Business Report</h2>
 
   <div class="stats">
 
     <div class="stat">
-
-      <small>
-        Sales
-      </small>
-
-      <b id="reportSales">
-        ₹0
-      </b>
-
+      <small>Sales</small>
+      <b id="reportSales">₹0</b>
     </div>
 
-
     <div class="stat">
-
-      <small>
-        Purchase
-      </small>
-
-      <b id="reportPurchase">
-        ₹0
-      </b>
-
+      <small>Purchase</small>
+      <b id="reportPurchase">₹0</b>
     </div>
 
-
     <div class="stat">
-
-      <small>
-        Bills
-      </small>
-
-      <b id="reportBills">
-        0
-      </b>
-
+      <small>Bills</small>
+      <b id="reportBills">0</b>
     </div>
 
-
     <div class="stat">
-
-      <small>
-        Products
-      </small>
-
-      <b id="reportProducts">
-        0
-      </b>
-
+      <small>Products</small>
+      <b id="reportProducts">0</b>
     </div>
 
   </div>
@@ -1059,9 +1042,7 @@ hr{
 
 <div class="card">
 
-  <h3>
-    📈 Sales Trend
-  </h3>
+  <h3>📈 Sales Trend</h3>
 
   <div
     style="
@@ -1081,9 +1062,7 @@ hr{
 
 <div class="card">
 
-  <h3>
-    ⭐ Top Products
-  </h3>
+  <h3>⭐ Top Products</h3>
 
   <div id="topProducts">
     <p>Abhi sales data nahi hai.</p>
@@ -1102,9 +1081,7 @@ hr{
 
   <div class="section-title">
 
-    <h2>
-      🔐 Owner Dashboard
-    </h2>
+    <h2>🔐 Owner Dashboard</h2>
 
     <span class="badge">
       Private
@@ -1121,54 +1098,23 @@ hr{
   <div class="stats">
 
     <div class="stat">
-
-      <small>
-        💰 Gross Profit
-      </small>
-
-      <b id="grossProfit">
-        ₹0
-      </b>
-
+      <small>💰 Gross Profit</small>
+      <b id="grossProfit">₹0</b>
     </div>
 
-
     <div class="stat">
-
-      <small>
-        💵 Net Profit
-      </small>
-
-      <b id="netProfit">
-        ₹0
-      </b>
-
+      <small>💵 Net Profit</small>
+      <b id="netProfit">₹0</b>
     </div>
 
-
     <div class="stat">
-
-      <small>
-        🛒 Purchase
-      </small>
-
-      <b id="ownerPurchase">
-        ₹0
-      </b>
-
+      <small>🛒 Purchase</small>
+      <b id="ownerPurchase">₹0</b>
     </div>
 
-
     <div class="stat">
-
-      <small>
-        📦 Products
-      </small>
-
-      <b id="ownerProducts">
-        0
-      </b>
-
+      <small>📦 Products</small>
+      <b id="ownerProducts">0</b>
     </div>
 
   </div>
@@ -1178,9 +1124,7 @@ hr{
 
 <div class="card">
 
-  <h3>
-    🔒 Sensitive Information
-  </h3>
+  <h3>🔒 Sensitive Information</h3>
 
   <p>
     Supplier Due: ₹18,500
@@ -1196,6 +1140,20 @@ hr{
 
 </div>
 
+
+<div class="card">
+
+  <h3>⚙️ Owner Security</h3>
+
+  <button
+    class="action info"
+    onclick="openSecuritySettings()"
+  >
+    🔐 Mobile / PIN / Recovery Settings
+  </button>
+
+</div>
+
 </section>
 
 </div>
@@ -1205,42 +1163,27 @@ hr{
 
 <nav class="nav">
 
-<button
-  class="active"
-  onclick="showPage('home',this)"
->
+<button class="active" onclick="showPage('home',this)">
   <span>🏠</span>
   Home
 </button>
 
-
-<button
-  onclick="showPage('sale',this)"
->
+<button onclick="showPage('sale',this)">
   <span>➕</span>
   Sale
 </button>
 
-
-<button
-  onclick="showPage('stock',this)"
->
+<button onclick="showPage('stock',this)">
   <span>📦</span>
   Stock
 </button>
 
-
-<button
-  onclick="showPage('customers',this)"
->
+<button onclick="showPage('customers',this)">
   <span>👥</span>
   Customer
 </button>
 
-
-<button
-  onclick="showPage('khaata',this)"
->
+<button onclick="showPage('khaata',this)">
   <span>💳</span>
   Khaata
 </button>
@@ -1248,57 +1191,382 @@ hr{
 </nav>
 
 
-<!-- ================= OWNER LOGIN ================= -->
+<!-- ================= OWNER LOGIN MODAL ================= -->
 
-<div
-  class="modal"
-  id="ownerModal"
->
+<div class="modal" id="ownerModal">
 
 <div class="modal-box">
 
   <div class="section-title">
 
-    <h2>
-      🔐 Owner Login
-    </h2>
+    <h2>🔐 Owner Login</h2>
 
-    <button
-      class="back"
-      onclick="closeOwner()"
-    >
+    <button class="back" onclick="closeOwner()">
       ✕
     </button>
 
   </div>
 
 
-  <p>
-    Owner PIN डालें
-  </p>
+  <div id="loginNormalBox">
 
+    <p>
+      Owner Mobile Number aur PIN se login karein.
+    </p>
+
+    <label>Owner Mobile Number</label>
+
+    <input
+      id="loginMobile"
+      type="tel"
+      inputmode="numeric"
+      maxlength="10"
+      placeholder="10 digit mobile number"
+    >
+
+    <label>Owner PIN</label>
+
+    <input
+      id="ownerPin"
+      type="password"
+      inputmode="numeric"
+      maxlength="6"
+      placeholder="PIN"
+    >
+
+    <button
+      class="action primary"
+      onclick="loginOwner()"
+    >
+      🔓 Login
+    </button>
+
+    <br><br>
+
+    <button
+      class="list-btn"
+      onclick="showChangePinBox()"
+    >
+      🔑 Change PIN
+    </button>
+
+    <button
+      class="list-btn"
+      onclick="showRecoveryBox()"
+    >
+      📱 Mobile Number nahi hai / Recovery
+    </button>
+
+    <p id="pinError" class="error"></p>
+
+  </div>
+
+
+  <!-- CHANGE PIN -->
+
+  <div id="changePinBox" class="hidden">
+
+    <h3>🔑 Change Owner PIN</h3>
+
+    <p class="note">
+      Pehle current mobile number aur current PIN verify hoga.
+    </p>
+
+    <input
+      id="changeMobile"
+      type="tel"
+      inputmode="numeric"
+      maxlength="10"
+      placeholder="Current mobile number"
+    >
+
+    <input
+      id="oldPin"
+      type="password"
+      inputmode="numeric"
+      maxlength="6"
+      placeholder="Current PIN"
+    >
+
+    <input
+      id="newPin"
+      type="password"
+      inputmode="numeric"
+      maxlength="6"
+      placeholder="New PIN"
+    >
+
+    <input
+      id="newPinConfirm"
+      type="password"
+      inputmode="numeric"
+      maxlength="6"
+      placeholder="Confirm New PIN"
+    >
+
+    <button
+      class="action primary"
+      onclick="changePin()"
+    >
+      💾 Change PIN
+    </button>
+
+    <button
+      class="list-btn"
+      onclick="backToLoginBox()"
+    >
+      ← Back to Login
+    </button>
+
+    <p id="changePinError" class="error"></p>
+
+  </div>
+
+
+  <!-- RECOVERY -->
+
+  <div id="recoveryBox" class="hidden">
+
+    <h3>🆘 Owner Recovery</h3>
+
+    <p>
+      Agar Owner ka mobile number available nahi hai,
+      to Alternative Recovery Code se account recover karein.
+    </p>
+
+    <div class="recovery">
+
+      <b>Important:</b><br>
+
+      Recovery Code ko safe jagah likhkar rakhein.
+      Browser ka data delete hone par local recovery bhi
+      delete ho sakti hai.
+
+    </div>
+
+    <input
+      id="recoveryCodeInput"
+      type="password"
+      placeholder="Recovery Code"
+    >
+
+    <button
+      class="action primary"
+      onclick="recoverOwner()"
+    >
+      🔓 Recover Owner
+    </button>
+
+    <button
+      class="list-btn"
+      onclick="backToLoginBox()"
+    >
+      ← Back to Login
+    </button>
+
+    <p id="recoveryError" class="error"></p>
+
+  </div>
+
+</div>
+
+</div>
+
+
+<!-- ================= FIRST TIME OWNER SETUP ================= -->
+
+<div class="modal" id="setupModal">
+
+<div class="modal-box">
+
+  <div class="center">
+
+    <div class="big">🏪</div>
+
+    <h2>Owner Setup</h2>
+
+    <p>
+      Dukaan Saathi ko secure karne ke liye
+      Owner details set karein.
+    </p>
+
+  </div>
+
+
+  <label>Owner Mobile Number</label>
 
   <input
-    id="ownerPin"
+    id="setupMobile"
+    type="tel"
+    inputmode="numeric"
+    maxlength="10"
+    placeholder="10 digit mobile number"
+  >
+
+
+  <label>Owner PIN</label>
+
+  <input
+    id="setupPin"
     type="password"
     inputmode="numeric"
-    maxlength="4"
-    placeholder="4 digit PIN"
+    maxlength="6"
+    placeholder="4-6 digit PIN"
   >
+
+
+  <label>Confirm PIN</label>
+
+  <input
+    id="setupPinConfirm"
+    type="password"
+    inputmode="numeric"
+    maxlength="6"
+    placeholder="Confirm PIN"
+  >
+
+
+  <label>Alternative Recovery Code</label>
+
+  <input
+    id="setupRecovery"
+    type="password"
+    placeholder="Apna secret recovery code"
+  >
+
+
+  <p class="note">
+    Recovery Code aisa rakhein jo aapko yaad rahe,
+    lekin doosre log easily guess na kar saken.
+  </p>
 
 
   <button
     class="action primary"
-    onclick="loginOwner()"
+    onclick="saveOwnerSetup()"
   >
-    Unlock Owner Mode
+    🔐 Save Owner Security
   </button>
 
 
-  <p
-    id="pinError"
-    class="error"
-  ></p>
+  <p id="setupError" class="error"></p>
+
+</div>
+
+</div>
+
+
+<!-- ================= SECURITY SETTINGS ================= -->
+
+<div class="modal" id="securityModal">
+
+<div class="modal-box">
+
+  <div class="section-title">
+
+    <h2>⚙️ Owner Security</h2>
+
+    <button class="back" onclick="closeSecuritySettings()">
+      ✕
+    </button>
+
+  </div>
+
+
+  <p class="success">
+    Owner Mode Unlocked
+  </p>
+
+
+  <hr>
+
+
+  <h3>📱 Change Mobile Number</h3>
+
+  <input
+    id="securityMobile"
+    type="tel"
+    inputmode="numeric"
+    maxlength="10"
+    placeholder="New mobile number"
+  >
+
+  <input
+    id="securityPin"
+    type="password"
+    maxlength="6"
+    placeholder="Current PIN"
+  >
+
+  <button
+    class="action primary"
+    onclick="updateOwnerMobile()"
+  >
+    💾 Update Mobile
+  </button>
+
+
+  <hr>
+
+
+  <h3>🔑 Change PIN</h3>
+
+  <input
+    id="securityOldPin"
+    type="password"
+    maxlength="6"
+    placeholder="Current PIN"
+  >
+
+  <input
+    id="securityNewPin"
+    type="password"
+    maxlength="6"
+    placeholder="New PIN"
+  >
+
+  <input
+    id="securityNewPin2"
+    type="password"
+    maxlength="6"
+    placeholder="Confirm New PIN"
+  >
+
+  <button
+    class="action info"
+    onclick="updateOwnerPinFromSettings()"
+  >
+    🔑 Update PIN
+  </button>
+
+
+  <hr>
+
+
+  <h3>🆘 Change Recovery Code</h3>
+
+  <input
+    id="securityRecovery"
+    type="password"
+    placeholder="New Recovery Code"
+  >
+
+  <input
+    id="securityRecoveryPin"
+    type="password"
+    maxlength="6"
+    placeholder="Current PIN"
+  >
+
+  <button
+    class="action warning"
+    onclick="updateRecoveryCode()"
+  >
+    💾 Update Recovery Code
+  </button>
+
+
+  <p id="securityMessage"></p>
 
 </div>
 
@@ -1307,10 +1575,7 @@ hr{
 
 <!-- ================= PRODUCT MODAL ================= -->
 
-<div
-  class="modal"
-  id="productModal"
->
+<div class="modal" id="productModal">
 
 <div class="modal-box">
 
@@ -1320,19 +1585,14 @@ hr{
       ➕ Add Product
     </h2>
 
-    <button
-      class="back"
-      onclick="closeProductModal()"
-    >
+    <button class="back" onclick="closeProductModal()">
       ✕
     </button>
 
   </div>
 
 
-  <label>
-    Product Name
-  </label>
+  <label>Product Name</label>
 
   <input
     id="productName"
@@ -1340,15 +1600,14 @@ hr{
   >
 
 
-  <label>
-    Barcode
-  </label>
+  <label>Barcode</label>
 
   <div class="form-row">
 
     <input
       id="productBarcode"
       placeholder="Barcode number"
+      inputmode="numeric"
     >
 
     <button
@@ -1361,9 +1620,21 @@ hr{
   </div>
 
 
-  <label>
-    Purchase Rate ₹
-  </label>
+  <button
+    class="action info"
+    onclick="lookupBarcodeDetails()"
+  >
+    🌐 Barcode Details Find Karein
+  </button>
+
+
+  <div
+    id="onlineProductInfo"
+    class="online-box hidden"
+  ></div>
+
+
+  <label>Purchase Rate ₹</label>
 
   <input
     id="productPurchase"
@@ -1373,9 +1644,7 @@ hr{
   >
 
 
-  <label>
-    Selling Rate ₹
-  </label>
+  <label>Selling Rate ₹</label>
 
   <input
     id="productSelling"
@@ -1385,9 +1654,7 @@ hr{
   >
 
 
-  <label>
-    Opening Stock
-  </label>
+  <label>Opening Stock</label>
 
   <input
     id="productStock"
@@ -1397,9 +1664,7 @@ hr{
   >
 
 
-  <label>
-    Low Stock Alert
-  </label>
+  <label>Low Stock Alert</label>
 
   <input
     id="productLow"
@@ -1410,9 +1675,7 @@ hr{
   >
 
 
-  <label>
-    Unit
-  </label>
+  <label>Unit</label>
 
   <select id="productUnit">
 
@@ -1435,35 +1698,24 @@ hr{
   </button>
 
 
-  <p
-    id="productError"
-    class="error"
-  ></p>
+  <p id="productError" class="error"></p>
 
 </div>
 
 </div>
 
 
-<!-- ================= RATE EDIT MODAL ================= -->
+<!-- ================= RATE MODAL ================= -->
 
-<div
-  class="modal"
-  id="rateModal"
->
+<div class="modal" id="rateModal">
 
 <div class="modal-box">
 
   <div class="section-title">
 
-    <h2>
-      ✏️ Change Rate
-    </h2>
+    <h2>✏️ Change Rate</h2>
 
-    <button
-      class="back"
-      onclick="closeRateModal()"
-    >
+    <button class="back" onclick="closeRateModal()">
       ✕
     </button>
 
@@ -1487,10 +1739,7 @@ hr{
   >
 
 
-  <button
-    class="action primary"
-    onclick="saveRate()"
-  >
+  <button class="action primary" onclick="saveRate()">
     💾 Update Rate
   </button>
 
@@ -1501,23 +1750,15 @@ hr{
 
 <!-- ================= SCANNER MODAL ================= -->
 
-<div
-  class="modal"
-  id="scannerModal"
->
+<div class="modal" id="scannerModal">
 
 <div class="modal-box">
 
   <div class="section-title">
 
-    <h2>
-      📷 Barcode Scanner
-    </h2>
+    <h2>📷 Barcode Scanner</h2>
 
-    <button
-      class="back"
-      onclick="closeScanner()"
-    >
+    <button class="back" onclick="closeScanner()">
       ✕
     </button>
 
@@ -1526,6 +1767,7 @@ hr{
 
   <p class="note">
     Barcode ko camera ke saamne rakhein.
+    Camera permission Allow karein.
   </p>
 
 
@@ -1562,24 +1804,30 @@ hr{
 <script>
 
 /* =====================================================
-   DUKAAN SAATHI
-   LOCAL DATA
+   DUKAAN SAATHI - DATA
 ===================================================== */
 
 var products =
-JSON.parse(
-  localStorage.getItem('dukaanProducts') || '[]'
-);
+  JSON.parse(
+    localStorage.getItem('dukaanProducts') || '[]'
+  );
 
 var sales =
-JSON.parse(
-  localStorage.getItem('dukaanSales') || '[]'
-);
+  JSON.parse(
+    localStorage.getItem('dukaanSales') || '[]'
+  );
 
 var purchases =
-JSON.parse(
-  localStorage.getItem('dukaanPurchases') || '[]'
-);
+  JSON.parse(
+    localStorage.getItem('dukaanPurchases') || '[]'
+  );
+
+
+var ownerSettings =
+  JSON.parse(
+    localStorage.getItem('dukaanOwnerSettings') || 'null'
+  );
+
 
 var editingProductId = null;
 
@@ -1587,9 +1835,11 @@ var scanner = null;
 
 var scannerPurpose = null;
 
+var ownerUnlocked = false;
+
 
 /* =====================================================
-   BASIC FUNCTIONS
+   BASIC
 ===================================================== */
 
 function money(n){
@@ -1620,13 +1870,66 @@ function saveData(){
 }
 
 
+function saveOwnerSettings(){
+
+  localStorage.setItem(
+    'dukaanOwnerSettings',
+    JSON.stringify(ownerSettings)
+  );
+
+}
+
+
+function setText(id,value){
+
+  var el=document.getElementById(id);
+
+  if(el){
+    el.innerText=value;
+  }
+
+}
+
+
+function escapeHtml(text){
+
+  return String(text || '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function todayString(){
+
+  var d=new Date();
+
+  var y=d.getFullYear();
+
+  var m=String(d.getMonth()+1).padStart(2,'0');
+
+  var day=String(d.getDate()).padStart(2,'0');
+
+  return y+'-'+m+'-'+day;
+
+}
+
+
 /* =====================================================
    PAGE NAVIGATION
 ===================================================== */
 
 function showPage(page,btn){
 
-  document.querySelectorAll('.page')
+  document
+    .querySelectorAll('.page')
     .forEach(function(p){
 
       p.classList.remove('active');
@@ -1634,15 +1937,15 @@ function showPage(page,btn){
     });
 
 
-  var target =
-    document.getElementById(page);
+  var target=document.getElementById(page);
 
   if(target){
     target.classList.add('active');
   }
 
 
-  document.querySelectorAll('.nav button')
+  document
+    .querySelectorAll('.nav button')
     .forEach(function(b){
 
       b.classList.remove('active');
@@ -1651,9 +1954,7 @@ function showPage(page,btn){
 
 
   if(btn){
-
     btn.classList.add('active');
-
   }
 
 
@@ -1665,22 +1966,32 @@ function showPage(page,btn){
 
 
 /* =====================================================
-   OWNER
+   OWNER SETUP
 ===================================================== */
 
 function openOwner(){
+
+  if(!ownerSettings){
+
+    document
+      .getElementById('setupModal')
+      .classList.add('show');
+
+    return;
+
+  }
+
 
   document
     .getElementById('ownerModal')
     .classList.add('show');
 
-  document
-    .getElementById('ownerPin')
-    .value='';
 
-  document
-    .getElementById('pinError')
-    .innerText='';
+  backToLoginBox();
+
+  document.getElementById('loginMobile').value='';
+
+  document.getElementById('ownerPin').value='';
 
 }
 
@@ -1694,39 +2005,563 @@ function closeOwner(){
 }
 
 
-function loginOwner(){
+function saveOwnerSetup(){
 
-  var pin =
-    document
-    .getElementById('ownerPin')
-    .value;
+  var mobile=
+    document.getElementById('setupMobile')
+    .value.trim();
+
+  var pin=
+    document.getElementById('setupPin')
+    .value.trim();
+
+  var confirm=
+    document.getElementById('setupPinConfirm')
+    .value.trim();
+
+  var recovery=
+    document.getElementById('setupRecovery')
+    .value.trim();
+
+  var error=
+    document.getElementById('setupError');
 
 
-  if(pin === '1234'){
+  error.innerText='';
 
-    closeOwner();
 
-    showPage('owner');
+  if(!/^[0-9]{10}$/.test(mobile)){
 
-  }else{
+    error.innerText=
+      '10 digit mobile number daalein.';
 
-    document
-      .getElementById('pinError')
-      .innerText =
-      'गलत PIN. कृपया दोबारा कोशिश करें.';
+    return;
 
   }
+
+
+  if(!/^[0-9]{4,6}$/.test(pin)){
+
+    error.innerText=
+      'PIN 4 se 6 digit ka hona chahiye.';
+
+    return;
+
+  }
+
+
+  if(pin!==confirm){
+
+    error.innerText=
+      'PIN aur Confirm PIN same nahi hai.';
+
+    return;
+
+  }
+
+
+  if(recovery.length<4){
+
+    error.innerText=
+      'Recovery Code kam se kam 4 characters ka rakhein.';
+
+    return;
+
+  }
+
+
+  ownerSettings={
+
+    mobile:mobile,
+
+    pin:pin,
+
+    recovery:recovery,
+
+    createdAt:new Date().toISOString()
+
+  };
+
+
+  saveOwnerSettings();
+
+
+  document
+    .getElementById('setupModal')
+    .classList.remove('show');
+
+
+  alert(
+    '✅ Owner Security Setup Complete!\n\n' +
+    'Mobile Number: '+mobile+
+    '\nPIN successfully saved.'+
+    '\n\nRecovery Code ko safe jagah rakhein.'
+  );
 
 }
 
 
 /* =====================================================
-   PRODUCT ADD / EDIT
+   OWNER LOGIN
+===================================================== */
+
+function loginOwner(){
+
+  var mobile=
+    document.getElementById('loginMobile')
+    .value.trim();
+
+  var pin=
+    document.getElementById('ownerPin')
+    .value.trim();
+
+  var error=
+    document.getElementById('pinError');
+
+
+  error.innerText='';
+
+
+  if(!ownerSettings){
+
+    error.innerText=
+      'Owner setup pehle complete karein.';
+
+    return;
+
+  }
+
+
+  if(
+    mobile===ownerSettings.mobile &&
+    pin===ownerSettings.pin
+  ){
+
+    ownerUnlocked=true;
+
+    closeOwner();
+
+    showPage('owner');
+
+    return;
+
+  }
+
+
+  error.innerText=
+    '❌ Mobile Number ya PIN galat hai.';
+
+}
+
+
+/* =====================================================
+   CHANGE PIN
+===================================================== */
+
+function showChangePinBox(){
+
+  document
+    .getElementById('loginNormalBox')
+    .classList.add('hidden');
+
+  document
+    .getElementById('changePinBox')
+    .classList.remove('hidden');
+
+}
+
+
+function showRecoveryBox(){
+
+  document
+    .getElementById('loginNormalBox')
+    .classList.add('hidden');
+
+  document
+    .getElementById('recoveryBox')
+    .classList.remove('hidden');
+
+}
+
+
+function backToLoginBox(){
+
+  document
+    .getElementById('loginNormalBox')
+    .classList.remove('hidden');
+
+  document
+    .getElementById('changePinBox')
+    .classList.add('hidden');
+
+  document
+    .getElementById('recoveryBox')
+    .classList.add('hidden');
+
+  var a=document.getElementById('pinError');
+  var b=document.getElementById('changePinError');
+  var c=document.getElementById('recoveryError');
+
+  if(a)a.innerText='';
+  if(b)b.innerText='';
+  if(c)c.innerText='';
+
+}
+
+
+function changePin(){
+
+  var mobile=
+    document.getElementById('changeMobile')
+    .value.trim();
+
+  var oldPin=
+    document.getElementById('oldPin')
+    .value.trim();
+
+  var newPin=
+    document.getElementById('newPin')
+    .value.trim();
+
+  var newPin2=
+    document.getElementById('newPinConfirm')
+    .value.trim();
+
+  var error=
+    document.getElementById('changePinError');
+
+
+  error.innerText='';
+
+
+  if(
+    mobile!==ownerSettings.mobile ||
+    oldPin!==ownerSettings.pin
+  ){
+
+    error.innerText=
+      '❌ Current Mobile Number ya PIN galat hai.';
+
+    return;
+
+  }
+
+
+  if(!/^[0-9]{4,6}$/.test(newPin)){
+
+    error.innerText=
+      'New PIN 4 se 6 digit ka hona chahiye.';
+
+    return;
+
+  }
+
+
+  if(newPin!==newPin2){
+
+    error.innerText=
+      'New PIN aur Confirm PIN same nahi hai.';
+
+    return;
+
+  }
+
+
+  ownerSettings.pin=newPin;
+
+  saveOwnerSettings();
+
+
+  alert('✅ PIN successfully changed.');
+
+  backToLoginBox();
+
+}
+
+
+/* =====================================================
+   RECOVERY
+===================================================== */
+
+function recoverOwner(){
+
+  var code=
+    document
+    .getElementById('recoveryCodeInput')
+    .value.trim();
+
+  var error=
+    document.getElementById('recoveryError');
+
+
+  error.innerText='';
+
+
+  if(!ownerSettings){
+
+    error.innerText=
+      'Owner security setup nahi mila.';
+
+    return;
+
+  }
+
+
+  if(code!==ownerSettings.recovery){
+
+    error.innerText=
+      '❌ Recovery Code galat hai.';
+
+    return;
+
+  }
+
+
+  ownerUnlocked=true;
+
+  closeOwner();
+
+  showPage('owner');
+
+
+  alert(
+    '✅ Owner Recovery Successful!\n\n' +
+    'Owner Mode unlock ho gaya hai.\n' +
+    'Security Settings se mobile/PIN change kar sakte hain.'
+  );
+
+}
+
+
+/* =====================================================
+   SECURITY SETTINGS
+===================================================== */
+
+function openSecuritySettings(){
+
+  if(!ownerUnlocked){
+
+    alert(
+      'Pehle Owner Login karein.'
+    );
+
+    return;
+
+  }
+
+
+  document
+    .getElementById('securityModal')
+    .classList.add('show');
+
+
+  document
+    .getElementById('securityMobile')
+    .value=ownerSettings.mobile;
+
+
+  document
+    .getElementById('securityMessage')
+    .innerText='';
+
+}
+
+
+function closeSecuritySettings(){
+
+  document
+    .getElementById('securityModal')
+    .classList.remove('show');
+
+}
+
+
+function updateOwnerMobile(){
+
+  var mobile=
+    document
+    .getElementById('securityMobile')
+    .value.trim();
+
+  var pin=
+    document
+    .getElementById('securityPin')
+    .value.trim();
+
+  var msg=
+    document
+    .getElementById('securityMessage');
+
+
+  if(!/^[0-9]{10}$/.test(mobile)){
+
+    msg.className='error';
+
+    msg.innerText=
+      '10 digit mobile number daalein.';
+
+    return;
+
+  }
+
+
+  if(pin!==ownerSettings.pin){
+
+    msg.className='error';
+
+    msg.innerText=
+      'Current PIN galat hai.';
+
+    return;
+
+  }
+
+
+  ownerSettings.mobile=mobile;
+
+  saveOwnerSettings();
+
+
+  msg.className='success';
+
+  msg.innerText=
+    '✅ Owner mobile number updated.';
+
+}
+
+
+function updateOwnerPinFromSettings(){
+
+  var oldPin=
+    document
+    .getElementById('securityOldPin')
+    .value.trim();
+
+  var newPin=
+    document
+    .getElementById('securityNewPin')
+    .value.trim();
+
+  var newPin2=
+    document
+    .getElementById('securityNewPin2')
+    .value.trim();
+
+  var msg=
+    document
+    .getElementById('securityMessage');
+
+
+  if(oldPin!==ownerSettings.pin){
+
+    msg.className='error';
+
+    msg.innerText=
+      'Current PIN galat hai.';
+
+    return;
+
+  }
+
+
+  if(!/^[0-9]{4,6}$/.test(newPin)){
+
+    msg.className='error';
+
+    msg.innerText=
+      'New PIN 4-6 digit ka hona chahiye.';
+
+    return;
+
+  }
+
+
+  if(newPin!==newPin2){
+
+    msg.className='error';
+
+    msg.innerText=
+      'New PIN match nahi kar raha.';
+
+    return;
+
+  }
+
+
+  ownerSettings.pin=newPin;
+
+  saveOwnerSettings();
+
+
+  msg.className='success';
+
+  msg.innerText=
+    '✅ PIN successfully updated.';
+
+}
+
+
+function updateRecoveryCode(){
+
+  var recovery=
+    document
+    .getElementById('securityRecovery')
+    .value.trim();
+
+  var pin=
+    document
+    .getElementById('securityRecoveryPin')
+    .value.trim();
+
+  var msg=
+    document
+    .getElementById('securityMessage');
+
+
+  if(pin!==ownerSettings.pin){
+
+    msg.className='error';
+
+    msg.innerText=
+      'Current PIN galat hai.';
+
+    return;
+
+  }
+
+
+  if(recovery.length<4){
+
+    msg.className='error';
+
+    msg.innerText=
+      'Recovery Code kam se kam 4 characters ka rakhein.';
+
+    return;
+
+  }
+
+
+  ownerSettings.recovery=recovery;
+
+  saveOwnerSettings();
+
+
+  msg.className='success';
+
+  msg.innerText=
+    '✅ Recovery Code successfully updated.';
+
+}
+
+
+/* =====================================================
+   PRODUCT MODAL
 ===================================================== */
 
 function openProductModal(id){
 
-  editingProductId = id || null;
+  editingProductId=id || null;
 
 
   document
@@ -1739,98 +2574,62 @@ function openProductModal(id){
     .innerText='';
 
 
+  document
+    .getElementById('onlineProductInfo')
+    .classList.add('hidden');
+
+
   if(id){
 
-    var p =
+    var p=
       products.find(function(x){
-        return x.id === id;
+        return x.id===id;
       });
 
 
-    if(!p) return;
+    if(!p)return;
 
 
     document
       .getElementById('productModalTitle')
-      .innerText =
-      '✏️ Edit Product';
+      .innerText='✏️ Edit Product';
 
 
-    document
-      .getElementById('productName')
-      .value = p.name;
+    document.getElementById('productName').value=p.name;
 
+    document.getElementById('productBarcode').value=p.barcode || '';
 
-    document
-      .getElementById('productBarcode')
-      .value = p.barcode;
+    document.getElementById('productPurchase').value=p.purchase || 0;
 
+    document.getElementById('productSelling').value=p.selling || 0;
 
-    document
-      .getElementById('productPurchase')
-      .value = p.purchase;
+    document.getElementById('productStock').value=p.stock || 0;
 
+    document.getElementById('productLow').value=p.low ?? 10;
 
-    document
-      .getElementById('productSelling')
-      .value = p.selling;
+    document.getElementById('productUnit').value=p.unit || 'pcs';
 
-
-    document
-      .getElementById('productStock')
-      .value = p.stock;
-
-
-    document
-      .getElementById('productLow')
-      .value = p.low;
-
-
-    document
-      .getElementById('productUnit')
-      .value = p.unit || 'pcs';
 
   }else{
 
     document
       .getElementById('productModalTitle')
-      .innerText =
-      '➕ Add Product';
+      .innerText='➕ Add Product';
 
 
-    document
-      .getElementById('productName')
-      .value='';
+    document.getElementById('productName').value='';
 
+    document.getElementById('productBarcode').value='';
 
-    document
-      .getElementById('productBarcode')
-      .value='';
+    document.getElementById('productPurchase').value='';
 
+    document.getElementById('productSelling').value='';
 
-    document
-      .getElementById('productPurchase')
-      .value='';
+    document.getElementById('productStock').value='';
 
+    document.getElementById('productLow').value='10';
 
-    document
-      .getElementById('productSelling')
-      .value='';
-
-
-    document
-      .getElementById('productStock')
-      .value='';
-
-
-    document
-      .getElementById('productLow')
-      .value='10';
-
-
-    document
-      .getElementById('productUnit')
-      .value='pcs';
+    document.getElementById('productUnit').value='pcs';
 
   }
 
@@ -1848,66 +2647,58 @@ function closeProductModal(){
 }
 
 
+/* =====================================================
+   SAVE PRODUCT
+===================================================== */
+
 function saveProduct(){
 
-  var name =
-    document
-    .getElementById('productName')
+  var name=
+    document.getElementById('productName')
     .value.trim();
 
-
-  var barcode =
-    document
-    .getElementById('productBarcode')
+  var barcode=
+    document.getElementById('productBarcode')
     .value.trim();
 
-
-  var purchase =
+  var purchase=
     Number(
-      document
-      .getElementById('productPurchase')
+      document.getElementById('productPurchase')
       .value || 0
     );
 
-
-  var selling =
+  var selling=
     Number(
-      document
-      .getElementById('productSelling')
+      document.getElementById('productSelling')
       .value || 0
     );
 
-
-  var stock =
+  var stock=
     Number(
-      document
-      .getElementById('productStock')
+      document.getElementById('productStock')
       .value || 0
     );
 
-
-  var low =
+  var low=
     Number(
-      document
-      .getElementById('productLow')
+      document.getElementById('productLow')
       .value || 10
     );
 
-
-  var unit =
-    document
-    .getElementById('productUnit')
+  var unit=
+    document.getElementById('productUnit')
     .value;
 
+  var error=
+    document.getElementById('productError');
 
-  var error =
-    document
-    .getElementById('productError');
+
+  error.innerText='';
 
 
   if(!name){
 
-    error.innerText =
+    error.innerText=
       'Product name डालना जरूरी है.';
 
     return;
@@ -1915,10 +2706,20 @@ function saveProduct(){
   }
 
 
-  if(selling <= 0){
+  if(selling<=0){
 
-    error.innerText =
+    error.innerText=
       'Selling Rate डालना जरूरी है.';
+
+    return;
+
+  }
+
+
+  if(stock<0){
+
+    error.innerText=
+      'Stock sahi dalein.';
 
     return;
 
@@ -1927,18 +2728,18 @@ function saveProduct(){
 
   if(barcode){
 
-    var duplicate =
+    var duplicate=
       products.find(function(p){
 
-        return p.barcode === barcode &&
-          p.id !== editingProductId;
+        return String(p.barcode || '')===barcode &&
+          p.id!==editingProductId;
 
       });
 
 
     if(duplicate){
 
-      error.innerText =
+      error.innerText=
         'Ye barcode kisi aur product me already saved hai.';
 
       return;
@@ -1950,10 +2751,10 @@ function saveProduct(){
 
   if(editingProductId){
 
-    var existing =
+    var existing=
       products.find(function(p){
 
-        return p.id === editingProductId;
+        return p.id===editingProductId;
 
       });
 
@@ -1961,11 +2762,17 @@ function saveProduct(){
     if(existing){
 
       existing.name=name;
+
       existing.barcode=barcode;
+
       existing.purchase=purchase;
+
       existing.selling=selling;
+
       existing.stock=stock;
+
       existing.low=low;
+
       existing.unit=unit;
 
     }
@@ -1974,8 +2781,7 @@ function saveProduct(){
 
     products.push({
 
-      id:
-        Date.now().toString(),
+      id:Date.now().toString(),
 
       name:name,
 
@@ -2006,6 +2812,9 @@ function saveProduct(){
 
   updateDashboard();
 
+
+  alert('✅ Product successfully saved.');
+
 }
 
 
@@ -2015,44 +2824,41 @@ function saveProduct(){
 
 function renderProducts(){
 
-  var box =
-    document
-    .getElementById('productList');
+  var box=
+    document.getElementById('productList');
 
 
-  if(!box) return;
+  if(!box)return;
 
 
-  var search =
+  var search=
     (
-      document
-      .getElementById('stockSearch')
-      ?.value || ''
-    )
-    .toLowerCase();
+      document.getElementById('stockSearch')?.value || ''
+    ).toLowerCase();
 
 
-  var list =
+  var list=
     products.filter(function(p){
 
-      return (
-        p.name.toLowerCase()
+      return String(p.name || '')
+        .toLowerCase()
         .includes(search)
         ||
         String(p.barcode || '')
-        .includes(search)
-      );
+        .includes(search);
 
     });
 
 
-  if(list.length === 0){
+  if(list.length===0){
 
-    box.innerHTML =
-      '<div class="empty">' +
-      '📦 Abhi koi product nahi hai.<br><br>' +
-      '➕ Product button se product add karein.' +
+    box.innerHTML=
+      '<div class="empty">'+
+      '📦 Abhi koi product nahi hai.<br><br>'+
+      '➕ Product button se product add karein.'+
       '</div>';
+
+    renderLowStock();
 
     return;
 
@@ -2064,64 +2870,59 @@ function renderProducts(){
 
   list.forEach(function(p){
 
-    var div =
+    var div=
       document.createElement('div');
 
     div.className='product';
 
 
-    var stockClass =
-      p.stock <= p.low
+    var stockClass=
+      Number(p.stock)<=Number(p.low)
       ? 'low'
       : 'stock-number';
 
 
-    div.innerHTML =
+    div.innerHTML=
 
-      '<div style="flex:1">' +
+      '<div style="flex:1">'+
 
-      '<div class="product-name">' +
-      escapeHtml(p.name) +
-      '</div>' +
+      '<div class="product-name">'+
+      escapeHtml(p.name)+
+      '</div>'+
 
-      '<small>' +
-      'Barcode: ' +
-      (p.barcode || 'Not Added') +
-      '</small><br>' +
+      '<small>'+
+      'Barcode: '+
+      escapeHtml(p.barcode || 'Not Added')+
+      '</small><br>'+
 
-      '<small>' +
-      'Purchase: ' +
-      money(p.purchase) +
-      ' | Selling: ' +
-      money(p.selling) +
-      '</small>' +
+      '<small>'+
+      'Purchase: '+
+      money(p.purchase)+
+      ' | Selling: '+
+      money(p.selling)+
+      '</small>'+
 
-      '</div>' +
+      '</div>'+
 
-      '<div style="text-align:right">' +
+      '<div style="text-align:right">'+
 
-      '<div class="' +
-      stockClass +
-      '">' +
-      p.stock + ' ' +
-      (p.unit || 'pcs') +
-      '</div>' +
+      '<div class="'+stockClass+'">'+
+      p.stock+' '+(p.unit || 'pcs')+
+      '</div>'+
 
-      '<button ' +
-      'class="small-btn info" ' +
-      'onclick="openRateModal(\'' +
-      p.id +
-      '\')">' +
-      '✏️ Rate' +
-      '</button> ' +
+      '<button class="small-btn info" '+
+      'onclick="openRateModal(\''+
+      p.id+
+      '\')">'+
+      '✏️ Rate'+
+      '</button> '+
 
-      '<button ' +
-      'class="small-btn" ' +
-      'onclick="openProductModal(\'' +
-      p.id +
-      '\')">' +
-      'Edit' +
-      '</button>' +
+      '<button class="small-btn" '+
+      'onclick="openProductModal(\''+
+      p.id+
+      '\')">'+
+      'Edit'+
+      '</button>'+
 
       '</div>';
 
@@ -2142,23 +2943,22 @@ function renderProducts(){
 
 function updateProductSelect(){
 
-  var select =
-    document
-    .getElementById('saleProduct');
+  var select=
+    document.getElementById('saleProduct');
 
 
-  if(!select) return;
+  if(!select)return;
 
 
   select.innerHTML='';
 
 
-  if(products.length === 0){
+  if(products.length===0){
 
-    var op =
+    var op=
       document.createElement('option');
 
-    op.textContent =
+    op.textContent=
       'Pehle Product Add karein';
 
     select.appendChild(op);
@@ -2170,16 +2970,16 @@ function updateProductSelect(){
 
   products.forEach(function(p){
 
-    var op =
+    var op=
       document.createElement('option');
 
     op.value=p.id;
 
-    op.textContent =
-      p.name +
-      ' — ' +
-      money(p.selling) +
-      ' — Stock ' +
+    op.textContent=
+      p.name+
+      ' — '+
+      money(p.selling)+
+      ' — Stock '+
       p.stock;
 
     select.appendChild(op);
@@ -2187,21 +2987,16 @@ function updateProductSelect(){
   });
 
 
-  select.onchange =
-    function(){
+  select.onchange=function(){
 
-      showSaleProductInfo(
-        this.value
-      );
+    showSaleProductInfo(this.value);
 
-    };
+  };
 
 
   if(products[0]){
 
-    showSaleProductInfo(
-      products[0].id
-    );
+    showSaleProductInfo(products[0].id);
 
   }
 
@@ -2209,22 +3004,19 @@ function updateProductSelect(){
 
 
 /* =====================================================
-   SALE PRODUCT INFO
+   SALE PRODUCT
 ===================================================== */
 
 function showSaleProductInfo(id){
 
-  var p =
+  var p=
     products.find(function(x){
-
-      return x.id === id;
-
+      return x.id===id;
     });
 
 
-  var box =
-    document
-    .getElementById('saleProductInfo');
+  var box=
+    document.getElementById('saleProductInfo');
 
 
   if(!p){
@@ -2239,45 +3031,57 @@ function showSaleProductInfo(id){
   box.classList.remove('hidden');
 
 
-  box.innerHTML =
+  box.innerHTML=
 
-    '<b>' +
-    escapeHtml(p.name) +
-    '</b><br>' +
+    '<b>'+
+    escapeHtml(p.name)+
+    '</b><br>'+
 
-    'Selling Rate: <b>' +
-    money(p.selling) +
-    '</b><br>' +
+    'Barcode: '+
+    escapeHtml(p.barcode || 'Not Added')+
+    '<br>'+
 
-    'Available Stock: <b>' +
-    p.stock +
-    ' ' +
-    (p.unit || 'pcs') +
+    'Selling Rate: <b>'+
+    money(p.selling)+
+    '</b><br>'+
+
+    'Available Stock: <b>'+
+    p.stock+
+    ' '+
+    (p.unit || 'pcs')+
     '</b>';
 
 
-  document
-    .getElementById('saleAmount')
-    .value =
+  updateSaleAmount();
+
+
+}
+
+
+function updateSaleAmount(){
+
+  var id=
+    document.getElementById('saleProduct')?.value;
+
+
+  var p=
+    products.find(function(x){
+      return x.id===id;
+    });
+
+
+  if(!p)return;
+
+
+  var qty=
     Number(
-      document
-      .getElementById('saleQty')
+      document.getElementById('saleQty')
       .value || 1
-    ) * Number(p.selling);
+    );
 
 
-  document
-    .getElementById('saleQty')
-    .oninput =
-    function(){
-
-      document
-      .getElementById('saleAmount')
-      .value =
-      Number(this.value || 1)
-      * Number(p.selling);
-
-    };
+  document.getElementById('saleAmount').value=
+    qty*Number(p.selling || 0);
 
 }
 
@@ -2288,16 +3092,16 @@ function showSaleProductInfo(id){
 
 function findProductByBarcode(barcode){
 
-  barcode =
+  barcode=
     String(barcode || '').trim();
 
 
-  if(!barcode) return null;
+  if(!barcode)return null;
 
 
   return products.find(function(p){
 
-    return String(p.barcode || '') === barcode;
+    return String(p.barcode || '')===barcode;
 
   }) || null;
 
@@ -2306,21 +3110,29 @@ function findProductByBarcode(barcode){
 
 function findSaleBarcode(){
 
-  var barcode =
-    document
-    .getElementById('saleBarcode')
+  var barcode=
+    document.getElementById('saleBarcode')
     .value.trim();
 
 
-  var p =
+  if(!barcode){
+
+    alert('Barcode number daalein.');
+
+    return;
+
+  }
+
+
+  var p=
     findProductByBarcode(barcode);
 
 
   if(!p){
 
     alert(
-      '❌ Barcode se product nahi mila.\n\n' +
-      'Pehle Product Add karein aur uska barcode save karein.'
+      '❌ Barcode saved product me nahi mila.\n\n'+
+      'Aap Stock → Product me barcode ke saath product add karein.'
     );
 
     return;
@@ -2340,28 +3152,26 @@ function findSaleBarcode(){
 
 function findStockBarcode(){
 
-  var barcode =
-    document
-    .getElementById('stockBarcode')
+  var barcode=
+    document.getElementById('stockBarcode')
     .value.trim();
 
 
-  var p =
+  var p=
     findProductByBarcode(barcode);
 
 
-  var box =
-    document
-    .getElementById('stockProductInfo');
+  var box=
+    document.getElementById('stockProductInfo');
 
 
   if(!p){
 
     box.classList.remove('hidden');
 
-    box.innerHTML =
-      '<span class="error">' +
-      '❌ Product nahi mila. Pehle Product Add karein.' +
+    box.innerHTML=
+      '<span class="error">'+
+      '❌ Product nahi mila. Pehle Product Add karein.'+
       '</span>';
 
     return null;
@@ -2371,19 +3181,24 @@ function findStockBarcode(){
 
   box.classList.remove('hidden');
 
-  box.innerHTML =
 
-    '<b>' +
-    escapeHtml(p.name) +
-    '</b><br>' +
+  box.innerHTML=
 
-    'Current Stock: <b>' +
-    p.stock +
-    ' ' +
-    (p.unit || 'pcs') +
-    '</b><br>' +
+    '<b>'+
+    escapeHtml(p.name)+
+    '</b><br>'+
 
-    'Purchase Rate: ' +
+    'Barcode: '+
+    escapeHtml(p.barcode)+
+    '<br>'+
+
+    'Current Stock: <b>'+
+    p.stock+
+    ' '+
+    (p.unit || 'pcs')+
+    '</b><br>'+
+
+    'Purchase Rate: '+
     money(p.purchase);
 
 
@@ -2403,65 +3218,56 @@ function findStockBarcode(){
 
 function saveSale(){
 
-  var customer =
-    document
-    .getElementById('saleCustomer')
+  var customer=
+    document.getElementById('saleCustomer')
     .value.trim()
     ||
     'Walk-in Customer';
 
 
-  var productId =
-    document
-    .getElementById('saleProduct')
+  var productId=
+    document.getElementById('saleProduct')
     .value;
 
 
-  var p =
+  var p=
     products.find(function(x){
-
-      return x.id === productId;
-
+      return x.id===productId;
     });
 
 
   if(!p){
 
-    alert(
-      'Pehle product add/select karein.'
-    );
+    alert('Pehle product add/select karein.');
 
     return;
 
   }
 
 
-  var qty =
+  var qty=
     Number(
-      document
-      .getElementById('saleQty')
+      document.getElementById('saleQty')
       .value || 1
     );
 
 
-  if(qty <= 0){
+  if(qty<=0){
 
-    alert(
-      'Quantity sahi dalein.'
-    );
+    alert('Quantity sahi dalein.');
 
     return;
 
   }
 
 
-  if(qty > p.stock){
+  if(qty>p.stock){
 
     alert(
-      '❌ Stock available nahi hai.\n\n' +
-      'Available: ' +
-      p.stock +
-      ' ' +
+      '❌ Stock available nahi hai.\n\n'+
+      'Available: '+
+      p.stock+
+      ' '+
       (p.unit || 'pcs')
     );
 
@@ -2470,25 +3276,26 @@ function saveSale(){
   }
 
 
-  var amount =
+  var amount=
     Number(
-      document
-      .getElementById('saleAmount')
+      document.getElementById('saleAmount')
       .value ||
-      qty * p.selling
+      qty*p.selling
     );
 
 
-  var payment =
-    document
-    .getElementById('payment')
+  if(amount<=0){
+
+    alert('Amount sahi dalein.');
+
+    return;
+
+  }
+
+
+  var payment=
+    document.getElementById('payment')
     .value;
-
-
-  /* IMPORTANT:
-     Sale ke time current selling rate
-     history me save hoga.
-  */
 
 
   sales.push({
@@ -2505,55 +3312,39 @@ function saveSale(){
 
     qty:qty,
 
-    rate:p.selling,
+    rate:Number(p.selling),
 
     amount:amount,
 
     payment:payment,
 
-    purchaseRate:p.purchase
+    purchaseRate:Number(p.purchase || 0)
 
   });
 
 
-  p.stock -= qty;
+  p.stock-=qty;
 
 
   saveData();
 
 
   alert(
-    '✅ Sale Saved!\n\n' +
-
-    'Product: ' +
-    p.name +
-
-    '\nQuantity: ' +
-    qty +
-
-    '\nRate: ' +
-    money(p.selling) +
-
-    '\nAmount: ' +
-    money(amount) +
-
-    '\nPayment: ' +
-    payment +
-
-    '\n\nStock Remaining: ' +
-    p.stock
+    '✅ Sale Saved!\n\n'+
+    'Product: '+p.name+
+    '\nQuantity: '+qty+
+    '\nRate: '+money(p.selling)+
+    '\nAmount: '+money(amount)+
+    '\nPayment: '+payment+
+    '\n\nStock Remaining: '+p.stock
   );
 
 
-  document
-    .getElementById('saleQty')
-    .value=1;
+  document.getElementById('saleQty').value=1;
 
+  document.getElementById('saleCustomer').value='';
 
-  document
-    .getElementById('saleCustomer')
-    .value='';
-
+  document.getElementById('saleBarcode').value='';
 
   renderProducts();
 
@@ -2570,58 +3361,61 @@ function saveSale(){
 
 function saveStockIn(){
 
-  var barcode =
-    document
-    .getElementById('stockBarcode')
+  var barcode=
+    document.getElementById('stockBarcode')
     .value.trim();
 
 
-  var p =
+  var p=
     findProductByBarcode(barcode);
 
 
   if(!p){
 
-    p =
-      findStockBarcode();
+    p=findStockBarcode();
 
-    if(!p) return;
+    if(!p)return;
 
   }
 
 
-  var qty =
+  var qty=
     Number(
-      document
-      .getElementById('stockQty')
+      document.getElementById('stockQty')
       .value || 0
     );
 
 
-  var purchaseRate =
+  var purchaseRate=
     Number(
-      document
-      .getElementById('stockPurchaseRate')
+      document.getElementById('stockPurchaseRate')
       .value ||
       p.purchase ||
       0
     );
 
 
-  if(qty <= 0){
+  if(qty<=0){
 
-    alert(
-      'Stock quantity डालें.'
-    );
+    alert('Stock quantity डालें.');
 
     return;
 
   }
 
 
-  p.stock += qty;
+  if(purchaseRate<0){
 
-  p.purchase = purchaseRate;
+    alert('Purchase Rate sahi dalein.');
+
+    return;
+
+  }
+
+
+  p.stock+=qty;
+
+  p.purchase=purchaseRate;
 
 
   purchases.push({
@@ -2638,7 +3432,7 @@ function saveStockIn(){
 
     rate:purchaseRate,
 
-    amount:qty * purchaseRate
+    amount:qty*purchaseRate
 
   });
 
@@ -2647,31 +3441,20 @@ function saveStockIn(){
 
 
   alert(
-    '✅ Stock Added!\n\n' +
-
-    'Product: ' +
-    p.name +
-
-    '\nQuantity: ' +
-    qty +
-
-    '\nPurchase Rate: ' +
-    money(purchaseRate) +
-
-    '\nNew Stock: ' +
-    p.stock
+    '✅ Stock Added!\n\n'+
+    'Product: '+p.name+
+    '\nQuantity: '+qty+
+    '\nPurchase Rate: '+money(purchaseRate)+
+    '\nNew Stock: '+p.stock
   );
 
 
-  document
-    .getElementById('stockBarcode')
-    .value='';
+  document.getElementById('stockBarcode').value='';
 
+  document.getElementById('stockQty').value='';
 
-  document
-    .getElementById('stockQty')
-    .value='';
-
+  document.getElementById('stockProductInfo')
+    .classList.add('hidden');
 
   renderProducts();
 
@@ -2688,67 +3471,63 @@ function saveStockIn(){
 
 function renderLowStock(){
 
-  var box =
-    document
-    .getElementById('lowStockList');
+  var box=
+    document.getElementById('lowStockList');
+
+  var home=
+    document.getElementById('homeStockAlerts');
 
 
-  var home =
-    document
-    .getElementById('homeStockAlerts');
-
-
-  var low =
+  var low=
     products.filter(function(p){
 
-      return Number(p.stock) <=
-        Number(p.low);
+      return Number(p.stock)<=Number(p.low);
 
     });
 
 
   if(box){
 
-    if(low.length === 0){
+    if(low.length===0){
 
-      box.innerHTML =
-        '<p class="success">' +
-        '✅ Koi low stock product nahi hai.' +
+      box.innerHTML=
+        '<p class="success">'+
+        '✅ Koi low stock product nahi hai.'+
         '</p>';
 
     }else{
 
       box.innerHTML='';
 
+
       low.forEach(function(p){
 
-        box.innerHTML +=
+        box.innerHTML+=
 
-          '<div class="product">' +
+          '<div class="product">'+
 
-          '<div>' +
+          '<div>'+
 
-          '<b>' +
-          escapeHtml(p.name) +
-          '</b><br>' +
+          '<b>'+
+          escapeHtml(p.name)+
+          '</b><br>'+
 
-          '<small>' +
-          'Only ' +
-          p.stock +
-          ' ' +
-          (p.unit || 'pcs') +
-          ' remaining' +
-          '</small>' +
+          '<small>'+
+          'Only '+
+          p.stock+
+          ' '+
+          (p.unit || 'pcs')+
+          ' remaining'+
+          '</small>'+
 
-          '</div>' +
+          '</div>'+
 
-          '<button ' +
-          'class="small-btn warning" ' +
-          'onclick="supplierOrderFor(\'' +
-          p.id +
-          '\')">' +
-          '📱 Order' +
-          '</button>' +
+          '<button class="small-btn warning" '+
+          'onclick="supplierOrderFor(\''+
+          p.id+
+          '\')">'+
+          '📱 Order'+
+          '</button>'+
 
           '</div>';
 
@@ -2761,43 +3540,41 @@ function renderLowStock(){
 
   if(home){
 
-    if(low.length === 0){
+    if(low.length===0){
 
-      home.innerHTML =
-        '<p class="success">' +
-        '✅ Stock theek hai.' +
+      home.innerHTML=
+        '<p class="success">'+
+        '✅ Stock theek hai.'+
         '</p>';
 
     }else{
 
       home.innerHTML='';
 
-      low.slice(0,4)
-      .forEach(function(p){
 
-        home.innerHTML +=
+      low.slice(0,4).forEach(function(p){
 
-          '<p class="low">' +
-          escapeHtml(p.name) +
-          ' — केवल ' +
-          p.stock +
-          ' ' +
-          (p.unit || 'pcs') +
-          ' बाकी' +
+        home.innerHTML+=
+
+          '<p class="low">'+
+          escapeHtml(p.name)+
+          ' — केवल '+
+          p.stock+
+          ' '+
+          (p.unit || 'pcs')+
+          ' बाकी'+
           '</p>';
 
       });
 
-      home.innerHTML +=
 
-        '<button ' +
-        'class="action warning" ' +
-        'onclick="supplierOrderFor(\'' +
-        low[0].id +
-        '\')">' +
+      home.innerHTML+=
 
-        '📱 Supplier ko WhatsApp Order' +
-
+        '<button class="action warning" '+
+        'onclick="supplierOrderFor(\''+
+        low[0].id+
+        '\')">'+
+        '📱 Supplier ko WhatsApp Order'+
         '</button>';
 
     }
@@ -2808,20 +3585,18 @@ function renderLowStock(){
 
 
 /* =====================================================
-   RATE CHANGE
+   RATE
 ===================================================== */
 
 function openRateModal(id){
 
-  var p =
+  var p=
     products.find(function(x){
-
-      return x.id === id;
-
+      return x.id===id;
     });
 
 
-  if(!p) return;
+  if(!p)return;
 
 
   editingProductId=id;
@@ -2834,20 +3609,15 @@ function openRateModal(id){
 
   document
     .getElementById('rateProductName')
-    .innerHTML =
-    '<b>' +
-    escapeHtml(p.name) +
-    '</b>';
+    .innerHTML=
+      '<b>'+
+      escapeHtml(p.name)+
+      '</b>';
 
 
-  document
-    .getElementById('ratePurchase')
-    .value=p.purchase;
+  document.getElementById('ratePurchase').value=p.purchase;
 
-
-  document
-    .getElementById('rateSelling')
-    .value=p.selling;
+  document.getElementById('rateSelling').value=p.selling;
 
 }
 
@@ -2865,38 +3635,32 @@ function closeRateModal(){
 
 function saveRate(){
 
-  var p =
+  var p=
     products.find(function(x){
-
-      return x.id === editingProductId;
-
+      return x.id===editingProductId;
     });
 
 
-  if(!p) return;
+  if(!p)return;
 
 
-  var purchase =
+  var purchase=
     Number(
-      document
-      .getElementById('ratePurchase')
+      document.getElementById('ratePurchase')
       .value || 0
     );
 
 
-  var selling =
+  var selling=
     Number(
-      document
-      .getElementById('rateSelling')
+      document.getElementById('rateSelling')
       .value || 0
     );
 
 
-  if(selling <= 0){
+  if(selling<=0){
 
-    alert(
-      'Selling Rate sahi dalein.'
-    );
+    alert('Selling Rate sahi dalein.');
 
     return;
 
@@ -2920,13 +3684,9 @@ function saveRate(){
 
 
   alert(
-    '✅ Rate successfully updated.\n\n' +
-
-    'New Purchase Rate: ' +
-    money(purchase) +
-
-    '\nNew Selling Rate: ' +
-    money(selling)
+    '✅ Rate successfully updated.\n\n'+
+    'Purchase: '+money(purchase)+
+    '\nSelling: '+money(selling)
   );
 
 }
@@ -2951,6 +3711,11 @@ function openScanner(purpose){
     .value='';
 
 
+  document
+    .getElementById('reader')
+    .innerHTML='';
+
+
   setTimeout(function(){
 
     startScanner();
@@ -2973,18 +3738,33 @@ function startScanner(){
   }
 
 
-  scanner =
-    new Html5Qrcode("reader");
+  if(typeof Html5Qrcode==='undefined'){
+
+    document.getElementById('reader').innerHTML=
+      '<p class="error">'+
+      'Barcode scanner library load nahi hui. '+
+      'Internet connection check karein.'+
+      '</p>';
+
+    return;
+
+  }
 
 
-  var config = {
+  scanner=
+    new Html5Qrcode('reader');
+
+
+  var config={
 
     fps:10,
 
     qrbox:{
       width:250,
       height:150
-    }
+    },
+
+    aspectRatio:1.777
 
   };
 
@@ -2992,7 +3772,7 @@ function startScanner(){
   scanner.start(
 
     {
-      facingMode:"environment"
+      facingMode:'environment'
     },
 
     config,
@@ -3005,7 +3785,7 @@ function startScanner(){
 
     function(errorMessage){
 
-      /* Scanning continues */
+      /* Continue scanning */
 
     }
 
@@ -3013,11 +3793,12 @@ function startScanner(){
 
     document
       .getElementById('reader')
-      .innerHTML =
+      .innerHTML=
 
-      '<p class="error">' +
-      'Camera start nahi ho saka.<br><br>' +
-      'Browser camera permission allow karein ya barcode manually enter karein.' +
+      '<p class="error">'+
+      '❌ Camera start nahi ho saka.<br><br>'+
+      'Camera permission Allow karein.<br>'+
+      'Agar phir bhi scan na ho to barcode manually enter karein.'+
       '</p>';
 
   });
@@ -3027,29 +3808,27 @@ function startScanner(){
 
 function handleBarcode(barcode){
 
-  barcode =
+  barcode=
     String(barcode || '').trim();
 
 
-  if(!barcode) return;
+  if(!barcode)return;
 
 
-  document
-    .getElementById('manualScanBarcode')
-    .value=barcode;
+  var purpose=scannerPurpose;
 
 
   closeScanner();
 
 
-  if(scannerPurpose === 'sale'){
+  if(purpose==='sale'){
 
     document
       .getElementById('saleBarcode')
       .value=barcode;
 
 
-    var p =
+    var p=
       findProductByBarcode(barcode);
 
 
@@ -3066,23 +3845,32 @@ function handleBarcode(barcode){
     }else{
 
       alert(
-        '❌ Ye barcode kisi product me saved nahi hai.\n\n' +
-        'Pehle Stock → ➕ Product se product add karein.'
+        '❌ Ye barcode saved product me nahi mila.\n\n'+
+        'Product ko barcode ke saath Stock me add karein.'
       );
 
       showPage('stock');
+
+      setTimeout(function(){
+
+        document
+          .getElementById('stockBarcode')
+          .value=barcode;
+
+        findStockBarcode();
+
+      },100);
 
     }
 
   }
 
 
-  else if(scannerPurpose === 'stock'){
+  else if(purpose==='stock'){
 
     document
       .getElementById('stockBarcode')
       .value=barcode;
-
 
     findStockBarcode();
 
@@ -3091,13 +3879,41 @@ function handleBarcode(barcode){
   }
 
 
-  else if(scannerPurpose === 'product'){
+  else if(purpose==='product'){
+
+    /*
+      IMPORTANT FIX:
+      Pehle barcode ko field me set karein,
+      phir modal ko bina reset kiye open karein.
+    */
+
+    document
+      .getElementById('productModal')
+      .classList.add('show');
+
 
     document
       .getElementById('productBarcode')
       .value=barcode;
 
-    openProductModal();
+
+    document
+      .getElementById('productModalTitle')
+      .innerText='➕ Add Product';
+
+
+    editingProductId=null;
+
+
+    /*
+      Online barcode details automatically try karega.
+    */
+
+    setTimeout(function(){
+
+      lookupBarcodeDetails();
+
+    },200);
 
   }
 
@@ -3109,7 +3925,7 @@ function handleBarcode(barcode){
 
 function useManualBarcode(){
 
-  var barcode =
+  var barcode=
     document
     .getElementById('manualScanBarcode')
     .value.trim();
@@ -3117,9 +3933,7 @@ function useManualBarcode(){
 
   if(!barcode){
 
-    alert(
-      'Barcode number डालें.'
-    );
+    alert('Barcode number डालें.');
 
     return;
 
@@ -3140,7 +3954,9 @@ function closeScanner(){
       scanner.stop()
       .then(function(){
 
-        scanner.clear();
+        try{
+          scanner.clear();
+        }catch(e){}
 
       })
       .catch(function(){
@@ -3166,60 +3982,284 @@ function closeScanner(){
 
 
 /* =====================================================
+   ONLINE BARCODE DETAILS
+===================================================== */
+
+async function lookupBarcodeDetails(){
+
+  var barcode=
+    document
+    .getElementById('productBarcode')
+    .value.trim();
+
+
+  var box=
+    document
+    .getElementById('onlineProductInfo');
+
+
+  if(!barcode){
+
+    box.classList.remove('hidden');
+
+    box.innerHTML=
+      '<span class="error">'+
+      'Pehle barcode enter/scan karein.'+
+      '</span>';
+
+    return;
+
+  }
+
+
+  box.classList.remove('hidden');
+
+  box.innerHTML=
+    '🔎 Online product details search ho raha hai...';
+
+
+  try{
+
+    /*
+      Open Food Facts API.
+      Ye free public database hai.
+      Har barcode ka product data available nahi hota.
+    */
+
+    var url=
+      'https://world.openfoodfacts.org/api/v2/product/' +
+      encodeURIComponent(barcode) +
+      '.json';
+
+
+    var response=
+      await fetch(url);
+
+
+    if(!response.ok){
+      throw new Error('Network error');
+    }
+
+
+    var data=
+      await response.json();
+
+
+    if(
+      !data ||
+      data.status!==1 ||
+      !data.product
+    ){
+
+      box.innerHTML=
+
+        '<span class="error">'+
+        '❌ Is barcode ka online product data nahi mila.'+
+        '</span><br><br>'+
+
+        '<small>'+
+        'Barcode galat nahi bhi ho sakta hai. '+
+        'Har product Open Food Facts database me available nahi hota.'+
+        '</small>';
+
+      return;
+
+    }
+
+
+    var p=data.product;
+
+
+    var productName=
+      p.product_name ||
+      p.product_name_hi ||
+      p.generic_name ||
+      'Unknown Product';
+
+
+    var brand=
+      p.brands ||
+      '';
+
+
+    var category=
+      p.categories ||
+      '';
+
+
+    var image=
+      p.image_front_small_url ||
+      '';
+
+
+    box.innerHTML=
+
+      '<b>✅ Product Details Found</b><br><br>'+
+
+      (
+        image
+        ?
+        '<img src="'+
+        escapeHtml(image)+
+        '" style="max-width:90px;border-radius:10px;margin-bottom:8px">'
+        :
+        ''
+      )+
+
+      '<br>'+
+
+      '<b>Product:</b> '+
+      escapeHtml(productName)+
+      '<br>'+
+
+      (
+        brand
+        ?
+        '<b>Brand:</b> '+
+        escapeHtml(brand)+
+        '<br>'
+        :
+        ''
+      )+
+
+      (
+        category
+        ?
+        '<b>Category:</b> '+
+        escapeHtml(category)+
+        '<br>'
+        :
+        ''
+      )+
+
+      '<br>'+
+
+      '<button class="small-btn info" '+
+      'onclick="useOnlineProductName(\''+
+      encodeURIComponent(productName)+
+      '\')">'+
+      '✓ Use Product Name'+
+      '</button>';
+
+
+    window.lastOnlineProduct={
+
+      name:productName,
+
+      brand:brand,
+
+      category:category,
+
+      image:image,
+
+      barcode:barcode
+
+    };
+
+
+  }catch(error){
+
+    box.innerHTML=
+
+      '<span class="error">'+
+      '❌ Online details fetch nahi ho payi.'+
+      '</span><br><br>'+
+
+      '<small>'+
+      'Internet connection check karein. '+
+      'Aap phir bhi product name manually daalkar barcode save kar sakte hain.'+
+      '</small>';
+
+  }
+
+}
+
+
+function useOnlineProductName(encodedName){
+
+  var name=
+    decodeURIComponent(encodedName || '');
+
+
+  document
+    .getElementById('productName')
+    .value=name;
+
+
+  alert(
+    '✅ Product name add kar diya gaya hai.\n\n'+
+    'Purchase aur Selling Rate aapko khud enter karna hoga.'
+  );
+
+}
+
+
+/* =====================================================
    DASHBOARD
 ===================================================== */
 
 function updateDashboard(){
 
-  var today =
-    new Date()
-    .toISOString()
-    .slice(0,10);
+  var today=todayString();
 
 
-  var todaySales =
+  var todaySales=
     sales.filter(function(s){
 
-      return String(s.date)
-        .slice(0,10) === today;
+      return String(s.date || '')
+        .slice(0,10)===today;
 
     });
 
 
-  var salesAmount =
-    todaySales.reduce(
-      function(total,s){
-
-        return total +
-          Number(s.amount || 0);
-
-      },0
-    );
-
-
-  var purchaseAmount =
+  var todayPurchases=
     purchases.filter(function(p){
 
-      return String(p.date)
-        .slice(0,10) === today;
+      return String(p.date || '')
+        .slice(0,10)===today;
 
-    })
-    .reduce(
-      function(total,p){
-
-        return total +
-          Number(p.amount || 0);
-
-      },0
-    );
+    });
 
 
-  var lowCount =
+  var salesAmount=
+    todaySales.reduce(function(total,s){
+
+      return total+
+        Number(s.amount || 0);
+
+    },0);
+
+
+  var purchaseAmount=
+    todayPurchases.reduce(function(total,p){
+
+      return total+
+        Number(p.amount || 0);
+
+    },0);
+
+
+  var lowCount=
     products.filter(function(p){
 
-      return p.stock <= p.low;
+      return Number(p.stock)<=Number(p.low);
 
     }).length;
+
+
+  var due=
+    sales
+      .filter(function(s){
+
+        return s.payment==='Udhar';
+
+      })
+      .reduce(function(total,s){
+
+        return total+
+          Number(s.amount || 0);
+
+      },0);
 
 
   setText(
@@ -3235,8 +4275,14 @@ function updateDashboard(){
 
 
   setText(
+    'homeDue',
+    money(due)
+  );
+
+
+  setText(
     'homeLowStock',
-    lowCount + ' Products'
+    lowCount+' Products'
   );
 
 
@@ -3276,19 +4322,17 @@ function updateDashboard(){
   );
 
 
-  var grossProfit =
-    todaySales.reduce(
-      function(total,s){
+  var grossProfit=
+    todaySales.reduce(function(total,s){
 
-        return total +
-          (
-            Number(s.rate || 0) -
-            Number(s.purchaseRate || 0)
-          ) *
-          Number(s.qty || 0);
+      return total+
+        (
+          Number(s.rate || 0)-
+          Number(s.purchaseRate || 0)
+        )*
+        Number(s.qty || 0);
 
-      },0
-    );
+    },0);
 
 
   setText(
@@ -3303,21 +4347,69 @@ function updateDashboard(){
   );
 
 
+  setText(
+    'totalDue',
+    money(due)
+  );
+
+
   renderLowStock();
 
   renderTopProducts();
 
+  updateAI();
+
 }
 
 
-function setText(id,value){
+/* =====================================================
+   AI SUGGESTION
+===================================================== */
 
-  var el =
-    document.getElementById(id);
+function updateAI(){
 
-  if(el){
-    el.innerText=value;
+  var msg=
+    document.getElementById('aiMessage');
+
+
+  if(!msg)return;
+
+
+  var low=
+    products.filter(function(p){
+
+      return Number(p.stock)<=Number(p.low);
+
+    });
+
+
+  if(low.length){
+
+    msg.innerHTML=
+      '⚠️ <b>'+
+      low.length+
+      ' product(s)</b> low stock me hain. '+
+      'Supplier ko order karna useful rahega.';
+
+    return;
+
   }
+
+
+  if(sales.length){
+
+    msg.innerHTML=
+      '👍 Sales data record ho raha hai. '+
+      'Top-selling products ko regularly stock me rakhein.';
+
+    return;
+
+  }
+
+
+  msg.innerHTML=
+    'Product add karke sales record karna start karein. '+
+    'Dukaan Saathi aapke business data ke basis par suggestions dega.';
 
 }
 
@@ -3328,17 +4420,16 @@ function setText(id,value){
 
 function renderTopProducts(){
 
-  var box =
-    document
-    .getElementById('topProducts');
+  var box=
+    document.getElementById('topProducts');
 
 
-  if(!box) return;
+  if(!box)return;
 
 
-  if(sales.length === 0){
+  if(sales.length===0){
 
-    box.innerHTML =
+    box.innerHTML=
       '<p>Abhi sales data nahi hai.</p>';
 
     return;
@@ -3352,18 +4443,16 @@ function renderTopProducts(){
   sales.forEach(function(s){
 
     if(!map[s.productName]){
-
       map[s.productName]=0;
-
     }
 
-    map[s.productName] +=
+    map[s.productName]+=
       Number(s.qty || 0);
 
   });
 
 
-  var arr =
+  var arr=
     Object.keys(map)
     .map(function(name){
 
@@ -3386,18 +4475,51 @@ function renderTopProducts(){
 
   arr.forEach(function(x,i){
 
-    box.innerHTML +=
+    box.innerHTML+=
 
-      '<p>' +
-      (i+1) +
-      '. ' +
-      escapeHtml(x.name) +
-      ' — ' +
-      x.qty +
-      ' sold' +
+      '<p>'+
+      (i+1)+
+      '. '+
+      escapeHtml(x.name)+
+      ' — '+
+      x.qty+
+      ' sold'+
       '</p>';
 
   });
+
+}
+
+
+/* =====================================================
+   CUSTOMER SEARCH
+===================================================== */
+
+function filterCustomers(){
+
+  var search=
+    (
+      document
+      .getElementById('customerSearch')
+      .value || ''
+    )
+    .toLowerCase();
+
+
+  document
+    .querySelectorAll('.customer-item')
+    .forEach(function(item){
+
+      var text=
+        item.innerText.toLowerCase();
+
+
+      item.style.display=
+        text.includes(search)
+        ? 'flex'
+        : 'none';
+
+    });
 
 }
 
@@ -3408,76 +4530,55 @@ function renderTopProducts(){
 
 function supplierOrderFor(id){
 
-  var p =
+  var p=
     products.find(function(x){
-
-      return x.id === id;
-
+      return x.id===id;
     });
 
 
-  if(!p) return;
+  if(!p)return;
 
 
-  var message =
-    'Namaste, ' +
-    p.name +
-    ' ke ' +
+  var qty=
     Math.max(
-      p.low * 2 - p.stock,
+      Number(p.low)*2-
+      Number(p.stock),
       1
-    ) +
-    ' ' +
-    (p.unit || 'pcs') +
+    );
+
+
+  var message=
+    'Namaste, '+
+    p.name+
+    ' ke '+
+    qty+
+    ' '+
+    (p.unit || 'pcs')+
     ' bhej dijiye.';
 
 
   window.open(
-
-    'https://wa.me/?text=' +
+    'https://wa.me/?text='+
     encodeURIComponent(message),
-
     '_blank'
-
   );
-
-}
-
-
-function orderSupplier(){
-
-  if(products.length){
-
-    supplierOrderFor(
-      products[0].id
-    );
-
-  }else{
-
-    alert(
-      'Pehle product add karein.'
-    );
-
-  }
 
 }
 
 
 function customerOffer(){
 
-  var message =
-    'Namaste! Aapke liye special offer hai. ' +
-    'Aaj shopping par special discount paaiye. ' +
+  var message=
+    '🎉 SPECIAL OFFER 🎉\n\n'+
+    'Aapke liye special offer hai.\n'+
+    'Aaj shopping par special discount paaiye.\n\n'+
     'Dukaan Saathi se dhanyavaad!';
 
 
   window.open(
-
-    'https://wa.me/?text=' +
+    'https://wa.me/?text='+
     encodeURIComponent(message),
-
     '_blank'
-
   );
 
 }
@@ -3485,20 +4586,17 @@ function customerOffer(){
 
 function reminder(){
 
-  var message =
-    'Namaste Ramesh ji, ' +
-    'aapke khaate mein ₹2,850 baki hai. ' +
-    'Jab suvidha ho payment kar dijiye. ' +
+  var message=
+    'Namaste Ramesh ji,\n'+
+    'aapke khaate mein ₹2,850 baki hai.\n'+
+    'Jab suvidha ho payment kar dijiye.\n'+
     'Dhanyavaad.';
 
 
   window.open(
-
-    'https://wa.me/?text=' +
+    'https://wa.me/?text='+
     encodeURIComponent(message),
-
     '_blank'
-
   );
 
 }
@@ -3506,20 +4604,17 @@ function reminder(){
 
 function makeOffer(){
 
-  var message =
-    '🎉 SPECIAL OFFER 🎉\n\n' +
-    '₹1,000+ Shopping par ₹30 OFF\n\n' +
-    'Aaj hi visit karein.\n' +
+  var message=
+    '🎉 SPECIAL OFFER 🎉\n\n'+
+    '₹1,000+ Shopping par ₹30 OFF\n\n'+
+    'Aaj hi visit karein.\n'+
     'Dukaan Saathi';
 
 
   window.open(
-
-    'https://wa.me/?text=' +
+    'https://wa.me/?text='+
     encodeURIComponent(message),
-
     '_blank'
-
   );
 
 }
@@ -3531,14 +4626,13 @@ function makeOffer(){
 
 function voiceSale(){
 
-  var result =
-    document
-    .getElementById('voiceResult');
+  var result=
+    document.getElementById('voiceResult');
 
 
   if(!('webkitSpeechRecognition' in window)){
 
-    result.innerText =
+    result.innerText=
       'इस browser में Voice Recognition उपलब्ध नहीं है.';
 
     return;
@@ -3546,38 +4640,43 @@ function voiceSale(){
   }
 
 
-  var recognition =
+  var recognition=
     new webkitSpeechRecognition();
 
 
   recognition.lang='hi-IN';
 
+  recognition.continuous=false;
+
+  recognition.interimResults=false;
+
+
   recognition.start();
 
 
-  result.innerText =
+  result.innerText=
     '🎤 सुन रहा हूँ...';
 
 
-  recognition.onresult =
+  recognition.onresult=
     function(event){
 
-      var text =
+      var text=
         event
         .results[0][0]
         .transcript;
 
 
-      result.innerText =
-        'आपने कहा: ' + text;
+      result.innerText=
+        'आपने कहा: '+text;
 
     };
 
 
-  recognition.onerror =
+  recognition.onerror=
     function(){
 
-      result.innerText =
+      result.innerText=
         'Voice input नहीं हो पाया.';
 
     };
@@ -3586,34 +4685,94 @@ function voiceSale(){
 
 
 /* =====================================================
-   SECURITY / UTILITY
-===================================================== */
-
-function escapeHtml(text){
-
-  return String(text || '')
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;')
-    .replace(/'/g,'&#039;');
-
-}
-
-
-/* =====================================================
-   INITIAL LOAD
+   SALE QTY AUTO CALCULATION
 ===================================================== */
 
 document.addEventListener(
   'DOMContentLoaded',
   function(){
 
+    var qty=
+      document.getElementById('saleQty');
+
+
+    if(qty){
+
+      qty.addEventListener(
+        'input',
+        updateSaleAmount
+      );
+
+    }
+
+
+    var barcode=
+      document.getElementById('saleBarcode');
+
+
+    if(barcode){
+
+      barcode.addEventListener(
+        'keydown',
+        function(e){
+
+          if(e.key==='Enter'){
+
+            e.preventDefault();
+
+            findSaleBarcode();
+
+          }
+
+        }
+      );
+
+    }
+
+
+    var stockBarcode=
+      document.getElementById('stockBarcode');
+
+
+    if(stockBarcode){
+
+      stockBarcode.addEventListener(
+        'keydown',
+        function(e){
+
+          if(e.key==='Enter'){
+
+            e.preventDefault();
+
+            findStockBarcode();
+
+          }
+
+        }
+      );
+
+    }
+
+
     updateProductSelect();
 
     renderProducts();
 
     updateDashboard();
+
+
+    var customerCount=
+      document.getElementById('customerCount');
+
+
+    if(customerCount){
+
+      customerCount.innerText=
+        document.querySelectorAll(
+          '.customer-item'
+        ).length;
+
+    }
 
   }
 );
