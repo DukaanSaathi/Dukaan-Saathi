@@ -24,19 +24,14 @@ input,select{width:100%;padding:13px;margin:7px 0;border:1px solid #d0d5dd;borde
 .page{display:none}.page.active{display:block}.back{background:none;border:0;font-size:17px;padding:0}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:flex-end;justify-content:center;z-index:20}.modal-box{background:#fff;width:100%;max-width:520px;max-height:94vh;overflow:auto;padding:20px;border-radius:22px 22px 0 0}.modal.show{display:flex}
 .center{text-align:center}.big{font-size:30px;font-weight:bold;color:#166534}.hidden{display:none!important}.scanner-box{background:#f8fafc;padding:10px;border-radius:14px;margin-top:10px}
 #reader{width:100%;border-radius:12px;overflow:hidden;background:#111;min-height:220px}.scan-result{background:#ecfdf5;border:1px solid #bbf7d0;padding:12px;border-radius:12px;margin-top:10px}
-.empty{text-align:center;padding:25px 10px;color:#667085}.small-btn{border:0;padding:8px 10px;border-radius:9px;font-weight:bold;cursor:pointer;margin-top:4px}.price{font-weight:bold;color:#166534}.stock-number{font-weight:bold}
+.empty{text-align:center;padding:25px 10px;color:#667085}.small-btn{border:0;padding:8px 10px;border-radius:9px;font-weight:bold;cursor:pointer;margin-top:4px}.price{font-weight:bold;color:#166534}.stock-number{font-weight:bold}.lookup-card{background:#eff6ff;border:1px solid #bfdbfe;padding:12px;border-radius:12px;margin-top:8px}.lookup-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.lookup-actions{display:flex;gap:8px;margin-top:8px}.lookup-actions button{flex:1}
 .note{font-size:12px;color:#667085;line-height:1.5}.error{color:#dc2626;font-weight:bold}.success{color:#166534;font-weight:bold}.recovery{background:#fff7ed;border:1px solid #fed7aa;padding:12px;border-radius:12px;margin-top:10px}
 .list-btn{width:100%;text-align:left;border:0;padding:12px;border-radius:10px;margin-top:7px;background:#f8fafc;font-weight:bold}.due{color:#b91c1c;font-weight:bold}.reminder{background:#ecfdf5;border:1px solid #bbf7d0;padding:10px;border-radius:10px;margin-top:8px}
-
 .owner-stock-controls{display:flex;gap:8px;align-items:center;margin:10px 0}
 .owner-stock-controls input{flex:1}
 .owner-stock-controls button{white-space:nowrap}
 .collapsed-list{display:none!important}
-
-
 #saleProductSearch{width:100%}
-
-
 .product-picker{position:relative;width:100%}
 .product-picker-list{position:absolute;z-index:1000;left:0;right:0;top:calc(100% + 6px);max-height:300px;overflow:auto;background:#fff;border:1px solid #d8dde3;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.16)}
 .product-option{display:flex;flex-direction:column;align-items:flex-start;width:100%;padding:14px 16px;border:0;border-bottom:1px solid #eee;background:#fff;text-align:left;font-size:17px;cursor:pointer}
@@ -66,11 +61,8 @@ input,select{width:100%;padding:13px;margin:7px 0;border:1px solid #d0d5dd;borde
 <section id="sale" class="page"><div class="card"><div class="section-title"><h2>➕ New Sale</h2><button class="action info" onclick="openScanner('sale')">📷 Scan</button></div>
 <label>Customer Name</label><input id="saleCustomer" placeholder="Optional"><label>Customer WhatsApp / Mobile</label><input id="saleCustomerPhone" type="tel" maxlength="10" inputmode="numeric" placeholder="Optional 10 digit number"><p class="note">Number dene par sale ke baad WhatsApp Bill bhej sakte hain. Bill nahi bhejna ho to Skip & Save karein.</p><label>Product</label>
 <div class="product-picker">
-  <input id="saleProductSearch" autocomplete="off"
-         placeholder="🔍 Search / Select Product"
-         onfocus="openSaleProductList()" oninput="filterSaleProductList(this.value)"
-         onclick="openSaleProductList()">
-  <div id="saleProductList" class="product-picker-list hidden"></div>
+<input id="saleProductSearch" autocomplete="off" placeholder="🔍 Search / Select Product" onfocus="openSaleProductList()" oninput="filterSaleProductList(this.value)" onclick="openSaleProductList()">
+<div id="saleProductList" class="product-picker-list hidden"></div>
 </div>
 <input id="saleProduct" type="hidden">
 <div class="scanner-box"><button class="action info" onclick="openScanner('sale')">📷 Barcode Scan</button><p class="note">Camera na chale to barcode manually enter karein.</p><div class="form-row"><input id="saleBarcode" placeholder="Barcode" inputmode="numeric"><button class="action" onclick="findSaleBarcode()">🔎 Find</button></div></div>
@@ -85,7 +77,7 @@ input,select{width:100%;padding:13px;margin:7px 0;border:1px solid #d0d5dd;borde
 <button class="action info" onclick="openScanner('stock')">📷 Scan Barcode → Stock In</button>
 <div class="form-row"><input id="stockSearch" placeholder="🔍 Product search" oninput="renderProducts()"><button class="action" onclick="openProductModal()">➕ Add</button></div><div id="productList"></div></div>
 <div class="card"><h3>📥 Stock In / Purchase</h3><label>Barcode</label><div class="form-row"><input id="stockBarcode" placeholder="Barcode"><button class="action info" onclick="openScanner('stock')">📷 Scan</button></div>
-<div id="stockProductInfo" class="scan-result hidden"></div><div class="form-row"><input id="stockQty" type="number" min="0.001" step="0.001" placeholder="Quantity"><input id="stockPurchaseRate" type="number" min="0" placeholder="Purchase ₹"></div>
+<div id="stockProductInfo" class="scan-result hidden"></div><div id="stockLookupInfo" class="lookup-card hidden"></div><div class="form-row"><input id="stockQty" type="number" min="0.001" step="0.001" placeholder="Quantity"><input id="stockPurchaseRate" type="number" min="0" placeholder="Purchase ₹"></div>
 <p class="note">⚠️ Purchase rate Owner-only hai. Staff/customer view me ye rate nahi dikhaya jayega. Har Stock In ka date/time Owner Audit me save hota hai.</p><button class="action primary" onclick="saveStockIn()">📥 Add Stock</button><p id="stockMsg"></p></div>
 <div class="card"><div class="section-title"><h3>↩️ Sales Return</h3><span class="badge">Audit</span></div><p class="note">Sale delete nahi hogi. Return karne par stock wapas add hoga aur Owner Dashboard ke separate Return Audit me entry hogi.</p><button class="action warning" onclick="openReturnModal()">↩️ Create Sales Return</button></div>
 <div class="card"><h3>🔴 Low Stock</h3><div id="lowStockList"></div></div></section>
@@ -144,21 +136,22 @@ input,select{width:100%;padding:13px;margin:7px 0;border:1px solid #d0d5dd;borde
 <button class="action" onclick="printBill()">🖨️ Print Bill</button>
 <p id="billError" class="error"></p></div></div>
 
-<!-- Product modal -->
+<!-- Product -->
 <div class="modal" id="productModal"><div class="modal-box"><div class="section-title"><h2>➕ Add Product</h2><button class="back" onclick="closeModal('productModal')">✕</button></div>
-<label>Product Name</label><input id="pName" placeholder="Example: Surf Excel">
-<label>Barcode</label><div class="barcode-row"><input id="pBarcode" placeholder="Barcode number" inputmode="numeric"><button type="button" class="action info barcode-camera" onclick="openScanner('product')">📷</button></div>
+<div class="note" style="background:#eef8f2;border-radius:16px;padding:12px;margin-bottom:12px"><b>Product kaise add karein?</b><br>📷 Barcode scan karke details auto-fill karein, ya ✍️ barcode ke bina manually product add karein.</div>
+<div class="form-row" style="margin-bottom:10px"><button type="button" class="action info" onclick="openScanner('product')">📷 Scan Barcode</button><button type="button" class="action" onclick="document.getElementById('pName').focus()">✍️ Manual Add</button></div>
+<label>Product Name *</label><input id="pName" placeholder="Example: Surf Excel / Aata / Rin Soap">
+<label>Barcode <span class="note">(optional)</span></label><div class="barcode-row"><input id="pBarcode" placeholder="Barcode number — optional" inputmode="numeric"><button type="button" class="action info barcode-camera" onclick="openScanner('product')">📷</button></div>
 <button type="button" class="action info barcode-details" onclick="findProductBarcodeDetails()">🌐 Barcode Details Find Karein</button>
 <p id="productLookupMsg" class="note"></p>
-<label>Purchase Rate ₹</label><input id="pPurchase" type="number" min="0" placeholder="Purchase price">
-<label>Selling Rate ₹</label><input id="pSell" type="number" min="0" placeholder="Selling price">
-<label>Opening Stock</label><input id="pStock" type="number" min="0" step="0.001" placeholder="Opening quantity">
-<label>Low Stock Alert</label><input id="pMin" type="number" min="0" step="0.001" value="10">
-<label>Unit</label><select id="pUnit"><option>pcs</option><option>packet</option><option>box</option><option>kg</option><option>gram</option><option>litre</option><option>ml</option></select>
-<div id="ownerPurchaseField" class="hidden"></div>
-<p class="note">Purchase rate staff/customer ke normal product view me kabhi nahi dikhaya jayega. Owner login ke baad hi enter/update hoga.</p><button class="action primary" onclick="saveProduct()">💾 Save Product</button><p id="productMsg"></p></div></div>
+<div class="form-row"><div><label>Selling Rate ₹ *</label><input id="pSell" type="number" min="0" step="0.01" placeholder="Selling price"></div><div><label>MRP ₹ <span class="note">(optional)</span></label><input id="pMrp" type="number" min="0" step="0.01" placeholder="MRP"></div></div>
+<div class="form-row"><div><label>Quantity</label><input id="pStock" type="number" min="0" step="0.001" placeholder="Opening quantity"></div><div><label>Unit</label><select id="pUnit"><option>pcs</option><option>packet</option><option>box</option><option>kg</option><option>gram</option><option>litre</option><option>ml</option></select></div></div>
+<div class="form-row"><div><label>Purchase Rate ₹ <span class="note">(optional)</span></label><input id="pPurchase" type="number" min="0" step="0.01" placeholder="Purchase price"></div><div><label>Low Stock Alert</label><input id="pMin" type="number" min="0" step="0.001" value="10" placeholder="e.g. 10"></div></div>
+<label>Size / Pack <span class="note">(optional)</span></label><input id="pSize" placeholder="Example: 5 kg / 100 g / 1 L">
+<p class="note">💡 Selling Rate zaroori hai. Quantity aur Purchase Rate optional hain. Purchase Rate sirf Owner ko dikhega. Barcode scan se Name/Size/MRP milne par bhi aap save karne se pehle manually change kar sakte hain.</p><div id="ownerPurchaseField" class="hidden"></div>
+<button class="action primary" onclick="saveProduct()">💾 Save Product</button><p id="productMsg"></p></div></div>
 
-<!-- Customer modal -->
+<!-- Customer -->
 <div class="modal" id="customerModal"><div class="modal-box"><div class="section-title"><h2>👤 Add Customer</h2><button class="back" onclick="closeModal('customerModal')">✕</button></div>
 <label>Name</label><input id="cName" placeholder="Customer name"><label>WhatsApp / Mobile</label><input id="cPhone" type="tel" maxlength="10" placeholder="10 digit number"><label>Reminder Timeline</label><select id="cTimeline"><option value="7">7 Days</option><option value="15">15 Days</option><option value="30">1 Month</option><option value="0">Custom date</option></select><div id="customDateBox" class="hidden"><input id="cDate" type="date"></div>
 <button class="action primary" onclick="saveCustomer()">💾 Save Customer</button></div></div>
@@ -186,7 +179,7 @@ input,select{width:100%;padding:13px;margin:7px 0;border:1px solid #d0d5dd;borde
 const KEY={products:"ds_products_v2",sales:"ds_sales_v2",customers:"ds_customers_v2",owner:"ds_owner_v2",stockIn:"ds_stockin_v2",returns:"ds_salesreturn_v2",settings:"ds_bill_settings_v1"};
 let billSettings=load(KEY.settings,{shopName:"Dukaan Saathi",billType:"NORMAL",gstin:"",gstRate:0});
 let products=load(KEY.products,[]),sales=load(KEY.sales,[]),customers=load(KEY.customers,[]),stockIn=load(KEY.stockIn,[]),salesReturns=load(KEY.returns,[]);
-let scanner=null,scannerTarget="sale",scannerRunning=false,ownerUnlocked=false,pendingBill=null,saleCart=[];
+let scanner=null,scannerTarget="sale",scannerRunning=false,ownerUnlocked=false,pendingBill=null,saleCart=[],barcodeLookupCache=null;
 
 function load(k,f){try{return JSON.parse(localStorage.getItem(k))||f}catch(e){return f}}
 function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
@@ -228,7 +221,6 @@ async function startScanner(){
    try{
      await scanner.start({facingMode:"environment"},config,onScanSuccess,()=>{});
    }catch(firstError){
-     // Fallback: choose an available camera after permission is granted.
      const cameras=await Html5Qrcode.getCameras();
      if(!cameras.length)throw firstError;
      const cam=cameras.find(c=>/back|rear|environment/i.test(c.label))||cameras[0];
@@ -251,7 +243,7 @@ function onScanSuccess(decodedText){
  if(!decodedText)return;
  const code=decodedText.trim();
  if(scannerTarget==="sale"){document.getElementById("saleBarcode").value=code;findSaleBarcode()}
- else if(scannerTarget==="stock"){document.getElementById("stockBarcode").value=code;findStockBarcode()}
+ else if(scannerTarget==="stock"){document.getElementById("stockBarcode").value=code;findStockBarcode();if(!productByBarcode(code)) lookupBarcodeForStock(code)}
  else if(scannerTarget==="product"){document.getElementById("pBarcode").value=code;closeScanner();findProductBarcodeDetails();return}
  closeScanner();
 }
@@ -266,105 +258,128 @@ function useManualBarcode(){
  const code=document.getElementById("manualBarcode").value.trim();
  if(!code){document.getElementById("cameraError").textContent="Barcode number dalein.";return}
  if(scannerTarget==="sale"){document.getElementById("saleBarcode").value=code;findSaleBarcode()}
- else if(scannerTarget==="stock"){document.getElementById("stockBarcode").value=code;findStockBarcode()}
+ else if(scannerTarget==="stock"){document.getElementById("stockBarcode").value=code;findStockBarcode();if(!productByBarcode(code)) lookupBarcodeForStock(code)}
  else if(scannerTarget==="product"){document.getElementById("pBarcode").value=code;closeScanner();findProductBarcodeDetails();return}
  closeScanner()
-}
-
-function renderProducts(){
+}function renderProducts(){
  const q=(document.getElementById("stockSearch")?.value||"").toLowerCase();const list=products.filter(p=>p.name.toLowerCase().includes(q)||String(p.barcode||"").includes(q));
  document.getElementById("productList").innerHTML=list.length?list.map(p=>`<div class="product"><div><div class="product-name">${esc(p.name)}</div><small>Barcode: ${esc(p.barcode||"Not Added")} · ${esc(p.unit)}</small><br><span class="price">Sale ${money(p.sell)}</span> · <span class="${p.stock<=p.min?"low":""}">${p.stock} ${esc(p.unit)}</span></div><button class="small-btn" onclick="editProduct('${p.id}')">Edit</button></div>`).join(""):'<div class="empty">Product nahi hai. ➕ Product se add karein.</div>';
 }
-function refreshSaleSelect(query="") {
- filterSaleProductList(query);
-}
+function refreshSaleSelect(query=""){filterSaleProductList(query)}
 function openSaleProductList(){
- const el=document.getElementById("saleProductList");
- if(!el)return;
- el.classList.remove("hidden");
- filterSaleProductList(document.getElementById("saleProductSearch").value||"");
+ const el=document.getElementById("saleProductList");if(!el)return;
+ el.classList.remove("hidden");filterSaleProductList(document.getElementById("saleProductSearch").value||"");
 }
 function filterSaleProductList(query=""){
- const el=document.getElementById("saleProductList");
- if(!el)return;
+ const el=document.getElementById("saleProductList");if(!el)return;
  const q=String(query||"").trim().toLowerCase();
  const list=products.filter(p=>p.name.toLowerCase().includes(q)||String(p.barcode||"").toLowerCase().includes(q));
- el.innerHTML=list.length ? list.map(p=>`<button type="button" class="product-option" onclick="chooseSaleProduct('${String(p.id).replace(/'/g,"\\'")}')"><b>${esc(p.name)}</b><span>${money(p.sell)} · Stock: ${p.stock} ${esc(p.unit)}</span></button>`).join("") : '<div class="product-option-empty">Product nahi mila.</div>';
+ el.innerHTML=list.length?list.map(p=>`<button type="button" class="product-option" onclick="chooseSaleProduct('${String(p.id).replace(/'/g,"\\'")}')"><b>${esc(p.name)}</b><span>${money(p.sell)} · Stock: ${p.stock} ${esc(p.unit)}</span></button>`).join(""):'<div class="product-option-empty">Product nahi mila.</div>';
  el.classList.remove("hidden");
 }
 function chooseSaleProduct(id){
- const p=products.find(x=>x.id===id);
- if(!p)return;
+ const p=products.find(x=>x.id===id);if(!p)return;
  document.getElementById("saleProduct").value=p.id;
  document.getElementById("saleProductSearch").value=`${p.name} — ${money(p.sell)}`;
- showProductInfo(p,"saleProductInfo");
- updateSaleAmount();
- const el=document.getElementById("saleProductList");
- if(el)el.classList.add("hidden");
+ showProductInfo(p,"saleProductInfo");updateSaleAmount();
+ const el=document.getElementById("saleProductList");if(el)el.classList.add("hidden");
  document.getElementById("saleProductSearch").blur();
 }
 function selectSaleProductFromSearch(value){
  const v=String(value||"").trim().toLowerCase();
  const p=products.find(x=>x.name.toLowerCase()===v||String(x.barcode||"").toLowerCase()===v);
- if(p)chooseSaleProduct(p.id); else filterSaleProductList(value);
+ if(p)chooseSaleProduct(p.id);else filterSaleProductList(value);
 }
 document.addEventListener("click",function(e){
  const picker=document.querySelector(".product-picker");
- if(picker && !picker.contains(e.target)){
-   const el=document.getElementById("saleProductList");
-   if(el)el.classList.add("hidden");
- }
+ if(picker&&!picker.contains(e.target)){const el=document.getElementById("saleProductList");if(el)el.classList.add("hidden")}
 });
 function productByBarcode(code){return products.find(p=>String(p.barcode||"").trim()===String(code).trim())}
 function showProductInfo(p,target){
  const el=document.getElementById(target);if(!p){el.classList.add("hidden");return}
- el.classList.remove("hidden");el.innerHTML=`<b>${esc(p.name)}</b><br>Sale Price: ${money(p.sell)} · Stock: ${p.stock} ${esc(p.unit)}`;
+ el.classList.remove("hidden");el.innerHTML=`<b>${esc(p.name)}</b>${p.size?`<br>Size/Pack: ${esc(p.size)}`:""}<br>Sale Price: ${money(p.sell)}${Number(p.mrp||0)>0?` · MRP: ${money(p.mrp)}`:""} · Stock: ${p.stock} ${esc(p.unit)}`;
 }
 function findSaleBarcode(){
  const p=productByBarcode(document.getElementById("saleBarcode").value);
  if(!p){document.getElementById("saleProductInfo").classList.remove("hidden");document.getElementById("saleProductInfo").innerHTML="❌ Product nahi mila. Pehle Stock me barcode ke saath Product Add karein.";return}
- const ps=document.getElementById("saleProductSearch"); if(ps) ps.value=p.name+" — "+money(p.sell);
- refreshSaleSelect(p.name);
- chooseSaleProduct(p.id);
+ const ps=document.getElementById("saleProductSearch");if(ps)ps.value=p.name+" — "+money(p.sell);
+ refreshSaleSelect(p.name);chooseSaleProduct(p.id);
 }
-function findStockBarcode(){const p=productByBarcode(document.getElementById("stockBarcode").value);if(!p){showProductInfo(null,"stockProductInfo");document.getElementById("stockMsg").innerHTML='<span class="error">❌ Product nahi mila. Product Add karein.</span>';return}showProductInfo(p,"stockProductInfo");document.getElementById("stockMsg").textContent="Product mil gaya. Quantity aur Owner purchase rate enter karein."}
-function updateSaleAmount(){const p=products.find(x=>x.id===document.getElementById("saleProduct").value),qty=Number(document.getElementById("saleQty").value||0);if(p&&qty>0)document.getElementById("saleAmount").value=(Number(p.sell)||0)*qty}
+function findStockBarcode(){
+ const p=productByBarcode(document.getElementById("stockBarcode").value);
+ if(!p){showProductInfo(null,"stockProductInfo");document.getElementById("stockMsg").innerHTML='<span class="error">❌ Product nahi mila. Product Add karein.</span>';return}
+ showProductInfo(p,"stockProductInfo");document.getElementById("stockMsg").textContent="Product mil gaya. Quantity aur Owner purchase rate enter karein."
+}
+function updateSaleAmount(){
+ const p=products.find(x=>x.id===document.getElementById("saleProduct").value),qty=Number(document.getElementById("saleQty").value||0);
+ if(p&&qty>0)document.getElementById("saleAmount").value=(Number(p.sell)||0)*qty;
+}
 function showSelectedProduct(){
  const p=products.find(x=>x.id===document.getElementById("saleProduct").value);
  if(p){showProductInfo(p,"saleProductInfo");updateSaleAmount()}
  else{document.getElementById("saleProductInfo").classList.add("hidden");document.getElementById("saleAmount").value=""}
 }
+function openProductModal(){
+ ["pName","pBarcode","pPurchase","pSell","pMrp","pSize","pStock"].forEach(id=>{const el=document.getElementById(id);if(el)el.value=""});
+ const min=document.getElementById("pMin");if(min)min.value="10";
+ const unit=document.getElementById("pUnit");if(unit)unit.value="pcs";
+ const msg=document.getElementById("productMsg");if(msg)msg.textContent="";
+ const lookup=document.getElementById("productLookupMsg");if(lookup)lookup.textContent="";
+ openModal("productModal");
+}
 function saveProduct(){
- const name=document.getElementById("pName").value.trim(),barcode=document.getElementById("pBarcode").value.trim(),sell=Number(document.getElementById("pSell").value),stock=Number(document.getElementById("pStock").value||0),purchase=Number(document.getElementById("pPurchase").value||0),min=Number(document.getElementById("pMin").value||10);
+ const name=document.getElementById("pName").value.trim(),barcode=document.getElementById("pBarcode").value.trim(),sell=Number(document.getElementById("pSell").value),mrp=Number(document.getElementById("pMrp").value||0),size=document.getElementById("pSize").value.trim(),stock=Number(document.getElementById("pStock").value||0),purchase=Number(document.getElementById("pPurchase").value||0),min=Number(document.getElementById("pMin").value||10);
  if(!name||sell<0){document.getElementById("productMsg").innerHTML='<span class="error">Product name aur sale price zaroori hai.</span>';return}
  if(barcode&&products.some(p=>String(p.barcode||"")===barcode)){document.getElementById("productMsg").innerHTML='<span class="error">Ye barcode already added hai.</span>';return}
  const createdAt=new Date().toISOString();
- const newProduct={id:Date.now().toString(),name,barcode,sell,stock,unit:document.getElementById("pUnit").value,purchase,min,createdAt};
+ const newProduct={id:Date.now().toString(),name,barcode,sell,mrp,size,stock,unit:document.getElementById("pUnit").value,purchase,min,createdAt};
  products.push(newProduct);
- if(stock>0){stockIn.push({id:(Date.now()+1).toString(),date:createdAt,pid:newProduct.id,name,qty:stock,unit:newProduct.unit,purchaseRate:purchase,totalPurchase:stock*purchase,type:"Opening Stock"});}
+ if(stock>0)stockIn.push({id:(Date.now()+1).toString(),date:createdAt,pid:newProduct.id,name,qty:stock,unit:newProduct.unit,purchaseRate:purchase,totalPurchase:stock*purchase,type:"Opening Stock"});
  save(KEY.products,products);save(KEY.stockIn,stockIn);closeModal("productModal");updateAll()
+}
+async function fetchBarcodeDetails(code){
+ code=String(code||"").trim();if(!code)return null;
+ const sources=[
+ async()=>{const r=await fetch("https://world.openfoodfacts.org/api/v2/product/"+encodeURIComponent(code)+".json");const d=await r.json();if(d.status!==1||!d.product)return null;const p=d.product;return{name:p.product_name_hi||p.product_name_en||p.product_name||p.generic_name_hi||p.generic_name_en||"",size:p.quantity||p.product_quantity||p.packaging||"",brand:p.brands||"",mrp:Number(p.mrp||p.mrp_inr||0)||0,source:"Open Food Facts"}},
+ async()=>{const r=await fetch("https://api.upcitemdb.com/prod/trial/lookup?upc="+encodeURIComponent(code));if(!r.ok)return null;const d=await r.json();const p=d.items&&d.items[0];if(!p)return null;return{name:p.title||"",size:p.size||"",brand:p.brand||"",mrp:0,source:"UPCitemdb"}}
+ ];
+ for(const source of sources){try{const x=await source();if(x&&(x.name||x.size||x.brand||x.mrp))return x}catch(e){}}
+ return null;
+}
+function fillBarcodeProductFields(d){
+ if(!d)return;
+ if(d.name)document.getElementById("pName").value=d.name;
+ if(d.size)document.getElementById("pSize").value=d.size;
+ if(d.mrp)document.getElementById("pMrp").value=d.mrp;
 }
 async function findProductBarcodeDetails(){
  const code=document.getElementById("pBarcode").value.trim(),msg=document.getElementById("productLookupMsg");
  if(!code){msg.innerHTML='<span class="error">Pehle barcode number dalein ya 📷 camera se scan karein.</span>';return}
  const saved=productByBarcode(code);
- if(saved){document.getElementById("pName").value=saved.name||"";document.getElementById("pSell").value=saved.sell||"";msg.innerHTML='✅ Saved product mil gaya: <b>'+esc(saved.name)+'</b>';return}
- msg.textContent="🌐 Barcode details search ho rahi hai…";
- try{
-   const r=await fetch("https://world.openfoodfacts.org/api/v2/product/"+encodeURIComponent(code)+".json");
-   const d=await r.json();
-   if(d.status===1&&d.product){
-     const pr=d.product,n=pr.product_name_hi||pr.product_name_en||pr.product_name||pr.generic_name_hi||pr.generic_name_en||"";
-     if(n)document.getElementById("pName").value=n;
-     msg.innerHTML=n?"✅ Product details mil gayi. Naam automatically fill kar diya gaya hai.":"ℹ️ Barcode mila, lekin product name available nahi hai. Naam manually dalein.";
-   }else msg.innerHTML='❌ Is barcode ki online details nahi mili. Product name manually dalein.';
- }catch(e){msg.innerHTML='⚠️ Online lookup nahi ho paya. Internet check karein ya product name manually dalein.'}
+ if(saved){document.getElementById("pName").value=saved.name||"";document.getElementById("pSell").value=saved.sell||"";document.getElementById("pMrp").value=saved.mrp||"";document.getElementById("pSize").value=saved.size||"";msg.innerHTML='✅ Saved product mil gaya: <b>'+esc(saved.name)+'</b>. MRP/Size manual change kar sakte hain.';return}
+ msg.textContent="🌐 Barcode se product details search ho rahi hain…";
+ const d=await fetchBarcodeDetails(code);
+ if(d){fillBarcodeProductFields(d);msg.innerHTML='✅ Online details mil gayi ('+esc(d.source)+'). Naam/Size/MRP ko save se pehle manual change kar sakte hain.'}
+ else msg.innerHTML='⚠️ Is barcode ki online details nahi mili. Product name, Size/Pack, MRP aur Selling Rate manually bharein.';
 }
+async function lookupBarcodeForStock(code){
+ const box=document.getElementById("stockLookupInfo");if(!box)return;
+ box.classList.remove("hidden");box.innerHTML="🌐 Barcode details search ho rahi hain…";
+ const d=await fetchBarcodeDetails(code);
+ if(!d){box.innerHTML='⚠️ Online product details nahi mili. <button type="button" class="small-btn" onclick="openProductFromStockBarcode()">➕ Product Add Karein</button>';return}
+ barcodeLookupCache={code,d};
+ box.innerHTML=`<b>🔎 Online Barcode Result</b><br>${d.name?`Product: <b>${esc(d.name)}</b><br>`:""}${d.brand?`Brand: ${esc(d.brand)}<br>`:""}${d.size?`Size/Pack: ${esc(d.size)}<br>`:""}${d.mrp?`MRP: ${money(d.mrp)}<br>`:""}<div class="lookup-actions"><button type="button" class="action primary" onclick="openProductFromLookup()">➕ Add Product</button></div>`;
+}
+function openProductFromStockBarcode(){openProductModal();document.getElementById("pBarcode").value=document.getElementById("stockBarcode").value.trim();findProductBarcodeDetails()}
+function openProductFromLookup(){const data=barcodeLookupCache;if(!data)return;openProductModal();document.getElementById("pBarcode").value=data.code;fillBarcodeProductFields(data.d);document.getElementById("productLookupMsg").innerHTML='✅ Barcode details loaded. MRP/Size/Selling Rate manual change kar sakte hain.'}
 function editProduct(id){
  const p=products.find(x=>x.id===id);if(!p)return;
- if(!ownerUnlocked){alert("Purchase rate update karne ke liye Owner login zaroori hai.");return}
+ if(!ownerUnlocked){alert("Product rate/MRP update karne ke liye Owner login zaroori hai.");return}
  const rate=prompt("Owner Purchase Rate (₹ per unit)",p.purchase||0);if(rate===null)return;
- p.purchase=Number(rate)||0;save(KEY.products,products);updateAll()
+ const mrp=prompt("MRP (manual change allowed)",p.mrp||0);if(mrp===null)return;
+ const sell=prompt("Selling Rate (₹)",p.sell||0);if(sell===null)return;
+ const size=prompt("Size / Pack",p.size||"");if(size===null)return;
+ p.purchase=Number(rate)||0;p.mrp=Number(mrp)||0;p.sell=Number(sell)||0;p.size=size.trim();save(KEY.products,products);updateAll()
 }
 function saveStockIn(){
  const code=document.getElementById("stockBarcode").value.trim(),p=productByBarcode(code),qty=Number(document.getElementById("stockQty").value),rate=Number(document.getElementById("stockPurchaseRate").value||0);
@@ -379,7 +394,7 @@ function saveStockIn(){
  document.getElementById("stockMsg").innerHTML='<span class="success">✅ Stock update ho gaya. Owner Dashboard me Added Stock (Last 30 Days) me record save ho gaya.</span>';updateAll()
 }
 function renderSaleCart(){
- const el=document.getElementById("saleCart"); if(!el)return;
+ const el=document.getElementById("saleCart");if(!el)return;
  if(!saleCart.length){el.innerHTML='<div class="note">Abhi bill me koi product add nahi hua.</div>';return}
  const total=saleCart.reduce((a,i)=>a+Number(i.amount||0),0);
  el.innerHTML='<div class="sale-cart-title">🧾 Bill Items ('+saleCart.length+')</div>'+saleCart.map((i,idx)=>`<div class="cart-item"><div><div class="cart-item-name">${esc(i.name)}</div><div class="cart-item-meta">${i.qty} ${esc(i.unit||"")} × ${money(i.rate)} = <b>${money(i.amount)}</b></div></div><button class="cart-remove" onclick="removeCartItem(${idx})">✕</button></div>`).join('')+`<div class="cart-total">Subtotal: ${money(total)}</div>`;
@@ -390,7 +405,7 @@ function addCurrentItemToBill(){
  if(!qty||qty<=0){document.getElementById("saleMsg").innerHTML='<span class="error">Quantity dalein.</span>';return}
  if(p.stock<qty){document.getElementById("saleMsg").innerHTML='<span class="error">'+esc(p.name)+' ka stock kam hai. Available: '+p.stock+' '+esc(p.unit||'')+'</span>';return}
  const existing=saleCart.find(i=>i.pid===p.id);
- if(existing){const newQty=existing.qty+qty;if(newQty>p.stock){document.getElementById("saleMsg").innerHTML='<span class="error">'+esc(p.name)+' ka total quantity stock se zyada ho raha hai.</span>';return} existing.qty=newQty;existing.amount=Number(p.sell||0)*newQty;existing.rate=Number(p.sell||0)}
+ if(existing){const newQty=existing.qty+qty;if(newQty>p.stock){document.getElementById("saleMsg").innerHTML='<span class="error">'+esc(p.name)+' ka total quantity stock se zyada ho raha hai.</span>';return}existing.qty=newQty;existing.amount=Number(p.sell||0)*newQty;existing.rate=Number(p.sell||0)}
  else saleCart.push({pid:p.id,name:p.name,unit:p.unit,qty,rate:Number(p.sell||0),amount});
  document.getElementById("saleProduct").value="";document.getElementById("saleProductSearch").value="";document.getElementById("saleQty").value=1;document.getElementById("saleAmount").value="";document.getElementById("saleProductInfo").classList.add("hidden");document.getElementById("saleMsg").innerHTML='<span class="success">✅ '+esc(p.name)+' bill me add ho gaya. Ab next product select karein.</span>';renderSaleCart();
 }
@@ -404,7 +419,7 @@ function getNextBillNo(date){
 function prepareBill(){
  const name=document.getElementById("saleCustomer").value.trim(),phone=document.getElementById("saleCustomerPhone").value.trim();
  if(!saleCart.length){document.getElementById("saleMsg").innerHTML='<span class="error">Kam se kam 1 product bill me add karein.</span>';return}
- if(phone && !/^\d{10}$/.test(phone.replace(/\D/g,""))){document.getElementById("saleMsg").innerHTML='<span class="error">WhatsApp/Mobile 10 digit ka dalein.</span>';return}
+ if(phone&&!/^\d{10}$/.test(phone.replace(/\D/g,""))){document.getElementById("saleMsg").innerHTML='<span class="error">WhatsApp/Mobile 10 digit ka dalein.</span>';return}
  const baseAmount=saleCart.reduce((a,i)=>a+Number(i.amount||0),0),gstRate=billSettings.billType==="GST"?Number(billSettings.gstRate||0):0,gstAmount=baseAmount*gstRate/100,totalAmount=baseAmount+gstAmount,bd=new Date(),billNo=getNextBillNo(bd);
  pendingBill={items:saleCart.map(i=>({...i})),baseAmount,gstRate,gstAmount,totalAmount,amount:totalAmount,payment:document.getElementById("payment").value,customer:name||"Walk-in Customer",phone:phone.replace(/\D/g,""),billNo,shopName:billSettings.shopName||"Dukaan Saathi",billType:billSettings.billType||"NORMAL",gstin:billSettings.gstin||"",createdAt:bd.toISOString()};
  document.getElementById("billError").textContent="";
@@ -413,8 +428,7 @@ function prepareBill(){
  const billTitle=pendingBill.billType==="GST"?"🧾 GST Tax Invoice":"🧾 Retail Sale Receipt";
  document.getElementById("billPreview").innerHTML=`<b>${esc(pendingBill.shopName)}</b><br>${billTitle}<br><b>Bill No:</b> ${pendingBill.billNo}<br><small>Date: ${formatDateTime(pendingBill.createdAt)}</small><hr><b>Customer:</b> ${esc(pendingBill.customer)}<br>${pendingBill.phone?`<b>Mobile:</b> ${esc(pendingBill.phone)}<br>`:""}<table style="width:100%;border-collapse:collapse;margin-top:8px"><thead><tr><th style="text-align:left">Product</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead><tbody>${itemsHtml}</tbody></table>${taxLine}<br><div class="bill-total">Total: ${money(totalAmount)}</div><b>Payment:</b> ${esc(pendingBill.payment)}<br><br>Thank you! 🙏`;
  openModal("billModal");
-}
-function commitPendingSale(){
+  }function commitPendingSale(){
  if(!pendingBill||!pendingBill.items?.length)return false;
  for(const i of pendingBill.items){const p=products.find(x=>x.id===i.pid);if(!p||Number(p.stock)<Number(i.qty))return false}
  const saleDate=pendingBill.createdAt||new Date().toISOString();
@@ -436,30 +450,24 @@ function printBill(){if(!pendingBill)return;const html=document.getElementById("
 function closeBill(){closeModal("billModal");}
 
 function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+Number(n));return x}
-
 function getReturnedQty(saleId){return salesReturns.filter(r=>String(r.saleId)===String(saleId)).reduce((a,r)=>a+Number(r.qty||0),0)}
 function openReturnForSale(saleId){
- const s=sales.find(x=>String(x.id)===String(saleId));
- if(!s)return;
+ const s=sales.find(x=>String(x.id)===String(saleId));if(!s)return;
  renderReturnSales();
- const sel=document.getElementById("returnSale");
- if(sel){sel.value=String(s.id);showReturnSaleInfo();}
- document.getElementById("returnQty").value="";
- document.getElementById("returnReason").value="";
- document.getElementById("returnMsg").textContent="";
+ const sel=document.getElementById("returnSale");if(sel){sel.value=String(s.id);showReturnSaleInfo()}
+ document.getElementById("returnQty").value="";document.getElementById("returnReason").value="";document.getElementById("returnMsg").textContent="";
  openModal("returnModal");
 }
-
 function renderReturnSales(){
- const sel=document.getElementById("returnSale"); if(!sel)return;
+ const sel=document.getElementById("returnSale");if(!sel)return;
  const available=sales.filter(s=>Number(s.qty||0)-getReturnedQty(s.id)>0).sort((a,b)=>new Date(b.date)-new Date(a.date));
  sel.innerHTML='<option value="">Sale select karein</option>'+available.map(s=>{const left=Number(s.qty||0)-getReturnedQty(s.id);return `<option value="${s.id}">Bill ${esc(s.billNo||getBillNo(s))} · ${esc(s.name)} · ${left} ${esc(products.find(p=>p.id===s.pid)?.unit||"")} returnable · ${money(s.amount)}</option>`}).join("");
  if(!available.length)sel.innerHTML='<option value="">Koi returnable sale nahi hai</option>';
  showReturnSaleInfo();
 }
 function showReturnSaleInfo(){
- const id=document.getElementById("returnSale")?.value,el=document.getElementById("returnSaleInfo"); if(!el)return;
- const s=sales.find(x=>String(x.id)===String(id)); if(!s){el.classList.add("hidden");return}
+ const id=document.getElementById("returnSale")?.value,el=document.getElementById("returnSaleInfo");if(!el)return;
+ const s=sales.find(x=>String(x.id)===String(id));if(!s){el.classList.add("hidden");return}
  const p=products.find(x=>x.id===s.pid),left=Number(s.qty||0)-getReturnedQty(s.id),unitRate=Number(s.amount||0)/Math.max(Number(s.qty||1),0.0001);
  el.classList.remove("hidden");el.innerHTML=`<b>${esc(s.name)}</b><br>Sale Date: ${esc(formatDateTime(s.date))}<br>Original Qty: ${s.qty} ${esc(p?.unit||"")} · Already Returned: ${getReturnedQty(s.id)} · <b>Returnable: ${left} ${esc(p?.unit||"")}</b><br>Rate: ${money(unitRate)} · Customer: ${esc(s.customer||"Walk-in Customer")}`;
  document.getElementById("returnQty").max=left;
@@ -483,24 +491,22 @@ function saveSalesReturn(){
  renderReturnSales();updateAll();
  setTimeout(()=>closeModal("returnModal"),700);
 }
-
 function getBillNo(sale){
  if(sale&&sale.billNo)return sale.billNo;
- const d=new Date(sale?.date||Date.now()), month=d.getMonth(), year=d.getFullYear();
+ const d=new Date(sale?.date||Date.now()),month=d.getMonth(),year=d.getFullYear();
  const same=sales.filter(x=>{const z=new Date(x.date);return z.getMonth()===month&&z.getFullYear()===year}).sort((a,b)=>new Date(a.date)-new Date(b.date)||Number(a.id)-Number(b.id));
  const idx=Math.max(0,same.findIndex(x=>String(x.id)===String(sale.id)))+1;
  return String(idx).padStart(2,'0')+String(month+1).padStart(2,'0')+String(year).slice(-2);
 }
 function ensureBillNumbers(){
- const groups={}; let changed=false;
+ const groups={};let changed=false;
  [...sales].sort((a,b)=>new Date(a.date)-new Date(b.date)||Number(a.id)-Number(b.id)).forEach(s=>{
    if(!s.billNo){
      const d=new Date(s.date),key=d.getFullYear()+'-'+d.getMonth();
      groups[key]=(groups[key]||0)+1;
-     s.billNo=String(groups[key]).padStart(2,'0')+String(d.getMonth()+1).padStart(2,'0')+String(d.getFullYear()).slice(-2); changed=true;
+     s.billNo=String(groups[key]).padStart(2,'0')+String(d.getMonth()+1).padStart(2,'0')+String(d.getFullYear()).slice(-2);changed=true;
    }
-   // Existing bills get a one-time snapshot so later Owner setting changes do not rewrite old bills.
-   if(!s.shopName){s.shopName=billSettings.shopName||"Dukaan Saathi";s.billType=s.billType||"NORMAL";s.gstin=s.gstin||"";s.gstRate=Number(s.gstRate||0);s.gstAmount=Number(s.gstAmount||0);s.taxableAmount=Number(s.taxableAmount??Number(s.amount||0)-s.gstAmount);changed=true;}
+   if(!s.shopName){s.shopName=billSettings.shopName||"Dukaan Saathi";s.billType=s.billType||"NORMAL";s.gstin=s.gstin||"";s.gstRate=Number(s.gstRate||0);s.gstAmount=Number(s.gstAmount||0);s.taxableAmount=Number(s.taxableAmount??Number(s.amount||0)-s.gstAmount);changed=true}
  });
  if(changed)save(KEY.sales,sales);
 }
@@ -509,8 +515,7 @@ function renderCustomerBillGroup(items){
  const rows=items.map(x=>{const p=products.find(z=>z.id===x.pid),ret=getReturnedQty(x.id),left=Math.max(0,Number(x.qty||0)-ret),base=Number(x.taxableAmount??(Number(x.amount||0)-Number(x.gstAmount||0))),rate=base/Math.max(Number(x.qty||1),.0001),gst=Number(x.gstAmount||0);return `<div style="padding:9px 0;border-bottom:1px solid #e5e7eb"><b>${esc(x.name)}</b><br>Quantity: ${x.qty} ${esc(p?.unit||x.unit||"")} · Rate: ${money(rate)} · Amount: ${money(x.amount)}<br><small>Returnable: ${left} ${esc(p?.unit||x.unit||"")}${ret?' · Returned: '+ret+' '+(p?.unit||x.unit||''):''}</small>${left>0?`<button class="action warning return-inline" onclick="event.preventDefault();openReturnForSale('${x.id}')">↩️ Sales Return</button>`:""}</div>`}).join('');
  const gstLine=billType==="GST"?`<br><b>Taxable Value:</b> ${money(items.reduce((a,x)=>a+Number(x.taxableAmount||0),0))}<br><b>GST:</b> ${money(items.reduce((a,x)=>a+Number(x.gstAmount||0),0))}${s.gstin?`<br><b>GSTIN:</b> ${esc(s.gstin)}`:""}`:"";
  return `<details class="bill-summary"><summary><b>🧾 Bill No. <span class="bill-no">${esc(s.billNo||getBillNo(s))}</span></b> · ${items.length} Product${items.length>1?'s':''} · ${money(total)}<br><small>📅 ${esc(formatDateTime(s.date))} · ${esc(s.payment||'')}</small></summary><div class="bill-detail"><b>${esc(s.shopName||billSettings.shopName||"Dukaan Saathi")}</b><br>${billType==="GST"?"🧾 GST Tax Invoice":"🧾 Retail Sale Receipt"}<br><b>Customer:</b> ${esc(s.customer||"Walk-in Customer")}<br>${s.customerPhone?`<b>Mobile:</b> ${esc(s.customerPhone)}<br>`:""}${rows}${gstLine}<br><b>Total:</b> ${money(total)}<br><b>Payment:</b> ${esc(s.payment||'-')}<br><b>Bill Date & Time:</b> ${esc(formatDateTime(s.date))}</div></details>`;
-}
-function renderCustomers(){
+  }function renderCustomers(){
  const q=(document.getElementById("customerSearch")?.value||"").toLowerCase(),now=new Date().toISOString().slice(0,10),list=customers.filter(c=>c.name.toLowerCase().includes(q)||String(c.phone||"").includes(q));
  document.getElementById("customerCount").textContent=customers.length;
  document.getElementById("customerList").innerHTML=list.length?list.map(c=>{
@@ -518,7 +523,6 @@ function renderCustomers(){
   const groups=[];const gm={};cbills.forEach(s=>{const k=s.billNo||getBillNo(s);if(!gm[k]){gm[k]=[];groups.push(gm[k])}gm[k].push(s)});
   return `<div class="product" style="display:block"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><div><div class="product-name">${esc(c.name)} ${overdue?'🔴':''}</div><small>${c.phone?'📱 '+esc(c.phone):'No WhatsApp number'} · Reminder: ${esc(c.nextDate||'-')}</small><br>${c.due>0?`<span class="due">${money(c.due)} Due</span>`:'<span class="success">No Due</span>'}</div><button class="small-btn" onclick="whatsappReminder('${c.id}')">💬</button></div>${groups.length?`<div style="margin-top:12px"><b>🧾 Bills (${groups.length})</b>${groups.map(renderCustomerBillGroup).join('')}</div>`:`<div class="empty" style="margin-top:10px">Is customer ka koi bill record nahi hai.</div>`}</div>`}).join(""):'<div class="empty">Customer data nahi hai.</div>';
 }
-
 function renderDue(){
  const total=customers.reduce((a,c)=>a+Number(c.due||0),0);document.getElementById("totalDue").textContent=money(total);document.getElementById("homeDue").textContent=money(total);
  const now=new Date().toISOString().slice(0,10);const due=customers.filter(c=>Number(c.due||0)>0);
@@ -538,33 +542,32 @@ function whatsappReminder(id){
  window.open("https://wa.me/91"+c.phone.replace(/\D/g,"")+"?text="+msg,"_blank");
 }
 function filterCustomers(){renderCustomers()}
-
 function updateAll(){
  refreshSaleSelect();renderSaleCart();renderProducts();renderCustomers();renderDue();renderAlerts();renderReports();renderReturnSales();
- if(ownerUnlocked && document.getElementById("ownerStockList")) renderOwnerStock();
+ if(ownerUnlocked&&document.getElementById("ownerStockList"))renderOwnerStock();
  const today=new Date().toDateString(),todaySales=sales.filter(s=>new Date(s.date).toDateString()===today),sum=todaySales.reduce((a,s)=>a+s.amount,0);
  document.getElementById("homeSales").textContent=money(sum);document.getElementById("homeBills").textContent=todaySales.length;document.getElementById("homeLowStock").textContent=products.filter(p=>p.stock<=p.min).length+" Products";
 }
-function renderAlerts(){const low=products.filter(p=>p.stock<=p.min);document.getElementById("homeStockAlerts").innerHTML=low.length?low.slice(0,5).map(p=>`<div class="product"><div><b>${esc(p.name)}</b><br><small class="low">${p.stock} ${esc(p.unit)} remaining</small></div></div>`).join(""):'<div class="empty">Stock theek hai ✅</div>';document.getElementById("lowStockList").innerHTML=low.length?low.map(p=>`<div class="product"><div><b>${esc(p.name)}</b><br><small class="low">${p.stock} ${esc(p.unit)}</small></div></div>`).join(""):'<div class="empty">Low stock nahi hai.</div>'}
+function renderAlerts(){
+ const low=products.filter(p=>p.stock<=p.min);
+ document.getElementById("homeStockAlerts").innerHTML=low.length?low.slice(0,5).map(p=>`<div class="product"><div><b>${esc(p.name)}</b><br><small class="low">${p.stock} ${esc(p.unit)} remaining</small></div></div>`).join(""):'<div class="empty">Stock theek hai ✅</div>';
+ document.getElementById("lowStockList").innerHTML=low.length?low.map(p=>`<div class="product"><div><b>${esc(p.name)}</b><br><small class="low">${p.stock} ${esc(p.unit)}</small></div></div>`).join(""):'<div class="empty">Low stock nahi hai.</div>'
+}
 function renderReports(){
  const totalSales=sales.reduce((a,s)=>a+Number(s.taxableAmount??(Number(s.amount||0)-Number(s.gstAmount||0))),0),purchase=sales.reduce((a,s)=>{const p=products.find(x=>x.id===s.pid);return a+s.qty*Number(p?.purchase||0)},0);
  document.getElementById("reportSales").textContent=money(totalSales);document.getElementById("reportPurchase").textContent=money(purchase);document.getElementById("reportBills").textContent=sales.length;document.getElementById("reportProducts").textContent=products.length;document.getElementById("ownerProducts").textContent=products.length;
  if(ownerUnlocked){document.getElementById("ownerPurchase").textContent=money(purchase);document.getElementById("grossProfit").textContent=money(totalSales-purchase);document.getElementById("netProfit").textContent=money(totalSales-purchase);renderOwnerStock();}
 }
 function toggleOwnerStock(){
- const el=document.getElementById("ownerStockList");
- const btn=document.querySelector('.owner-stock-controls button');
- if(!el)return;
- const collapsed=el.classList.toggle("collapsed-list");
- if(btn)btn.textContent=collapsed?"▲ Show Stock":"▼ Minimize";
+ const el=document.getElementById("ownerStockList");const btn=document.querySelector('.owner-stock-controls button');if(!el)return;
+ const collapsed=el.classList.toggle("collapsed-list");if(btn)btn.textContent=collapsed?"▲ Show Stock":"▼ Minimize";
 }
 function renderOwnerStock(){
  const cutoff=Date.now()-30*24*60*60*1000;
  const recent=stockIn.filter(x=>new Date(x.date).getTime()>=cutoff).sort((a,b)=>new Date(b.date)-new Date(a.date));
  document.getElementById("recentStockCount").textContent=recent.length;
  document.getElementById("recentStockList").innerHTML=recent.length?recent.map(x=>{
-   const d=formatDateTime(x.date);
-   const type=x.type||"Stock In";
+   const d=formatDateTime(x.date),type=x.type||"Stock In";
    return `<div class="product"><div><div class="product-name">${esc(x.name)} <span class="badge">${esc(type)}</span></div><small>📅 ${esc(d)} · Added: <b>${x.qty} ${esc(x.unit||"")}</b></small><br><small>Purchase Rate: ${money(x.purchaseRate)} · Stock Value: ${money(x.totalPurchase)}</small></div></div>`;
  }).join(""):'<div class="empty">Pichhle 30 din me koi Stock In record nahi hai.</div>';
  document.getElementById("ownerStockCount").textContent=products.length;
@@ -572,16 +575,14 @@ function renderOwnerStock(){
  const list=[...products].filter(p=>p.name.toLowerCase().includes(q)||String(p.barcode||"").toLowerCase().includes(q)).sort((a,b)=>a.name.localeCompare(b.name));
  document.getElementById("ownerStockList").innerHTML=list.length?list.map(p=>{
    const created=p.createdAt?formatDateTime(p.createdAt):"Old product — date/time available nahi";
-   return `<div class="product"><div><div class="product-name">${esc(p.name)}</div><small>📅 Product Added: ${esc(created)}</small><br><small>Barcode: ${esc(p.barcode||"Not Added")} · Purchase: ${money(p.purchase||0)} · Sale: ${money(p.sell||0)}</small><br><span class="${Number(p.stock)<=Number(p.min) ? "low":""}"><b>Current Stock: ${p.stock} ${esc(p.unit)}</b></span>${Number(p.stock)<=Number(p.min)?' 🔴 Low':''}</div></div>`;
+   return `<div class="product"><div><div class="product-name">${esc(p.name)}</div><small>📅 Product Added: ${esc(created)}</small><br><small>Barcode: ${esc(p.barcode||"Not Added")} · Purchase: ${money(p.purchase||0)} · Sale: ${money(p.sell||0)}${Number(p.mrp||0)>0?` · MRP: ${money(p.mrp)}`:""}</small>${p.size?`<br><small>Size/Pack: ${esc(p.size)}</small>`:""}<br><span class="${Number(p.stock)<=Number(p.min)?"low":""}"><b>Current Stock: ${p.stock} ${esc(p.unit)}</b></span>${Number(p.stock)<=Number(p.min)?' 🔴 Low':''}</div></div>`;
  }).join(""):'<div class="empty">Koi product nahi hai.</div>';
- // Separate immutable-looking return audit for Owner view; return records are never removed by this UI.
  const rs=[...salesReturns].sort((a,b)=>new Date(b.date)-new Date(a.date));
  document.getElementById("returnCount").textContent=rs.length;
  document.getElementById("ownerReturnList").innerHTML=rs.length?rs.map(r=>{
    const s=sales.find(x=>String(x.id)===String(r.saleId));
    return `<div class="product"><div><div class="product-name">↩️ ${esc(r.name)} · ${r.qty} ${esc(r.unit||"")} · ${money(r.amount)}</div><small>Return: ${esc(formatDateTime(r.date))}</small><br><small>Original Bill: ${s?esc(s.billNo||getBillNo(s)):"-"} · Sale: ${s?esc(formatDateTime(s.date)):"Sale record not found"} · Customer: ${esc(r.customer||"Walk-in Customer")}</small><br><small>Reason: ${esc(r.reason||"-")}</small></div></div>`;
  }).join(""):'<div class="empty">Abhi koi Sales Return nahi hua hai.</div>';
- // Combined activity: sales, stock additions, and returns. This helps Owner spot post-sale stock changes.
  const activity=[];
  sales.forEach(x=>activity.push({date:x.date,type:"SALE",name:x.name,qty:x.qty,unit:products.find(p=>p.id===x.pid)?.unit||"",amount:x.amount,detail:x.customer||"Walk-in Customer"}));
  stockIn.forEach(x=>activity.push({date:x.date,type:x.type||"STOCK IN",name:x.name,qty:x.qty,unit:x.unit||"",amount:x.totalPurchase,detail:"Stock Added"}));
@@ -590,7 +591,6 @@ function renderOwnerStock(){
  document.getElementById("activityCount").textContent=activity.length;
  document.getElementById("ownerActivityList").innerHTML=activity.length?activity.slice(0,100).map(a=>`<div class="product"><div><div class="product-name">${a.type==="SALE"?'🧾':a.type==="SALES RETURN"?'↩️':'📥'} ${esc(a.type)} · ${esc(a.name)}</div><small>📅 ${esc(formatDateTime(a.date))} · Qty: <b>${a.qty} ${esc(a.unit)}</b> · ${money(a.amount)}</small><br><small>${esc(a.detail)}</small></div></div>`).join(""):'<div class="empty">Koi activity nahi hai.</div>';
 }
-
 function renderBillSettings(){
  const n=document.getElementById("ownerShopName");if(!n)return;
  n.value=billSettings.shopName||"Dukaan Saathi";document.getElementById("ownerBillType").value=billSettings.billType||"NORMAL";document.getElementById("ownerGstin").value=billSettings.gstin||"";document.getElementById("ownerGstRate").value=String(billSettings.gstRate??0);toggleGstSettings();
@@ -604,7 +604,6 @@ function saveBillSettings(){
  if(type==="GST"&&gstin&&gstin.length!==15){document.getElementById("billSettingsMsg").innerHTML='<span class="error">GSTIN 15 characters ka hona chahiye.</span>';return}
  billSettings={shopName:shop,billType:type,gstin,gstRate:type==="GST"?rate:0};save(KEY.settings,billSettings);document.getElementById("billSettingsMsg").innerHTML='<span class="success">✅ Bill settings save ho gayi.</span>';
 }
-
 function openOwner(){document.getElementById("pinError").textContent="";openModal("ownerModal");if(!localStorage.getItem(KEY.owner))openModal("setupModal")}
 function closeOwner(){closeModal("ownerModal")}
 function setupOwner(){
@@ -619,11 +618,21 @@ function loginOwner(){
 function showChangePinBox(){document.getElementById("loginNormalBox").classList.add("hidden");document.getElementById("changePinBox").classList.remove("hidden");document.getElementById("recoveryBox").classList.add("hidden")}
 function showRecoveryBox(){document.getElementById("loginNormalBox").classList.add("hidden");document.getElementById("changePinBox").classList.add("hidden");document.getElementById("recoveryBox").classList.remove("hidden")}
 function backToLoginBox(){document.getElementById("loginNormalBox").classList.remove("hidden");document.getElementById("changePinBox").classList.add("hidden");document.getElementById("recoveryBox").classList.add("hidden")}
-function changePin(){const o=load(KEY.owner,null);if(!o)return;const m=document.getElementById("changeMobile").value.trim(),old=document.getElementById("oldPin").value,n=document.getElementById("newPin").value,cn=document.getElementById("newPinConfirm").value;if(m!==o.mobile||old!==o.pin||!/^\d{4,6}$/.test(n)||n!==cn){document.getElementById("changePinError").textContent="Details verify nahi hue.";return}o.pin=n;localStorage.setItem(KEY.owner,JSON.stringify(o));alert("PIN changed successfully.");backToLoginBox()}
-function recoverOwner(){const o=load(KEY.owner,null);if(!o)return;if(document.getElementById("recoveryCodeInput").value.trim()===o.recovery){ownerUnlocked=true;alert("Recovery successful. Owner mode unlock ho gaya.");closeOwner();showPage("owner");renderBillSettings();updateAll()}else document.getElementById("recoveryError").textContent="❌ Recovery Code galat hai."}
+function changePin(){
+ const o=load(KEY.owner,null);if(!o)return;
+ const m=document.getElementById("changeMobile").value.trim(),old=document.getElementById("oldPin").value,n=document.getElementById("newPin").value,cn=document.getElementById("newPinConfirm").value;
+ if(m!==o.mobile||old!==o.pin||!/^\d{4,6}$/.test(n)||n!==cn){document.getElementById("changePinError").textContent="Details verify nahi hue.";return}
+ o.pin=n;localStorage.setItem(KEY.owner,JSON.stringify(o));alert("PIN changed successfully.");backToLoginBox()
+}
+function recoverOwner(){
+ const o=load(KEY.owner,null);if(!o)return;
+ if(document.getElementById("recoveryCodeInput").value.trim()===o.recovery){ownerUnlocked=true;alert("Recovery successful. Owner mode unlock ho gaya.");closeOwner();showPage("owner");renderBillSettings();updateAll()}
+ else document.getElementById("recoveryError").textContent="❌ Recovery Code galat hai."
+}
 function openSecuritySettings(){alert("Security settings: Owner Mobile, PIN aur Recovery Code ko abhi login flow se manage kiya ja sakta hai.")}
 
 if(!localStorage.getItem(KEY.owner)){setTimeout(()=>openModal("setupModal"),500)}
+products.forEach(p=>{if(p.mrp===undefined)p.mrp=0;if(p.size===undefined)p.size=""});save(KEY.products,products);
 ensureBillNumbers();
 updateAll();
 </script>
